@@ -1,0 +1,9 @@
+{
+    "COMMING_SOON": {
+        "TITLE": "Hey! Thank you for checking out our app.",
+        "SUBTITLE": "It’s not quite ready yet, but we are working hard for it to be ready soon!"
+    },
+    "404": {
+        "NOT_FOUND": "Sorry, but we could not find the page you are looking for..."
+    }
+}
