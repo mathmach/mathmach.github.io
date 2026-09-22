@@ -1,67 +1,55 @@
-# 🎓 Academic Monograph & Architecture Portal (TCC / PoC)
+# 🎓 Portal de Fundamentos & Arquitetura de Software (TCC / PoC)
 
-Welcome to the formal architectural and scientific documentation suite for the **Zero-Stitch Finished Video Co-Synthesis Engine** — developed under the **Design Science Research (DSR)** paradigm as a Graduation Thesis (_Trabalho de Conclusão de Curso - TCC_) and computational Proof of Concept (PoC).
+Bem-vindo ao repositório de fundamentação acadêmica e arquitetura de software para o **Trabalho de Conclusão de Curso (TCC)** e desenvolvimento da **Prova de Conceito (PoC)**.
 
----
-
-## 🏛️ 1. Epistemological Foundation, Core Mandate & Requirements (`docs/core/`)
-
-- **[Foundational Constitution & Academic Monograph](core/foundation-constitution.md):**  
-  The formal epistemological framework: Design Science Research (DSR; Hevner et al., 2004; Peffers et al., 2007), General Systems Theory (TGS) & cybernetic feedback loops, microeconomic analysis of vertical video ("Cold Water Analysis"), the Stakeholder Triptych, and the 6 Curricular Pillars of Information Systems & Software Engineering.
-
-- **[Core Premises, System Mandate & Agency Formalism](core/core-mandate.md):**  
-  The indivisible core contract ("Zero-Stitch Finished Video Engine"), Core vs. Feature Boundary Matrix, formal distinction between **Cognitive Autonomous AI Agents** and **Deterministic Processing Services**, and the 7 Invariable Architectural Principles.
-
-- **[Requirements Specification & Traceability Matrix (ISO/IEC/IEEE 29148)](core/requirements-matrix.md):**  
-  Formal engineering requirements specification (`RF-CORE-01` through `RF-CORE-08`), Non-Functional Quality Attributes adhering to ISO/IEC 25010 (`RNF-REL`, `RNF-PERF`, `RNF-MAINT`, `RNF-SEC`), and the bidirectional traceability matrix.
-
-- **[Formal System Models & Architecture Diagrams (UML / DDD)](core/system-models.md):**  
-  Formal UML class diagrams (Domain-Driven Design Aggregate Roots & Branded Types), Garcia-Molina Saga distributed transaction sequence diagrams, pipeline Finite State Machine (FSM), and Clean Architecture stratification.
+> **Status do Projeto:**  
+> A documentação foi integralmente saneada para remover falsos positivos de produto ou acoplamentos a ferramentas e bibliotecas específicas.  
+> **O escopo, o problema real e a ideia do produto estão sendo definidos a partir do zero.**  
+> Este portal preserva exclusivamente os **padrões de projeto**, as **metodologias científicas** e os **fundamentos arquiteturais agnósticos**.
 
 ---
 
-## 🏗️ 2. System Architecture & Algorithms (`docs/architecture/`)
+## 🏛️ 1. Fundamentação Científica & Epistemologia (`docs/foundation/`)
 
-- **[The Engineering Constitution & Architecture Rules](architecture/engineering-constitution.md):**  
-  The 7 non-negotiable architectural dimensions, mandatory GoF design patterns (Creational, Structural, Behavioral), distributed systems fault-tolerance (Transactional Outbox, Idempotent Consumers, Circuit Breakers, Bulkheads), and zero fallback debt principles.
+- **[Metodologia Científica: Design Science Research (DSR)](foundation/academic-methodology-dsr.md):**  
+  O processo metodológico em 6 estágios de Peffers et al. (2007) e as 7 diretrizes de Hevner et al. (2004) para a concepção, construção e avaliação de artefatos computacionais no TCC.
 
-- **[Pipeline Algorithms & Audio-Visual Pacing Math](architecture/algorithms.md):**  
-  Deterministic mathematical heuristics: beat-aligned cutting ($\pm 150\text{ ms}$), oscillatory dramatic emotion curves, dialogue-to-action density thresholds, and automated sidechain audio ducking formulas.
-
-- **[Relational Persistence & CAS Storage Lifecycle](architecture/persistence-and-storage.md):**  
-  Eradication of monolithic JSON blobs via normalized relational entities, Content-Addressable Storage (CAS) SHA-256 reference model, 3-Tier Storage Lifecycle (`scratch/`, `vault/`, `releases/`), Optimistic Concurrency Control (OCC), and the Two-Phase Financial Hold pattern.
-
-- **[Contract-First Type-Safe API & Inbound Adapters](architecture/api-contracts.md):**  
-  Clean BFF Inbound Primary Adapters, Thin Orchestrators ($\le 300\text{ LOC}$), unified dual-protocol architecture (Type-Safe RPC + OpenAPI 3.1 REST), and declarative cross-cutting middleware pipelines.
-
-- **[Hexagonal Ports, Adapters & Anti-Corruption Layer (ACL)](architecture/ports-and-adapters.md):**  
-  Hexagonal Architecture boundary rules, decoupling core domain logic from external multimodal AI engines, declarative `GenerativeWorkflowManifest` specifications, and deterministic provider selection with Nygard Circuit Breakers.
+- **[Teoria Geral dos Sistemas & Pilares de Engenharia](foundation/systems-theory-and-pillars.md):**  
+  A base sistêmica de Bertalanffy e Wiener (sistemas sócio-técnicos, entropia vs. negentropia, loops de retroalimentação) e os 6 pilares curriculares (Requisitos ISO 29148, Clean Architecture, Sistemas Distribuídos, IHC, Governança e Qualidade ISO 25010).
 
 ---
 
-## ✍️ 3. Cognitive Narrative Subsystem (`docs/narrative/`)
+## 🏗️ 2. Arquitetura de Software & Padrões de Projeto (`docs/architecture/`)
 
-- **[Cognitive Narrative Engine & Actor-Critic Architecture](narrative/narrative-engine.md):**  
-  Dramaturgical architecture: Robert McKee Three-Act progression, Sudowrite Story Bible canonical constraints, per-character Voice Fingerprints, Scene Budgets, and the closed dialectic **Actor-Critic Convergence Loop** (`ScreenwriterAgent` $\leftrightarrow$ `NarrativeCriticAgent`).
+- **[Clean Architecture & Domain-Driven Design (DDD)](architecture/clean-architecture-and-ddd.md):**  
+  A regra de dependência unidirecional, isolamento do Núcleo de Domínio Puro sem dependência de frameworks, Casos de Uso na camada de aplicação e eliminação da obsessão por primitivos através de *Branded Types*.
+
+- **[Padrões de Projeto GoF (Gang of Four)](architecture/gof-design-patterns.md):**  
+  Catálogo formal dos padrões Criacionais, Estruturais e Comportamentais de Gamma et al. (1994) aplicados à arquitetura de software, com regras de uso e proibições de anti-padrões.
+
+- **[Padrões de Resiliência & Sistemas Distribuídos](architecture/distributed-resilience-patterns.md):**  
+  Orquestração de Sagas com transações compensatórias (Garcia-Molina), Transactional Outbox (eliminação do dual-write), Consumidor Idempotente, Circuit Breakers (Nygard), Bulkhead, Reserva em Dois Passos (Hold & Settle) e Anti-Corruption Layer (ACL).
+
+- **[Arquitetura Hexagonal: Portas, Adaptadores & Contratos](architecture/hexagonal-ports-and-adapters.md):**  
+  O modelo de Portas e Adaptadores (Cockburn), adaptadores primários (Inbound/Thin Controllers $\le 300\text{ LOC}$), adaptadores secundários (Outbound/Inversão de Dependência) e abordagem Contract-First com suporte a múltiplos protocolos.
+
+- **[Persistência Relacional, Armazenamento CAS & Ciclo de Vida](architecture/persistence-and-cas-storage.md):**  
+  Modelagem relacional normalizada contra o anti-padrão de blobs JSON monolíticos, armazenamento endereçado por conteúdo (CAS) via hashes SHA-256, ciclo de vida de armazenamento em 3 camadas (`scratch`, `vault`, `releases`) e Controle de Concorrência Otimista (OCC).
 
 ---
 
-## 🗺️ Architectural Map
+## 🗺️ Mapa da Documentação
 
 ```
 docs/
-├── core/
-│   ├── foundation-constitution.md   # DSR Methodology, Epistemology & Academic Monograph (TCC)
-│   ├── core-mandate.md             # Core Mandate, Cognitive vs Deterministic Boundaries
-│   ├── requirements-matrix.md      # ISO 29148 Requirements & ISO 25010 Quality Model
-│   └── system-models.md            # UML Class Diagrams, Saga Sequence, Pipeline FSM
+├── foundation/
+│   ├── academic-methodology-dsr.md       # Metodologia DSR (Peffers / Hevner)
+│   └── systems-theory-and-pillars.md     # Teoria Geral dos Sistemas e 6 Pilares
 ├── architecture/
-│   ├── engineering-constitution.md # 7 Dimensions, GoF Patterns & Distributed Resilience
-│   ├── algorithms.md               # Pacing Math, Beat Alignment (+-150ms) & Audio Ducking
-│   ├── persistence-and-storage.md  # Normalized Relational Data, CAS & 3-Tier Storage
-│   ├── api-contracts.md            # Contract-First Type-Safe API & Thin BFF Orchestrators
-│   └── ports-and-adapters.md       # Hexagonal Architecture & Anti-Corruption Layer (ACL)
-├── narrative/
-│   └── narrative-engine.md         # McKee Structure, Story Bible & Actor-Critic Dialectic
-└── README.md                       # Master Architecture Portal
+│   ├── clean-architecture-and-ddd.md     # Camadas Concêntricas, Regras de Dependência e Branded Types
+│   ├── gof-design-patterns.md            # Catálogo Completo GoF (Criacionais, Estruturais, Comportamentais)
+│   ├── distributed-resilience-patterns.md# Sagas, Outbox, Circuit Breaker, Idempotência e Hold/Settle
+│   ├── hexagonal-ports-and-adapters.md   # Portas Inbound/Outbound, Thin Controllers e Multi-Protocolo
+│   └── persistence-and-cas-storage.md    # Normalização Relacional, CAS SHA-256 e Concorrência Otimista (OCC)
+└── README.md                             # Portal Mestre de Arquitetura e Fundamentos
 ```
