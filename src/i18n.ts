@@ -35,7 +35,7 @@ export const translations = {
     hero: {
       badge: 'Senior Software Engineer & Consultant',
       title: 'Building Resilient Systems.',
-      subtitle: 'Senior Software Engineer with over 8 years of experience in distributed and mission-critical systems across finance, agriculture, and telecommunications. Expertise in Node.js, Java (Spring), SQL/NoSQL, and GenAI integration.',
+      subtitle: "Hello, I'm Matheus Machado, a Senior Software Engineer with over 8 years of experience in distributed and mission-critical systems across finance, agriculture, and telecommunications. Expertise in Node.js, Java (Spring), SQL/NoSQL, and GenAI integration.",
       cta: 'View Career Journey',
       dragHint: 'Drag to rotate 3D studio',
       stats: [
@@ -215,7 +215,7 @@ export const translations = {
     hero: {
       badge: 'Engenheiro de Software Sênior & Consultor',
       title: 'Construindo Sistemas Resilientes.',
-      subtitle: 'Engenheiro de Software Sênior com mais de 8 anos de experiência no desenvolvimento, evolução e sustentação de sistemas distribuídos e de missão crítica nos setores financeiro, agrícola e de telecomunicações. Especialista em Node.js, Java (Spring), SQL/NoSQL e integração GenAI.',
+      subtitle: 'Olá, eu sou Matheus Machado, Engenheiro de Software Sênior com mais de 8 anos de experiência no desenvolvimento, evolução e sustentação de sistemas distribuídos e de missão crítica nos setores financeiro, agrícola e de telecomunicações. Especialista em Node.js, Java (Spring), SQL/NoSQL e integração GenAI.',
       cta: 'Ver Trajetória Profissional',
       dragHint: 'Arraste para girar o estúdio 3D',
       stats: [
@@ -395,7 +395,7 @@ export const translations = {
     hero: {
       badge: 'Ingeniero de Software Senior & Consultor',
       title: 'Construyendo Sistemas Resilientes.',
-      subtitle: 'Ingeniero de Software Senior con más de 8 años de experiencia en desarrollo, evolución y soporte de sistemas distribuidos y críticos en finanzas, agricultura y telecomunicaciones. Especialista en Node.js, Java (Spring), SQL/NoSQL y GenAI.',
+      subtitle: 'Hola, soy Matheus Machado, Ingeniero de Software Senior con más de 8 años de experiencia en desarrollo, evolución y soporte de sistemas distribuidos y críticos en finanzas, agricultura y telecomunicaciones. Especialista en Node.js, Java (Spring), SQL/NoSQL y GenAI.',
       cta: 'Ver Trayectoria Profesional',
       dragHint: 'Arrastra para rotar el estudio 3D',
       stats: [
