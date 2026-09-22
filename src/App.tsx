@@ -25,7 +25,7 @@ import { DocsReader } from './components/DocsReader';
 import { HeroExperience } from './HeroExperience';
 import { GithubIcon, LinkedinIcon, BrazilFlag, USAFlag, SpainFlag } from './components/Icons';
 import { LiquidCard } from './components/LiquidCard';
-import { LiquidWaterCanvas } from './components/LiquidWaterCanvas';
+import { LiquidWave } from './components/LiquidWave';
 
 const AppContext = createContext<{
   lang: Lang;
@@ -120,9 +120,9 @@ export default function App() {
         
         <header className="fixed top-3 sm:top-4 md:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
           <nav 
-            className="w-full max-w-4xl relative glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-2xl"
+            className="w-full max-w-4xl relative overflow-hidden glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-2xl"
           >
-            <LiquidWaterCanvas />
+            <LiquidWave maxRadius={120} />
 
             <a href="#" className="relative z-10 text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
               <span>MD</span>
@@ -199,7 +199,7 @@ export default function App() {
               </button>
               
               <a href="#contact" className="hidden lg:block relative overflow-hidden px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider liquid-pill hover:scale-105 transition-transform shadow-md cursor-pointer">
-                <LiquidWaterCanvas />
+                <LiquidWave maxRadius={60} />
                 <span className="relative z-10">{t.nav.talk}</span>
               </a>
 
@@ -284,7 +284,7 @@ export default function App() {
                   href="#experience" 
                   className="liquid-pill group relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl transition-all cursor-pointer"
                 >
-                  <LiquidWaterCanvas />
+                  <LiquidWave maxRadius={80} />
                   <span className="relative z-10">{t.hero.cta}</span>
                   <span className="relative z-10 p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                     <ChevronRight size={15} />
@@ -506,7 +506,7 @@ export default function App() {
                 href="mailto:matheusmgduarte@outlook.com" 
                 className="liquid-pill group relative overflow-hidden w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all text-sm cursor-pointer"
               >
-                <LiquidWaterCanvas />
+                <LiquidWave maxRadius={90} />
                 <span className="relative z-10 p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                   <Mail size={16} />
                 </span>
