@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { LiquidGlass } from "../lib/liquid-glass/index.ts";
 
 interface LiquidCardProps {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface LiquidCardProps {
 
 export function LiquidCard({
   children,
-  className = '',
+  className = "",
   onClick,
 }: LiquidCardProps) {
   return (
@@ -17,9 +18,11 @@ export function LiquidCard({
       onClick={onClick}
       className={`liquid-card relative overflow-hidden group ${className}`}
     >
-      <div className="relative z-10 w-full h-full flex flex-col justify-between pointer-events-auto">
-        {children}
-      </div>
+      <LiquidGlass preset="card" className="w-full h-full rounded-[inherit]">
+        <div className="relative z-10 w-full h-full flex flex-col justify-between pointer-events-auto">
+          {children}
+        </div>
+      </LiquidGlass>
     </div>
   );
 }

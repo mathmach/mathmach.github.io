@@ -19,6 +19,12 @@
   --liquid-spotlight: rgba(3, 105, 161, 0.12);
   --liquid-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.03);
   --liquid-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --liquid-tint-header: rgba(255, 255, 255, 0.40);
+  --liquid-border-header: rgba(0, 0, 0, 0.10);
+  --liquid-tint-card: rgba(255, 255, 255, 0.50);
+  --liquid-border-card: rgba(0, 0, 0, 0.08);
+  --liquid-tint-button: rgba(255, 255, 255, 0.45);
+  --liquid-border-button: rgba(0, 0, 0, 0.12);
 }
 
 .dark {
@@ -30,6 +36,12 @@
   --liquid-spotlight: rgba(255, 255, 255, 0.15);
   --liquid-specular: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), inset 0 0 18px 0 rgba(255, 255, 255, 0.02);
   --liquid-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.75), 0 6px 20px -2px rgba(0, 0, 0, 0.45);
+  --liquid-tint-header: rgba(18, 18, 22, 0.20);
+  --liquid-border-header: rgba(255, 255, 255, 0.12);
+  --liquid-tint-card: rgba(18, 18, 22, 0.30);
+  --liquid-border-card: rgba(255, 255, 255, 0.10);
+  --liquid-tint-button: rgba(18, 18, 22, 0.25);
+  --liquid-border-button: rgba(255, 255, 255, 0.15);
 }
 
 html {
