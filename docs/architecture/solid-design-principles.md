@@ -115,3 +115,4 @@ This document establishes the canonical application of the five **SOLID** princi
 | **L** - LSP | Contractual behavioral equivalence | `instanceof` checks, `NotImplementedException` | Behavioral subtyping & formal contracts |
 | **I** - ISP | Client-tailored lean interfaces | Heavy test mock setup, dummy methods | Fine-grained role interfaces |
 | **D** - DIP | Inward dependency direction | Direct DB/SDK imports in domain | Hexagonal Ports & Inversion of Control |
+

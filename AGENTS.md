@@ -39,8 +39,13 @@ Every agent and developer working on this codebase must strictly adhere to the a
    - **Cognitive Complexity Ceiling:** Functions must not exceed 15 points of cognitive complexity.
    - **Coverage Floor Ratchet:** Automated test coverage can only ratchet upward.
 
-4. **Clean Architecture, Distributed Resilience & Storage Hygiene:**
-   - Follow `docs/architecture/clean-architecture-and-ddd.md`, `docs/architecture/distributed-resilience-patterns.md`, and `docs/architecture/persistence-and-cas-storage.md`.
+4. **Computational Complexity & Systems Engineering (`docs/foundation/`):**
+   - Justify algorithmic choices with formal Landau asymptotic analysis ($\mathcal{O}(1)$, $\mathcal{O}(\log n)$, $\mathcal{O}(n \log n)$). Hot paths must never run $\mathcal{O}(n^2)$ without hard capacity guards.
+   - Sizing and queuing must obey Little's Law ($L = \lambda W$) and Neil Gunther's USL to prevent bufferbloat and retrograde throughput.
+   - Follow ISO/IEC/IEEE 15288 lifecycle processes, Boehm's V&V ("building the product right" vs "building the right product"), and Avizienis's dependability taxonomy.
+
+5. **Clean Architecture, Distributed Systems & Storage Theory (`docs/architecture/`):**
+   - Follow `clean-architecture-and-ddd.md`, `hexagonal-ports-and-adapters.md`, `distributed-resilience-patterns.md`, `distributed-systems-theory.md` (CAP, PACELC, FLP, 8 Fallacies, Vector Clocks, End-to-End Principle), and `database-internals-and-transaction-theory.md` (B+ Tree vs. LSM, ARIES, Isolation Anomalies, SSI).
 
 ---
 
@@ -102,3 +107,4 @@ Rules:
 - Yes: "Bug in auth middleware. Fix:"
 
 <!-- caveman-end -->
+
