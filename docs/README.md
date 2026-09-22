@@ -24,8 +24,11 @@ Welcome to the formal academic foundation and software architecture repository f
 - **[Clean Architecture & Domain-Driven Design (DDD)](architecture/clean-architecture-and-ddd.md):**  
   The unidirectional dependency rule, isolation of the Pure Domain Kernel without framework dependencies, Application Use Cases, and elimination of primitive obsession via nominal *Branded Types*.
 
+- **[SOLID Design Principles Handbook](architecture/solid-design-principles.md):**  
+  The 5 foundational principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion) formalizing architectural cohesion, behavioral subtyping, role interfaces, and Inversion of Control (IoC).
+
 - **[GoF Design Patterns Handbook](architecture/gof-design-patterns.md):**  
-  Formal catalog of Creational, Structural, and Behavioral patterns (Gamma et al., 1994) applied to modern software architecture, detailing architectural use cases and strict prohibitions.
+  Complete catalog of all 23 classic patterns (Gamma et al., 1994) applied to modern software architecture, detailing mandatory architectural use cases and strict prohibitions.
 
 - **[Distributed Systems & Resilience Patterns](architecture/distributed-resilience-patterns.md):**  
   Saga Orchestration with compensating actions (Garcia-Molina), Transactional Outbox (dual-write prevention), Idempotent Consumer, Circuit Breaker (Nygard), Bulkhead, Two-Phase Resource Reservation (Hold & Settle), and Anti-Corruption Layer (ACL).
@@ -36,6 +39,9 @@ Welcome to the formal academic foundation and software architecture repository f
 - **[Relational Persistence, CAS Storage & Lifecycles](architecture/persistence-and-cas-storage.md):**  
   Normalized relational data modeling versus the monolithic JSON blob anti-pattern, Content-Addressable Storage (CAS) via cryptographic SHA-256 digests, 3-Tier Storage Lifecycle (`scratch/`, `vault/`, `releases/`), and Optimistic Concurrency Control (OCC).
 
+- **[Engineering Quality Invariants & Quality Ratchets](architecture/engineering-quality-and-invariants.md):**  
+  Mandatory automated code quality standards: Zero Comments in Code, Zero Fallback Debt (7 golden rules), Zero Orphan Surfaces, Cognitive Complexity Ceilings ($\le 15$), and Unidirectional Coverage Floors.
+
 ---
 
 ## 🗺️ Documentation Directory Map
@@ -43,13 +49,16 @@ Welcome to the formal academic foundation and software architecture repository f
 ```
 docs/
 ├── foundation/
-│   ├── academic-methodology-dsr.md       # DSR Methodology (Peffers et al. / Hevner et al.)
-│   └── systems-theory-and-pillars.md     # General Systems Theory & 6 Engineering Pillars
+│   ├── academic-methodology-dsr.md          # DSR Methodology (Peffers et al. / Hevner et al.)
+│   └── systems-theory-and-pillars.md        # General Systems Theory & 6 Engineering Pillars
 ├── architecture/
-│   ├── clean-architecture-and-ddd.md     # Concentric Layers, Dependency Rules & Branded Types
-│   ├── gof-design-patterns.md            # Complete GoF Catalog (Creational, Structural, Behavioral)
-│   ├── distributed-resilience-patterns.md# Sagas, Outbox, Circuit Breakers, Idempotency & Hold/Settle
-│   ├── hexagonal-ports-and-adapters.md   # Inbound/Outbound Ports, Thin Controllers & Multi-Protocol
-│   └── persistence-and-cas-storage.md    # Relational Normalization, CAS SHA-256 & Concurrency (OCC)
-└── README.md                             # Master Architecture Portal
+│   ├── clean-architecture-and-ddd.md        # Concentric Layers, Dependency Rules & Branded Types
+│   ├── solid-design-principles.md           # 5 SOLID Principles (SRP, OCP, LSP, ISP, DIP)
+│   ├── gof-design-patterns.md               # 23 GoF Patterns (Creational, Structural, Behavioral)
+│   ├── distributed-resilience-patterns.md   # Sagas, Outbox, Circuit Breakers, Idempotency & Hold/Settle
+│   ├── hexagonal-ports-and-adapters.md      # Inbound/Outbound Ports, Thin Controllers & Multi-Protocol
+│   ├── persistence-and-cas-storage.md       # Relational Normalization, CAS SHA-256 & Concurrency (OCC)
+│   └── engineering-quality-and-invariants.md# Quality Ratchets, Zero Fallback Debt & Complexity Ceilings
+└── README.md                                # Master Architecture Portal
 ```
+
