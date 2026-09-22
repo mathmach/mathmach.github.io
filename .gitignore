@@ -1,0 +1,138 @@
+# dependencies
+# Unanchored: the app lives in apps/web, so a root-only rule would miss its node_modules.
+node_modules/
+/.pnp
+.pnp.js
+
+# testing — unanchored: these are produced inside apps/web now
+coverage/
+# playwright e2e artifacts (v10.3.0)
+test-results/
+playwright-report/
+playwright/.cache/
+.playwright-mcp/
+
+# next.js
+.next/
+out/
+
+# turborepo local cache and daemon logs
+.turbo/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+.antigravityignore
+.data/
+*.session.json
+
+# local env files — `.env*.local` + `.env` allowed `.env.production`, `.env.staging`,
+# `.env.prod`: any suffix not ending in `.local`. `.dockerignore` already used the
+# broader `**/.env*`; here it was weaker. `*.example` files remain versioned.
+.env
+.env.*
+!.env*.example
+*.local
+
+# vercel
+/.vercel/
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# generated media and user runtime content (apps/web/data at runtime)
+# `**/` prefix, not `data/...`: a pattern with an inner slash is anchored to this file's
+# directory, so the old rules only covered a root-level data/ and let apps/web/data/ in.
+#
+# Artifact directories — storage, composed, exports, media, covers, cutouts — were removed with
+# `unify-object-storage`: what the pipeline produces lives in the bucket, and disk only stores ffmpeg
+# scratch in `os.tmpdir()`. Fonts remain, which are build assets.
+**/data/fonts/
+.dev-logs/
+
+# v12.129 audit P0-2: prevent accidental commit of secrets / local runtime junk
+# .env*.local only matched forward suffixes; key-backup files like .env.local.bak-* slipped through.
+*.bak
+.env*.bak*
+*-venv/
+.venv/
+
+# filled Secret manifests: only `.example.yaml` are versioned
+/deployment/configs/*.yaml
+!/deployment/configs/*.example.yaml
+
+# user uploads — `**/` for the same anchoring reason as the data/ rules above
+**/public/uploads/
+**/public/generated/
+**/public/temp/
+**/public/renders/
+**/processed/
+
+# dev / debug artifacts — the ten files named one by one were removed (none existed anymore);
+# the generic rule remains, covering the next scratch without requiring a new line.
+*.log
+.eslintcache
+
+# IDE / agent workspace — local settings stay out, shared skills and rules are versioned
+/.agent/*
+!/.agent/skills/
+!/.agent/rules/
+/.claude/
+
+# hero assets: now "committed fixed footage" (since v9.5.0 = user-supplied clips, version controlled)
+# To regenerate them with AI, run `npm run generate:hero` (overwrites the local files)
+# /public/hero-cover.jpg
+# /public/hero-loop.mp4
+
+# hyperframes video projects: preview/render output, regenerate with `npm run render`
+/videos/*/.thumbnails/
+/videos/*/renders/
+
+# scratch dumps and promo renders dropped at the repo root
+/.tmp-*
+/wind-comic-*.mp4
+
+# Prisma client is generated into the workspace (see packages/db/prisma/schema.prisma for why)
+packages/db/src/generated/
+.tolgee/backup
+
+# editor / OS — shared `.vscode` (Biome extensions and settings) is a versioned baseline,
+# the rest of the folder is per-machine state
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/settings.json
+.idea/
+*.sw?
+Thumbs.db
+
+# package build outputs (none has outDir today; the rule prevents accidental commit
+# if any begins compiling to disk)
+**/dist/
+
+# merge/rebase leftovers and `npm pack` tarballs
+*.orig
+*.rej
+*.tgz
+
+# Sentry CLI credentials (@sentry/nextjs) and Sonar scanner workdir
+.sentryclirc
+.scannerwork/
+.sonarwork/
+
+# manual database dumps
+dump.sql
+dump.tar
+*.sqlite
+*.sqlite3
+**/prisma/*.db
+**/prisma/*.db-journal
+
+# log directory (the `*.log` above only catches files)
+logs/
+
+# Context King index (machine-local, never commit)
+.ck-index/
