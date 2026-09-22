@@ -113,3 +113,4 @@ The End-to-End Principle states:
 1. **Network Retries $\ne$ Business Idempotency:** TCP guarantees packet delivery over a wire, but if the receiver crashes while processing the database transaction, the application state is lost. Only application-level **Idempotency Keys** and deduplication ledgers guarantee end-to-end correctness.
 2. **Hop-by-Hop Encryption $\ne$ Data Protection:** TLS secures data on the wire between proxies, but leaves data unencrypted in memory at intermediate gateways. High-security payloads demand **Envelope Encryption** at the originating client boundary.
 3. **Transport Checksums $\ne$ Data Integrity:** Network interface cards can corrupt packets during memory DMA transfers after validating packet checksums. Only application-level end-to-end cryptographic digests (SHA-256 Content-Addressable Storage) guarantee payload integrity.
+

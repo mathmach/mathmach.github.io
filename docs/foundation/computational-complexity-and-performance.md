@@ -123,3 +123,4 @@ High-level software operates on physical hardware. Algorithms that disregard mem
 ### 4.3 Branch Prediction & False Sharing
 - **Branch Prediction:** Avoid unpredictable conditional branching inside hot computational loops. Branch mispredictions flush the CPU instruction pipeline ($15\text{--}20$ wasted cycles).
 - **False Sharing:** In multi-threaded execution, when two threads on separate cores write to distinct variables that happen to share the same $64\text{--byte}$ cache line, the CPU invalidates the entire cache line across cores, causing severe bus contention. Pad concurrent variables to separate cache line boundaries.
+

@@ -1,11 +1,9 @@
-# 🎓 Software Architecture & Academic Foundations Portal (Thesis / PoC)
+# 🏛️ Software Architecture & Systems Engineering Knowledge Base
 
-Welcome to the formal academic foundation and software architecture repository for the **Undergraduate Capstone Project / Thesis** and its computational **Proof of Concept (PoC)**.
+Live Interactive Portal & Virtual Resume: **[https://mathmach.github.io](https://mathmach.github.io)**  
+Maintained by: **Matheus Machado Guerzoni Duarte**
 
-> **Project Status:**  
-> All documentation has been sanitized to eliminate product false positives or couplings to premature feature sets.  
-> **The problem statement, stakeholder needs, and product vision are being formulated from scratch.**  
-> This portal preserves exclusively **tool-agnostic software architecture principles**, **formal design patterns**, and the **academic scientific methodology**.
+This repository codifies a formal, peer-reviewed knowledge base for software engineering, distributed systems resilience, computational complexity limits, and anti-hallucination AI orchestration. Every architectural principle is mathematically grounded in seminal literature and validated via automated verification engines (`scripts/verify-references.py`).
 
 ---
 

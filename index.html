@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matheus Machado Guerzoni Duarte | Principal Systems Architect & AI Engineering Specialist</title>
+  
+  <meta name="description" content="Principal Software Engineer & Systems Architect specializing in mathematically grounded distributed systems, clean architecture, and zero-hallucination AI orchestration.">
+  <meta name="author" content="Matheus Machado Guerzoni Duarte">
+  <meta name="keywords" content="Systems Architecture, Distributed Systems, Clean Architecture, SOLID, GoF, AI Engineering, Zero Hallucination, AST Grounding">
+  
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Matheus Machado Guerzoni Duarte | Systems Architect">
+  <meta property="og:description" content="Engineering resilient distributed architectures, deterministic systems, and zero-hallucination AI workflows.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mathmach.github.io/">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for Math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Marked.js for Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Highlight.js for Syntax Highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="bg-mesh"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- Floating Island Navigation -->
+  <header class="floating-nav-wrapper">
+    <nav class="floating-nav">
+      <a href="#hero" class="nav-brand">
+        <div class="nav-brand-avatar">M</div>
+        <span>Matheus Duarte</span>
+      </a>
+      <ul class="nav-links">
+        <li class="nav-item active"><a href="#hero"><span>Overview</span></a></li>
+        <li class="nav-item"><a href="#methodology"><span>Methodology</span></a></li>
+        <li class="nav-item"><a href="#anti-hallucination"><span>Anti-Hallucination AI</span></a></li>
+        <li class="nav-item"><a href="#console"><span>Live Audit</span></a></li>
+        <li class="nav-item"><a href="#docs"><span>Architecture Docs</span></a></li>
+        <li class="nav-item"><a href="#experience"><span>Expertise</span></a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="mailto:matheusmgduarte@outlook.com" class="btn-island" style="padding: 6px 14px; font-size: 12px;">
+          <span>Contact</span>
+          <div class="btn-icon-bubble" style="width: 24px; height: 24px;">↗</div>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" style="padding-top: 160px; padding-bottom: 80px;">
+    <div class="container">
+      <div class="eyebrow-badge">
+        <div class="badge-dot"></div>
+        <span>Principal Systems Architect & AI Engineering Specialist</span>
+      </div>
+      
+      <h1 class="hero-title">
+        Engineering Resilient Distributed Architectures with Zero-Hallucination Rigor.
+      </h1>
+
+      <p class="hero-lead">
+        I engineer high-throughput systems, distributed transactional platforms, and mission-critical software grounded in <strong>computer science fundamentals</strong>. By combining classical systems engineering (ISO/IEC/IEEE 15288, queuing theory, Landau asymptotics) with <strong>deterministic AI verification pipelines</strong>, I eliminate hallucination debt and deliver production software built to endure.
+      </p>
+
+      <div class="cta-group">
+        <a href="#docs" class="btn-island">
+          <span>Explore Architecture Handbook</span>
+          <div class="btn-icon-bubble">→</div>
+        </a>
+        <a href="#console" class="btn-secondary">
+          <span>Test Live Audit Console</span>
+          <span style="font-family: 'JetBrains Mono'; font-size: 11px; opacity: 0.7;">[30/30 DOIs]</span>
+        </a>
+        <a href="https://github.com/mathmach" target="_blank" rel="noopener" class="btn-secondary">
+          <span>GitHub Profile</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Metric Badges -->
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-num"><span id="metric-ref-count">30</span>/30 <span>✓</span></div>
+          <div class="metric-label">Verified Academic DOIs</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">0.00 <span>debt</span></div>
+          <div class="metric-label">Zero Fallback Debt Invariant</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">O(1) / O(log n)</div>
+          <div class="metric-label">Hot-Path Complexity Ceilings</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">100% <span>grounded</span></div>
+          <div class="metric-label">Live AST & Crossref Verification</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engineering Philosophy & Methodology Section -->
+  <section id="methodology">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          <span>Foundational Methodology</span>
+        </div>
+        <h2 class="section-title">Computer Science as an Empirical Discipline.</h2>
+        <p class="section-desc">
+          Architecture is not aesthetic intuition; it is mathematical trade-off optimization under hard physical constraints. Every system I build obeys formal invariants across lifecycle, concurrency, and modularity.
+        </p>
+      </div>
+
+      <div class="bento-grid-3">
+        <!-- Systems Engineering Card -->
+        <div class="bezel-card col-span-8">
+          <div class="bezel-inner">
+            <div class="invariant-num">01 / SYSTEMS LIFECYCLE</div>
+            <h3 class="card-title">ISO/IEC/IEEE 15288 & Boehm's V&V Formalism</h3>
+            <p class="card-body">
+              Systems are decomposed into formal Agreement, Project-Enabling, Technical Management, and Technical Processes. Following Barry Boehm (1981), we separate <strong>Verification</strong> (<em>"Are we building the product right?"</em> via automated deterministic test suites and AST grounding) from <strong>Validation</strong> (<em>"Are we building the right product?"</em> via Design Science Research artifact utility). Defect mitigation costs scale exponentially; we catch defects at specification time.
+            </p>
+            <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="audit-list" style="flex-direction: row; gap: 8px;">
+                <code>ISO/IEC/IEEE 15288:2023</code>
+                <code>Pugh Controlled Convergence</code>
+                <code>Avizienis Dependability Taxonomy</code>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Complexity & Queuing Card -->
+        <div class="bezel-card col-span-4">
+          <div class="bezel-inner">
+            <div class="invariant-num">02 / COMPUTATIONAL ASYMPTOTICS</div>
+            <h3 class="card-title">Landau Complexity & Little's Law</h3>
+            <p class="card-body">
+              Hot paths are strictly constrained to $\mathcal{O}(1)$ hash lookups or $\mathcal{O}(\log n)$ balanced tree operations. Concurrency and queuing buffers obey Little's Law ($L = \lambda W$) and Neil Gunther's Universal Scalability Law (USL) to prevent retrograde throughput collapse.
+            </p>
+          </div>
+        </div>
+
+        <!-- Clean Architecture Card -->
+        <div class="bezel-card col-span-4">
+          <div class="bezel-inner">
+            <div class="invariant-num">03 / MODULAR ISOLATION</div>
+            <h3 class="card-title">Hexagonal Ports & Pure Domain</h3>
+            <p class="card-body">
+              Alistair Cockburn's Hexagonal Architecture enforces zero infrastructure leakage into core business rules. Adapters are swappable, side-effects are bounded, and domains remain 100% testable in pure memory.
+            </p>
+          </div>
+        </div>
+
+        <!-- Distributed Resilience Card -->
+        <div class="bezel-card col-span-8">
+          <div class="bezel-inner">
+            <div class="invariant-num">04 / DISTRIBUTED PRAGMATISM</div>
+            <h3 class="card-title">PACELC, FLP Impossibility & Transactional Outbox</h3>
+            <p class="card-body">
+              Distributed systems operate under asynchronous network realities. Rejecting the 8 Fallacies of Distributed Computing, state synchronization leverages the <strong>Transactional Outbox Pattern</strong> and <strong>Compensating Sagas</strong> rather than fragile 2-Phase Commit protocols. Every mutation is backed by an Idempotency Ledger and ARIES-grade recovery semantics.
+            </p>
+            <div style="margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="audit-list" style="flex-direction: row; gap: 8px;">
+                <code>FLP Consensus (1985)</code>
+                <code>Lamport Clocks (1978)</code>
+                <code>End-to-End Principle (1984)</code>
+                <code>Abadi PACELC (2012)</code>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Orchestration & Anti-Hallucination Framework -->
+  <section id="anti-hallucination" style="background: rgba(255, 255, 255, 0.01);">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          <div class="badge-dot" style="background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></div>
+          <span>The Core Differentiator</span>
+        </div>
+        <h2 class="section-title">Anti-Hallucination Engineering: Taming Generative AI.</h2>
+        <p class="section-desc">
+          Standard LLM coding assistants suffer from hallucinations: phantom APIs, synthetic URLs, fabricated library exports, and silent fallback masks. My operational methodology enforces <strong>100% Grounded Determinism</strong>.
+        </p>
+      </div>
+
+      <!-- Real Case Study Breakdown -->
+      <div class="bezel-card" style="margin-bottom: 30px;">
+        <div class="bezel-inner">
+          <div class="invariant-num">CASE STUDY / EMPIRICAL AUDIT IN REAL-TIME</div>
+          <h3 class="card-title">How We Eliminate AI Hallucinations at the Source</h3>
+          <p class="card-body">
+            During our academic reference audit, a standard generative query hallucinated synthetic Google Books IDs (e.g. <code>id=zrkqAAAAMAAJ</code>, <code>id=f_pEAAAAMAAJ</code> which opened a Russian historical novel) and redirected IEEE paths. Instead of accepting plausibility, our protocol deployed <code>verify-references.py</code> to test live HTTP headers, scrape DOM <code>&lt;title&gt;</code> elements, and query the official <strong>Crossref REST API</strong>. Every false citation was trapped, purged, and replaced with peer-reviewed DOIs and unblocked primary sources.
+          </p>
+
+          <div class="audit-split">
+            <div class="audit-column danger">
+              <div class="column-header">
+                <span>✕ The Naive AI Default (Unchecked Hallucination)</span>
+              </div>
+              <ul class="audit-list">
+                <li><span>•</span> <span>Generates synthetic book IDs (<code>id=f_pEAAAAMAAJ</code>) that lead to 404s or unrelated books.</span></li>
+                <li><span>•</span> <span>Uses masked error handling: <code>.catch(() => fallback)</code> hiding broken dependencies.</span></li>
+                <li><span>•</span> <span>Speculates method signatures instead of checking AST on disk.</span></li>
+                <li><span>•</span> <span>Leaves partial refactorings across repos, creating "wave" prompting friction.</span></li>
+              </ul>
+            </div>
+
+            <div class="audit-column success">
+              <div class="column-header">
+                <span>✓ Matheus's Deterministic Protocol (Zero Speculation)</span>
+              </div>
+              <ul class="audit-list">
+                <li><span>•</span> <span><strong>AST & Symbol Grounding:</strong> Inspects live TypeScript/Python AST before writing code.</span></li>
+                <li><span>•</span> <span><strong>Automated Verification Engines:</strong> Proves claims via real HTTP requests & Crossref APIs.</span></li>
+                <li><span>•</span> <span><strong>Zero Fallback Debt:</strong> Strict parsing (Zod/Pydantic) with zero silent swallowing.</span></li>
+                <li><span>•</span> <span><strong>Exhaustive Refactoring:</strong> 100% of references updated in a single turn.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 5 Operational Invariants Grid -->
+      <div class="bento-grid-3">
+        <div class="bezel-card col-span-4">
+          <div class="bezel-inner">
+            <div class="invariant-num">INVARIANT 01</div>
+            <h4 class="card-title">Context Before Code</h4>
+            <p class="card-body">Map callers, callees, dependency injection points, and consumers before touching a single line.</p>
+          </div>
+        </div>
+        <div class="bezel-card col-span-4">
+          <div class="bezel-inner">
+            <div class="invariant-num">INVARIANT 02</div>
+            <h4 class="card-title">Exhaustive Refactoring</h4>
+            <p class="card-body">100% project-wide replacement. Zero partial edits, zero dangling exports, zero orphan surfaces.</p>
+          </div>
+        </div>
+        <div class="bezel-card col-span-4">
+          <div class="bezel-inner">
+            <div class="invariant-num">INVARIANT 03</div>
+            <h4 class="card-title">Anti-Wave Execution</h4>
+            <p class="card-body">Extract all requirements upfront and deliver complete, production-ready code in a single turn. Zero placeholders.</p>
+          </div>
+        </div>
+        <div class="bezel-card col-span-6">
+          <div class="bezel-inner">
+            <div class="invariant-num">INVARIANT 04</div>
+            <h4 class="card-title">Strict Grounding & Zero Speculation</h4>
+            <p class="card-body">Never assume an API exists. Verify disk AST signatures (<code>ck-signatures</code>) and runtime behavior before referencing.</p>
+          </div>
+        </div>
+        <div class="bezel-card col-span-6">
+          <div class="bezel-inner">
+            <div class="invariant-num">INVARIANT 05</div>
+            <h4 class="card-title">Pre-Commit Evidence Gates</h4>
+            <p class="card-body">Never declare completion based on generative assertions. Run verification suites and demand empirical proof.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Audit Console -->
+  <section id="console">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          <span>Interactive Verification Engine</span>
+        </div>
+        <h2 class="section-title">Live Empirical Audit Console.</h2>
+        <p class="section-desc">
+          Test the anti-hallucination verification engine directly in your browser. This console executes real-time validation of all 30 foundational academic papers, international standards, and seminal computer science monographs cited in our architecture.
+        </p>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+          </div>
+          <div class="terminal-title">bash — python3 scripts/verify-references.py</div>
+          <div class="terminal-actions">
+            <select id="terminal-filter" class="btn-terminal" style="background: rgba(255,255,255,0.05); color: #fff;">
+              <option value="all">Filter: All 30 Items</option>
+              <option value="Systems Engineering">Systems Engineering</option>
+              <option value="Distributed">Distributed Systems</option>
+              <option value="Database">Database Internals</option>
+              <option value="Performance">Performance & Queuing</option>
+            </select>
+            <button id="btn-run-audit" class="btn-terminal" style="color: var(--accent-emerald); border-color: rgba(52, 211, 153, 0.4);">
+              <span>▶ Run Live Verification</span>
+            </button>
+            <button id="btn-clear-terminal" class="btn-terminal">
+              <span>Clear</span>
+            </button>
+          </div>
+        </div>
+        <div id="terminal-body" class="terminal-body">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Documentation Portal -->
+  <section id="docs">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          <span>Architectural Knowledge Base</span>
+        </div>
+        <h2 class="section-title">Interactive Architecture & Foundation Handbook.</h2>
+        <p class="section-desc">
+          Browse the complete collection of peer-reviewed engineering specifications, design pattern catalogues, and systems theory documents directly from the local repository.
+        </p>
+      </div>
+
+      <div class="docs-browser">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+          <input type="text" id="docs-search" class="docs-search-input" placeholder="Search architecture topics...">
+          <div id="docs-nav-list" style="display: flex; flex-direction: column; gap: 16px;">
+            <!-- Rendered by app.js -->
+          </div>
+        </aside>
+
+        <!-- Document Viewer -->
+        <main id="docs-viewer" class="docs-viewer-container">
+          <!-- Loaded dynamically by app.js -->
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Profile & Technical Matrix -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          <span>Executive Resume</span>
+        </div>
+        <h2 class="section-title">Technical Mastery & Architecture Experience.</h2>
+        <p class="section-desc">
+          Track record of designing, governing, and scaling mission-critical platforms with uncompromising quality standards.
+        </p>
+      </div>
+
+      <div class="bento-grid-3">
+        <!-- Skills Matrix -->
+        <div class="bezel-card col-span-6">
+          <div class="bezel-inner">
+            <h3 class="card-title" style="margin-bottom: 20px;">Architecture & Systems Engineering</h3>
+            <ul class="audit-list">
+              <li><strong>Distributed Architectures:</strong> Event-Driven (EDA), Microservices, CQRS, Transactional Outbox, Sagas, Consensus protocols.</li>
+              <li><strong>Database Internals:</strong> PostgreSQL, LSM-trees, B+ Trees, WAL (ARIES), Sharding, ANSI SQL Isolation anomaly prevention.</li>
+              <li><strong>Software Design:</strong> 23 GoF Design Patterns, Clean Architecture, Hexagonal Ports & Adapters, Domain-Driven Design (DDD).</li>
+              <li><strong>Scalability & Queuing:</strong> Little's Law capacity planning, Gunther USL, connection pooling, backpressure mechanisms.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bezel-card col-span-6">
+          <div class="bezel-inner">
+            <h3 class="card-title" style="margin-bottom: 20px;">Quality Gates & AI Toolchains</h3>
+            <ul class="audit-list">
+              <li><strong>Quality Ratchets:</strong> Stryker Mutation Testing (100% mutation score), SonarQube, Biome, Knip Dead Code Elimination.</li>
+              <li><strong>AI Orchestration:</strong> Context King AST parser (`ck-*`), Autonomous Agent toolchains, Anti-hallucination pipelines, deterministic scrapers.</li>
+              <li><strong>Core Languages:</strong> TypeScript, Go, Python, SQL, Rust, Bash.</li>
+              <li><strong>Cloud & DevOps:</strong> Docker, Kubernetes, Linux Internals, OCI, AWS S3/Queues, GitHub Actions CI/CD.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Timeline -->
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-content">
+            <div class="timeline-title">
+              <span>Principal Systems Architect & Lead Engineer</span>
+              <span style="font-size: 12px; color: var(--text-muted); font-family: monospace;">2022 — Present</span>
+            </div>
+            <div class="timeline-role">Enterprise Distributed Platforms & Autonomous AI Workflows</div>
+            <p class="card-body">
+              Spearheaded the architecture and delivery of distributed systems with zero fallback debt and rigorous quality ratchets. Codified systems engineering lifecycles (ISO/IEC/IEEE 15288), automated mutation test pipelines, and pioneered deterministic AI agent engineering models eliminating hallucination risk.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-content">
+            <div class="timeline-title">
+              <span>Senior Software Engineer & Backend Architect</span>
+              <span style="font-size: 12px; color: var(--text-muted); font-family: monospace;">2019 — 2022</span>
+            </div>
+            <div class="timeline-role">High-Throughput Microservices & Financial Integrations</div>
+            <p class="card-body">
+              Engineered transactional messaging pipelines using the Outbox pattern, PostgreSQL, and event-driven microservices. Implemented Little's Law queue sizing, eliminating thread-pool starvation and guaranteeing p99 latency SLAs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">Matheus Machado Guerzoni Duarte</div>
+          <div class="footer-brand">Principal Systems Architect • Grounded in Science & Deterministic Rigor</div>
+        </div>
+
+        <div class="footer-links">
+          <a href="mailto:matheusmgduarte@outlook.com">matheusmgduarte@outlook.com</a>
+          <a href="https://github.com/mathmach" target="_blank" rel="noopener">github.com/mathmach</a>
+          <a href="https://mathmach.github.io">mathmach.github.io</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-hairline); display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; gap: 10px;">
+        <div>© 2026 Matheus Machado Guerzoni Duarte. All rights reserved.</div>
+        <div>Built with Vanguard Dark OLED Aesthetics • Hosted on GitHub Pages</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

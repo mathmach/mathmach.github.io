@@ -112,3 +112,4 @@ Database schemas must adhere to relational algebra foundations (Edgar F. Codd, 1
 
 ### 4.1 Governed Denormalization Invariant
 Denormalization is permitted **strictly as a conscious read optimization** for pre-computed query projections. Denormalized read replicas or cached aggregates must be updated transactionally via Outbox events or deterministic materialization workers, never through ad-hoc manual writes in application code.
+

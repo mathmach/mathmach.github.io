@@ -167,3 +167,4 @@ $$\text{Score}(A) = \sum_{i=1}^{k} w_i \cdot s_i(A)$$
 | **Weighted Total** | **$1.00$** | **$0.00$** | **$+0.80$** | **$+0.45$** |
 
 Alternative A provides the mathematically superior trade-off balance and becomes the selected architecture.
+
