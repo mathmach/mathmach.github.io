@@ -24,6 +24,7 @@ import { translations, Lang, Job, MethodologyPillar, TechCategory, HeroStat } fr
 import { DocsReader } from './components/DocsReader';
 import { HeroExperience } from './HeroExperience';
 import { GithubIcon, LinkedinIcon, BrazilFlag, USAFlag, SpainFlag } from './components/Icons';
+import { LiquidCard } from './components/LiquidCard';
 
 const AppContext = createContext<{
   lang: Lang;
@@ -56,6 +57,26 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const [navPointer, setNavPointer] = useState<{ x: number; y: number; opacity: number }>({
+    x: 0,
+    y: 0,
+    opacity: 0,
+  });
+
+  const handleNavPointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (!navRef.current) return;
+    const rect = navRef.current.getBoundingClientRect();
+    setNavPointer({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      opacity: 1,
+    });
+  };
+
+  const handleNavPointerLeave = () => {
+    setNavPointer(prev => ({ ...prev, opacity: 0 }));
+  };
 
   useEffect(() => {
     if (theme === 'dark') document.documentElement.classList.add('dark');
@@ -117,25 +138,44 @@ export default function App() {
       <div className="w-full min-h-[100dvh] overflow-x-hidden selection:bg-[#0369a1]/30 dark:selection:bg-[#00f2fe]/30">
         
         <header className="fixed top-3 sm:top-4 md:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
-          <nav className="w-full max-w-4xl glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-xl">
-            <a href="#" className="text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
+          <nav 
+            ref={navRef}
+            onPointerMove={handleNavPointerMove}
+            onPointerLeave={handleNavPointerLeave}
+            className="w-full max-w-4xl relative glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-2xl"
+          >
+            <div className="pointer-events-none absolute inset-0 rounded-full overflow-hidden z-0">
+              <div 
+                className="absolute inset-0 transition-opacity duration-300"
+                style={{
+                  opacity: navPointer.opacity,
+                  background: `radial-gradient(280px circle at ${navPointer.x}px ${navPointer.y}px, var(--liquid-spotlight), transparent 70%)`
+                }}
+              />
+            </div>
+
+            <a href="#" className="relative z-10 text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
               <span>MD</span>
               <span className="text-[#0369a1] dark:text-[#00f2fe]">.</span>
             </a>
             
-            <div className="hidden lg:flex gap-5 xl:gap-6 text-xs sm:text-[13px] font-medium text-muted">
+            <div className="relative z-10 hidden lg:flex gap-1 xl:gap-1.5 text-xs sm:text-[13px] font-medium text-muted">
               {navLinks.map((link) => (
-                <a key={link.href} href={link.href} className="hover:text-[var(--text-color)] transition-colors">
+                <a 
+                  key={link.href} 
+                  href={link.href} 
+                  className="px-3 py-1.5 rounded-full hover:text-[var(--text-color)] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
+                >
                   {link.label}
                 </a>
               ))}
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="relative z-10 flex items-center gap-1.5 sm:gap-2">
               <div className="relative" ref={langMenuRef}>
                 <button 
                   onClick={() => setLangDropdownOpen(prev => !prev)}
-                  className="flex items-center gap-1.5 bg-[var(--card-bg)] hover:bg-[var(--card-border)]/50 rounded-full px-2.5 py-1.5 border border-[var(--card-border)] text-xs font-bold text-[var(--text-color)] transition-colors focus:outline-none cursor-pointer"
+                  className="liquid-pill flex items-center gap-1.5 bg-[var(--card-bg)] hover:bg-[var(--card-border)]/50 rounded-full px-2.5 py-1.5 border border-[var(--card-border)] text-xs font-bold text-[var(--text-color)] transition-colors focus:outline-none cursor-pointer"
                   aria-label="Select language"
                   aria-expanded={langDropdownOpen}
                 >
@@ -182,19 +222,19 @@ export default function App() {
 
               <button 
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-1.5 rounded-full glass-card hover:scale-105 transition-transform"
+                className="p-1.5 rounded-full glass-card liquid-pill hover:scale-105 transition-transform cursor-pointer"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
               </button>
               
-              <a href="#contact" className="hidden lg:block px-3 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider hover:scale-105 transition-transform">
+              <a href="#contact" className="hidden lg:block px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider liquid-pill hover:scale-105 transition-transform shadow-md cursor-pointer">
                 {t.nav.talk}
               </a>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-1.5 rounded-full glass-card hover:scale-105 transition-transform"
+                className="lg:hidden p-1.5 rounded-full glass-card liquid-pill hover:scale-105 transition-transform cursor-pointer"
                 aria-label="Open mobile menu"
               >
                 {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -269,8 +309,14 @@ export default function App() {
 
               {/* Action Buttons & Social Links */}
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-8 sm:mb-10">
-                <a href="#experience" className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 hover:opacity-90 transition-opacity shadow-lg">
-                  {t.hero.cta} <ChevronRight size={16} />
+                <a 
+                  href="#experience" 
+                  className="liquid-pill group px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                >
+                  <span>{t.hero.cta}</span>
+                  <span className="p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                    <ChevronRight size={15} />
+                  </span>
                 </a>
 
                 <div className="flex items-center gap-2">
@@ -278,7 +324,7 @@ export default function App() {
                     href="https://linkedin.com/in/matheusmgd" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2.5 sm:p-3 rounded-full glass-card hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)]"
+                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
                     aria-label="LinkedIn Profile"
                     title="LinkedIn: matheusmgd"
                   >
@@ -288,7 +334,7 @@ export default function App() {
                     href="https://github.com/mathmach" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2.5 sm:p-3 rounded-full glass-card hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)]"
+                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
                     aria-label="GitHub Profile"
                     title="GitHub: mathmach"
                   >
@@ -296,10 +342,10 @@ export default function App() {
                   </a>
                   <a 
                     href="mailto:matheusmgduarte@outlook.com"
-                    className="p-3 rounded-full glass-card hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)]"
+                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
                     title="Direct Email"
                   >
-                    <Mail size={20} />
+                    <Mail size={18} />
                   </a>
                 </div>
               </div>
@@ -307,10 +353,10 @@ export default function App() {
               {/* Recruiter Stats Bar */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-6 border-t border-[var(--card-border)]">
                 {t.hero.stats.map((st: HeroStat, idx: number) => (
-                  <div key={idx} className="p-2.5 sm:p-3 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)]">
+                  <LiquidCard key={idx} className="p-2.5 sm:p-3 rounded-2xl">
                     <div className="text-sm sm:text-base font-bold tracking-tight text-[#0369a1] dark:text-[#00f2fe]">{st.value}</div>
                     <div className="text-[10px] sm:text-[11px] text-muted font-medium mt-0.5 leading-snug">{st.label}</div>
-                  </div>
+                  </LiquidCard>
                 ))}
               </div>
             </motion.div>
@@ -340,27 +386,29 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {t.methodology.pillars.map((pillar: MethodologyPillar, i: number) => (
-              <FadeIn key={i} delay={i * 0.05} className="glass-card p-6 sm:p-8 flex flex-col justify-between hover:border-[#0369a1]/50 dark:hover:border-[#00f2fe]/50 transition-all duration-300 group">
-                <div>
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="p-2.5 sm:p-3 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] group-hover:scale-110 transition-transform">
-                      {getPillarIcon(i)}
+              <FadeIn key={i} delay={i * 0.05} className="h-full">
+                <LiquidCard className="p-6 sm:p-8 h-full">
+                  <div>
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                      <div className="p-2.5 sm:p-3 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] group-hover:scale-110 transition-transform">
+                        {getPillarIcon(i)}
+                      </div>
+                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] text-muted">
+                        {pillar.tag}
+                      </span>
                     </div>
-                    <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] text-muted">
-                      {pillar.tag}
-                    </span>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-[#0369a1] dark:group-hover:text-[#00f2fe] transition-colors">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-muted leading-relaxed text-xs sm:text-sm mb-6">
+                      {pillar.desc}
+                    </p>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-[#0369a1] dark:group-hover:text-[#00f2fe] transition-colors">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-muted leading-relaxed text-xs sm:text-sm mb-6">
-                    {pillar.desc}
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[var(--card-border)] flex items-center justify-between text-xs font-mono text-muted">
-                  <span className="text-[10px] sm:text-[11px] opacity-80 truncate">{pillar.ref}</span>
-                  <CheckCircle2 size={15} className="text-[#0369a1] dark:text-[#00f2fe] shrink-0 ml-2" />
-                </div>
+                  <div className="pt-4 border-t border-[var(--card-border)] flex items-center justify-between text-xs font-mono text-muted">
+                    <span className="text-[10px] sm:text-[11px] opacity-80 truncate">{pillar.ref}</span>
+                    <CheckCircle2 size={15} className="text-[#0369a1] dark:text-[#00f2fe] shrink-0 ml-2" />
+                  </div>
+                </LiquidCard>
               </FadeIn>
             ))}
           </div>
@@ -382,17 +430,19 @@ export default function App() {
                   </span>
                 </div>
                 
-                <div className="md:w-2/3 glass-card p-5 sm:p-7 md:p-8 hover:border-[#0369a1]/50 dark:hover:border-[#00f2fe]/50 transition-colors">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-1 group-hover:text-[#0369a1] dark:group-hover:text-[#00f2fe] transition-colors">{exp.role}</h3>
-                  <h4 className="text-base sm:text-lg font-medium text-[var(--text-color)] opacity-80 mb-3 sm:mb-4">{exp.corp}</h4>
-                  <ul className="space-y-2">
-                    {exp.points.map((pt, pIdx) => (
-                      <li key={pIdx} className="text-muted leading-relaxed flex items-start gap-2 text-xs sm:text-sm">
-                        <span className="text-[#0369a1] dark:text-[#00f2fe] mt-0.5 shrink-0">▸</span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="md:w-2/3">
+                  <LiquidCard className="p-5 sm:p-7 md:p-8">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-1 group-hover:text-[#0369a1] dark:group-hover:text-[#00f2fe] transition-colors">{exp.role}</h3>
+                    <h4 className="text-base sm:text-lg font-medium text-[var(--text-color)] opacity-80 mb-3 sm:mb-4">{exp.corp}</h4>
+                    <ul className="space-y-2">
+                      {exp.points.map((pt, pIdx) => (
+                        <li key={pIdx} className="text-muted leading-relaxed flex items-start gap-2 text-xs sm:text-sm">
+                          <span className="text-[#0369a1] dark:text-[#00f2fe] mt-0.5 shrink-0">▸</span>
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </LiquidCard>
                 </div>
               </FadeIn>
             ))}
@@ -410,22 +460,24 @@ export default function App() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {t.tech.categories.map((cat: TechCategory, cIdx: number) => (
-              <FadeIn key={cIdx} delay={cIdx * 0.05} className="glass-card p-5 sm:p-6 flex flex-col justify-between hover:border-[#0369a1]/40 dark:hover:border-[#00f2fe]/40 transition-colors">
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-[#0369a1] dark:text-[#00f2fe]">
-                    {cat.name}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {cat.items.map((tech, tIdx) => (
-                      <span 
-                        key={tIdx} 
-                        className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] text-xs font-medium text-[var(--text-color)] hover:border-[#0369a1] dark:hover:border-[#00f2fe] transition-colors cursor-default"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+              <FadeIn key={cIdx} delay={cIdx * 0.05} className="h-full">
+                <LiquidCard className="p-5 sm:p-6 h-full">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-[#0369a1] dark:text-[#00f2fe]">
+                      {cat.name}
+                    </h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {cat.items.map((tech, tIdx) => (
+                        <span 
+                          key={tIdx} 
+                          className="liquid-pill px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] text-xs font-medium text-[var(--text-color)] hover:border-[#0369a1] dark:hover:border-[#00f2fe] cursor-default"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </LiquidCard>
               </FadeIn>
             ))}
           </div>
@@ -444,7 +496,7 @@ export default function App() {
           </FadeIn>
 
           <FadeIn delay={0.1} className="mb-6 sm:mb-8">
-            <div className="glass-card p-4 sm:p-6 rounded-2xl border border-[var(--card-border)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <LiquidCard className="p-4 sm:p-6 rounded-2xl border border-[var(--card-border)]">
               <div className="flex items-center gap-3">
                 <div className="p-2 sm:p-2.5 rounded-xl bg-[#0369a1]/10 dark:bg-[#00f2fe]/10 text-[#0369a1] dark:text-[#00f2fe] shrink-0">
                   <BookOpen size={18} />
@@ -461,7 +513,7 @@ export default function App() {
                   </div>
                 </div>
               </div>
-            </div>
+            </LiquidCard>
           </FadeIn>
 
           <FadeIn delay={0.2}>
@@ -480,9 +532,12 @@ export default function App() {
             <div className="flex justify-center max-w-md mx-auto sm:max-w-none">
               <a 
                 href="mailto:matheusmgduarte@outlook.com" 
-                className="w-full sm:w-auto px-8 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-lg text-sm"
+                className="liquid-pill group w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all text-sm cursor-pointer"
               >
-                <Mail size={18} /> {t.contact.btn}
+                <span className="p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                  <Mail size={16} />
+                </span>
+                <span>{t.contact.btn}</span>
               </a>
             </div>
 
@@ -491,7 +546,7 @@ export default function App() {
                 href="https://linkedin.com/in/matheusmgd" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-full glass-card hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)]"
+                className="p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
                 title="LinkedIn Profile"
               >
                 <LinkedinIcon size={20} />
@@ -500,7 +555,7 @@ export default function App() {
                 href="https://github.com/mathmach" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-full glass-card hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)]"
+                className="p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
                 title="GitHub Profile"
               >
                 <GithubIcon size={20} />

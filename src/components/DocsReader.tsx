@@ -158,7 +158,7 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
         </div>
         <button
           onClick={() => setMobileDrawerOpen(!mobileDrawerOpen)}
-          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--text-color)] text-[var(--bg-color)] text-xs font-bold"
+          className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--text-color)] text-[var(--bg-color)] text-xs font-bold liquid-pill cursor-pointer"
         >
           {mobileDrawerOpen ? <X size={14} /> : <Menu size={14} />}
           <span>{uiText.topicsBtn}</span>
