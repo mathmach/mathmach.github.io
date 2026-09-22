@@ -99,3 +99,4 @@ export const DOCS_INDEX = [
     highlights: ["Hevner 7 Guidelines (2004)", "Peffers 6-Stage Process (2007)", "Iterative Artifact Evaluation", "Zero Speculative Claims"]
   }
 ];
+

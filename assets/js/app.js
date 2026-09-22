@@ -92,7 +92,7 @@ class App {
       });
     }
 
-    // Load initial document
+    
     this.loadDocument(this.currentDocId);
   }
 
@@ -101,7 +101,7 @@ class App {
     const doc = DOCS_INDEX.find(d => d.id === docId);
     if (!doc) return;
 
-    // Update active state in sidebar
+    
     document.querySelectorAll('.docs-nav-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.id === docId);
     });
@@ -123,7 +123,7 @@ class App {
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const md = await resp.text();
 
-      // Render markdown using Marked.js
+      
       let html = typeof window.marked !== 'undefined' ? window.marked.parse(md) : `<pre>${md}</pre>`;
       
       viewer.innerHTML = `
@@ -136,14 +136,14 @@ class App {
         </article>
       `;
 
-      // Trigger syntax highlighting
+      
       if (window.hljs) {
         viewer.querySelectorAll('pre code').forEach((block) => {
           window.hljs.highlightElement(block);
         });
       }
 
-      // Render math expressions if KaTeX is available
+      
       if (window.renderMathInElement) {
         window.renderMathInElement(viewer, {
           delimiters: [
@@ -217,7 +217,7 @@ class App {
         logLine(`<span class="term-info">[*] [${i+1}/${targets.length}] Auditing:</span> <strong>${item.author}</strong> - <em>${item.work}</em>`);
         logLine(`&nbsp;&nbsp;&nbsp;&nbsp;Target URL: <a href="${item.url}" target="_blank" style="color: var(--accent-cyan);">${item.url}</a>`);
         
-        // Brief asynchronous pause to simulate live deterministic check
+        
         await new Promise(r => setTimeout(r, 60));
 
         if (item.doi) {
@@ -245,3 +245,4 @@ class App {
 document.addEventListener('DOMContentLoaded', () => {
   new App();
 });
+

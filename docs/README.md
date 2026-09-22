@@ -1,4 +1,4 @@
-# 🏛️ Software Architecture & Systems Engineering Knowledge Base
+# ️ Software Architecture & Systems Engineering Knowledge Base
 
 Live Interactive Portal & Virtual Resume: **[https://mathmach.github.io](https://mathmach.github.io)**  
 Maintained by: **Matheus Machado Guerzoni Duarte**

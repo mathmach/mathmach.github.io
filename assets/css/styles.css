@@ -51,7 +51,7 @@ body {
   position: relative;
 }
 
-/* Background Atmospheric Glow */
+
 .bg-mesh {
   position: fixed;
   inset: 0;
@@ -72,7 +72,7 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Layout Containers */
+
 .container {
   max-width: 1240px;
   margin: 0 auto;
@@ -85,7 +85,7 @@ section {
   padding: 100px 0;
 }
 
-/* Floating Island Nav */
+
 .floating-nav-wrapper {
   position: fixed;
   top: 24px;
@@ -169,7 +169,7 @@ section {
   margin-left: 6px;
 }
 
-/* Double-Bezel Card Architecture */
+
 .bezel-card {
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
@@ -193,7 +193,7 @@ section {
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
-/* Eyebrow Badges */
+
 .eyebrow-badge {
   display: inline-flex;
   align-items: center;
@@ -224,7 +224,7 @@ section {
   50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-/* Typography Hierarchy */
+
 h1, h2, h3, h4 {
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -252,7 +252,90 @@ h1, h2, h3, h4 {
   font-weight: 600;
 }
 
-/* Nested CTA Button Architecture */
+
+.contact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s var(--ease-spring);
+}
+
+.contact-pill:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.contact-pill svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--text-accent);
+}
+
+
+.client-bar-wrapper {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.client-bar-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.client-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.client-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-inner);
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  transition: all 0.25s var(--ease-spring);
+}
+
+.client-pill:hover {
+  border-color: var(--border-active);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.client-pill-tag {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+
 .btn-island {
   display: inline-flex;
   align-items: center;
@@ -320,7 +403,7 @@ h1, h2, h3, h4 {
   margin-bottom: 60px;
 }
 
-/* Metric Pill Grid */
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -363,7 +446,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
 }
 
-/* Section Headers */
+
 .section-header {
   margin-bottom: 50px;
 }
@@ -380,7 +463,7 @@ h1, h2, h3, h4 {
   line-height: 1.7;
 }
 
-/* Asymmetric Bento Grids */
+
 .bento-grid-3 {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -392,7 +475,7 @@ h1, h2, h3, h4 {
 .col-span-6 { grid-column: span 6; }
 .col-span-12 { grid-column: span 12; }
 
-/* Invariant Feature Cards */
+
 .invariant-num {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
@@ -417,7 +500,7 @@ h1, h2, h3, h4 {
   line-height: 1.6;
 }
 
-/* Anti-Hallucination Framework Section */
+
 .audit-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -477,7 +560,7 @@ h1, h2, h3, h4 {
   color: #e2e8f0;
 }
 
-/* Interactive Terminal / Live Audit Simulator */
+
 .terminal-window {
   background: #09090d;
   border: 1px solid var(--border-hairline);
@@ -561,7 +644,7 @@ h1, h2, h3, h4 {
 .term-doi { color: #38bdf8; }
 .term-meta { color: #64748b; }
 
-/* Interactive Documentation Portal */
+
 .docs-browser {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -742,7 +825,7 @@ h1, h2, h3, h4 {
   color: var(--text-primary);
 }
 
-/* Career Timeline Matrix */
+
 .timeline {
   display: flex;
   flex-direction: column;
@@ -807,7 +890,7 @@ h1, h2, h3, h4 {
   margin-bottom: 12px;
 }
 
-/* Footer */
+
 footer {
   border-top: 1px solid var(--border-hairline);
   padding: 60px 0 40px;
@@ -843,7 +926,7 @@ footer {
   color: var(--text-primary);
 }
 
-/* Mobile Responsiveness */
+
 @media (max-width: 900px) {
   .metric-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -899,3 +982,4 @@ footer {
     font-size: 12px;
   }
 }
+

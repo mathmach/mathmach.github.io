@@ -1,16 +1,19 @@
 # 🏛️ Matheus Machado Guerzoni Duarte — Systems Architecture & Virtual Resume
 
 > **Live Website & Interactive Portal:** [https://mathmach.github.io](https://mathmach.github.io)  
-> **Contact:** [matheusmgduarte@outlook.com](mailto:matheusmgduarte@outlook.com) | [GitHub](https://github.com/mathmach)
+> **Contact:** [matheusmgduarte@outlook.com](mailto:matheusmgduarte@outlook.com) | Phone: +55 (35) 99182-1825 | [LinkedIn](https://linkedin.com/in/matheusmgd) | [GitHub](https://github.com/mathmach)  
+> **Location:** Pouso Alegre - MG, Brazil
 
 ---
 
 ## 🚀 Overview
 
-This repository hosts the personal portfolio, virtual executive resume, and architectural knowledge base of **Matheus Machado Guerzoni Duarte** (Principal Systems Architect & AI Engineering Specialist).
+This repository hosts the personal portfolio, virtual executive resume, and architectural knowledge base of **Matheus Machado Guerzoni Duarte** (Senior Software Engineer & Systems Architect with over 8 years of experience).
+
+Matheus specializes in the development, evolution, and support of distributed and mission-critical systems across the **financial, agricultural, and telecommunications** sectors, delivering high-stakes solutions for major enterprise players including **Santander LATAM, Banco do Brasil, and Itaú**.
 
 The platform serves two primary functions:
-1. **Virtual Executive Resume & Portfolio:** Showcasing an engineering model grounded in classical computer science, distributed systems resilience, and deterministic AI orchestration.
+1. **Virtual Executive Resume & Portfolio:** Showcasing an engineering model grounded in classical computer science, distributed systems resilience, enterprise microservices (Node.js/TypeScript, Java Spring Boot), and deterministic AI orchestration.
 2. **Interactive Architectural Handbook & Verification Engine:** An exhaustive reference manual for Clean Architecture, SOLID principles, GoF patterns, distributed transactions, systems engineering lifecycles (ISO/IEC/IEEE 15288), and computational complexity limits.
 
 ---
@@ -81,3 +84,4 @@ python3 -m http.server 8080
 ## 📄 License & Attribution
 
 © 2026 Matheus Machado Guerzoni Duarte. Released under the MIT License.
+
