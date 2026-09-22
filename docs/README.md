@@ -1,9 +1,9 @@
-# ️ Software Architecture & Systems Engineering Knowledge Base
+# 🏛️ Software Architecture & Systems Engineering Knowledge Base
 
 Live Interactive Portal & Virtual Resume: **[https://mathmach.github.io](https://mathmach.github.io)**  
 Maintained by: **Matheus Machado Guerzoni Duarte**
 
-This repository codifies a formal, peer-reviewed knowledge base for software engineering, distributed systems resilience, computational complexity limits, and anti-hallucination AI orchestration. Every architectural principle is mathematically grounded in seminal literature and validated via automated verification engines (`scripts/verify-references.py`).
+This knowledge base compiles the software architecture, distributed systems resilience, and computer science foundations that Matheus Machado Guerzoni Duarte studies, applies, and evolves throughout his engineering career. Every principle is grounded in seminal literature and validated against official academic DOIs and primary sources.
 
 ---
 
