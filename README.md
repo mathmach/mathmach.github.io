@@ -1,8 +1,7 @@
-# 🏛️ Matheus Machado Guerzoni Duarte — Systems Architecture & Virtual Resume
+# 🏛️ Matheus Machado Guerzoni Duarte — Resume
 
-> **Live Website & Interactive Portfolio:** [https://mathmach.github.io](https://mathmach.github.io)  
-> **Contact:** [matheusmgduarte@outlook.com](mailto:matheusmgduarte@outlook.com) | Phone: +55 (35) 99182-1825 | [LinkedIn](https://linkedin.com/in/matheusmgd) | [GitHub](https://github.com/mathmach)  
-> **Location:** Pouso Alegre - MG, Brazil
+> **Website:** [https://mathmach.github.io](https://mathmach.github.io)  
+> **Contact:** [matheusmgduarte@outlook.com](mailto:matheusmgduarte@outlook.com) | [LinkedIn](https://linkedin.com/in/matheusmgd) | [GitHub](https://github.com/mathmach)  
 
 ---
 
@@ -14,7 +13,7 @@ With **over 8 years of production experience**, Matheus specializes in the archi
 
 ### Key Highlights
 - **Production Provenance:** Enterprise delivery across credit ecosystems (Auto financing Santander LATAM), nationwide agricultural risk monitoring (Audsat), and financial market intelligence (Anbima Data).
-- **Academic Rigor:** Bachelor's Degree in Information Systems (3,480 curricular hours, FAI — Santa Rita do Sapucaí / "Vale da Eletrônica") and verified certificate in **CS50x: Introduction to Computer Science (HarvardX)**.
+- **Academic Rigor:** Bachelor's Degree in Information Systems (3,480 curricular hours, FAI — Santa Rita do Sapucaí / "Vale da Eletrônica") and verified certificate in **[CS50x: Introduction to Computer Science (HarvardX)](https://certificates.cs50.io/8639812b-4faf-4f1d-816e-ad4d092a2316.pdf?size=letter)**.
 - **Applied Engineering Methodology:** Systems engineering lifecycles (ISO/IEC/IEEE 15288), Clean Architecture & Domain-Driven Design (DDD), Hexagonal Ports & Adapters, 23 GoF design patterns, and asymptotic performance guarantees ($\mathcal{O}(1)/\mathcal{O}(\log n)$, Little's Law, USL).
 - **Disciplined AI Integration:** Practical adoption of Generative AI / LLMs grounded in empirical skepticism, live AST symbol inspection, schema validation, and zero fallback debt.
 
@@ -32,24 +31,13 @@ The documentation catalog below reflects the concepts, patterns, and principles 
 - **[Distributed Systems Theory](docs/architecture/distributed-systems-theory.md):** CAP, PACELC, FLP Impossibility (1985), Lamport Clocks (1978), and the End-to-End Principle (1984).
 - **[Distributed Resilience Patterns](docs/architecture/distributed-resilience-patterns.md):** Compensating Sagas, Transactional Outbox, Circuit Breakers, and Idempotency Ledgers.
 - **[Database Internals & Transactions](docs/architecture/database-internals-and-transaction-theory.md):** B+ Tree vs. LSM storage engines, ARIES WAL recovery, and ANSI SQL isolation anomalies.
+- **[Observability & Evidence-Based Decisions](docs/architecture/observability-and-evidence-based-decisions.md):** OpenTelemetry full-stack instrumentation, 4 Golden Signals, RED/USE methods, quantitative reliability contracts (SLI, SLO & Error Budgets), and blameless post-mortems.
 - **[Engineering Quality Invariants](docs/architecture/engineering-quality-and-invariants.md):** Zero Fallback Debt (7 golden rules), Zero Orphan Surfaces, and Cognitive Complexity Ceilings ($\le 15$).
 
 ### 🔬 Epistemology & Foundations (`docs/foundation/`)
 - **[Systems Engineering & Dependability](docs/foundation/systems-engineering-and-dependability.md):** ISO/IEC/IEEE 15288:2023, Boehm V&V formalism (1981), Pugh Selection Matrix, and Avizienis taxonomy.
 - **[Computational Complexity & Performance](docs/foundation/computational-complexity-and-performance.md):** Landau Big-O notation (Knuth 1976), Little's Law ($L = \lambda W$), Universal Scalability Law (Gunther USL), and CPU Cache locality.
 - **[Design Science Research (DSR)](docs/foundation/academic-methodology-dsr.md):** Peffers 6-stage process model (2007) and Hevner 7 guidelines (2004) for software research artifacts.
-
----
-
-## 💻 Local Preview
-
-```bash
-# Start a local static HTTP server
-python3 -m http.server 8080
-
-# Open in browser:
-# http://localhost:8080
-```
 
 ---
 
@@ -79,11 +67,11 @@ Below are the seminal academic papers, books, and international standards that f
 | **Daniel J. Abadi (2012)** | *Consistency Tradeoffs in Modern Distributed Database Design (PACELC)*| Distributed Databases | [IEEE Computer (DOI: 10.1109/MC.2012.33)](https://doi.org/10.1109/MC.2012.33) |
 | **Garcia-Molina & Salem (1987)** | *Sagas* | Distributed Transactions | [ACM SIGMOD '87 (DOI: 10.1145/38713.38742)](https://doi.org/10.1145/38713.38742) |
 | **C. Mohan et al. (1992)** | *ARIES: A Transaction Recovery Method* | Database Internals | [ACM TODS (DOI: 10.1145/128765.128770)](https://doi.org/10.1145/128765.128770) |
-| **Berenson et al. (1995)** | *A Critique of ANSI SQL Isolation Levels* | Database Internals | [ACM SIGMOD '95 (DOI: 10.1145/223784.223785)](https://doi.org/10.1145/223784.223785) |
 | **Edgar F. Codd (1970)** | *A Relational Model of Data for Large Shared Data Banks* | Database Foundations | [Communications of the ACM (DOI: 10.1145/362384.362685)](https://doi.org/10.1145/362384.362685) |
+| **Beyer et al. (Google SRE 2016)** | *Site Reliability Engineering: How Google Runs Production Systems* | Systems Reliability & SLOs | [O'Reilly Media (ISBN: 978-1491929124)](https://sre.google/sre-book/table-of-contents/) |
+| **Sigelman et al. (Google Dapper 2010)** | *Dapper, a Large-Scale Distributed Systems Tracing Infrastructure* | Distributed Observability | [Google Technical Report](https://research.google/pubs/pub36356/) |
+| **Tom Wilkie (2017)** | *The RED Method: How to Instrument Your Services* | Telemetry Architecture | [Microservices Practitioner Summit](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/) |
 
-> 🔍 **Note on Bibliography Verification:**  
-> To guarantee total accuracy and avoid citation hallucinations or broken URLs, every item in this bibliography is empirically verified against live official Crossref DOIs, academic publisher catalogs, and primary source DOMs via [`scripts/verify-references.py`](scripts/verify-references.py) (30/30 passed).
 
 ---
 

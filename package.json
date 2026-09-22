@@ -1,0 +1,54 @@
+{
+  "name": "project-ai",
+  "version": "1.0.0",
+  "description": "> **Website:** [https://mathmach.github.io](https://mathmach.github.io)   > **Contact:** [matheusmgduarte@outlook.com](mailto:matheusmgduarte@outlook.com) | [LinkedIn](https://linkedin.com/in/matheusmgd) | [GitHub](https://github.com/mathmach)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathmach/mathmach.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mathmach/mathmach.github.io/issues"
+  },
+  "homepage": "https://github.com/mathmach/mathmach.github.io#readme",
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "@types/katex": "^0.16.8",
+    "clsx": "^2.1.1",
+    "framer-motion": "^13.4.1",
+    "highlight.js": "^11.12.0",
+    "katex": "^0.18.7",
+    "lucide-react": "^1.47.0",
+    "marked": "^18.0.14",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}
