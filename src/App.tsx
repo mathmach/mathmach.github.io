@@ -25,6 +25,7 @@ import { DocsReader } from './components/DocsReader';
 import { HeroExperience } from './HeroExperience';
 import { GithubIcon, LinkedinIcon, BrazilFlag, USAFlag, SpainFlag } from './components/Icons';
 import { LiquidCard } from './components/LiquidCard';
+import { LiquidWaterCanvas } from './components/LiquidWaterCanvas';
 
 const AppContext = createContext<{
   lang: Lang;
@@ -57,26 +58,6 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
-  const [navPointer, setNavPointer] = useState<{ x: number; y: number; opacity: number }>({
-    x: 0,
-    y: 0,
-    opacity: 0,
-  });
-
-  const handleNavPointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (!navRef.current) return;
-    const rect = navRef.current.getBoundingClientRect();
-    setNavPointer({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      opacity: 1,
-    });
-  };
-
-  const handleNavPointerLeave = () => {
-    setNavPointer(prev => ({ ...prev, opacity: 0 }));
-  };
 
   useEffect(() => {
     if (theme === 'dark') document.documentElement.classList.add('dark');
@@ -139,20 +120,9 @@ export default function App() {
         
         <header className="fixed top-3 sm:top-4 md:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
           <nav 
-            ref={navRef}
-            onPointerMove={handleNavPointerMove}
-            onPointerLeave={handleNavPointerLeave}
             className="w-full max-w-4xl relative glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-2xl"
           >
-            <div className="pointer-events-none absolute inset-0 rounded-full overflow-hidden z-0">
-              <div 
-                className="absolute inset-0 transition-opacity duration-300"
-                style={{
-                  opacity: navPointer.opacity,
-                  background: `radial-gradient(280px circle at ${navPointer.x}px ${navPointer.y}px, var(--liquid-spotlight), transparent 70%)`
-                }}
-              />
-            </div>
+            <LiquidWaterCanvas />
 
             <a href="#" className="relative z-10 text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
               <span>MD</span>
@@ -228,8 +198,9 @@ export default function App() {
                 {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
               </button>
               
-              <a href="#contact" className="hidden lg:block px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider liquid-pill hover:scale-105 transition-transform shadow-md cursor-pointer">
-                {t.nav.talk}
+              <a href="#contact" className="hidden lg:block relative overflow-hidden px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider liquid-pill hover:scale-105 transition-transform shadow-md cursor-pointer">
+                <LiquidWaterCanvas />
+                <span className="relative z-10">{t.nav.talk}</span>
               </a>
 
               <button
@@ -311,10 +282,11 @@ export default function App() {
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-8 sm:mb-10">
                 <a 
                   href="#experience" 
-                  className="liquid-pill group px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                  className="liquid-pill group relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl transition-all cursor-pointer"
                 >
-                  <span>{t.hero.cta}</span>
-                  <span className="p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                  <LiquidWaterCanvas />
+                  <span className="relative z-10">{t.hero.cta}</span>
+                  <span className="relative z-10 p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                     <ChevronRight size={15} />
                   </span>
                 </a>
@@ -532,12 +504,13 @@ export default function App() {
             <div className="flex justify-center max-w-md mx-auto sm:max-w-none">
               <a 
                 href="mailto:matheusmgduarte@outlook.com" 
-                className="liquid-pill group w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all text-sm cursor-pointer"
+                className="liquid-pill group relative overflow-hidden w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all text-sm cursor-pointer"
               >
-                <span className="p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                <LiquidWaterCanvas />
+                <span className="relative z-10 p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                   <Mail size={16} />
                 </span>
-                <span>{t.contact.btn}</span>
+                <span className="relative z-10">{t.contact.btn}</span>
               </a>
             </div>
 
