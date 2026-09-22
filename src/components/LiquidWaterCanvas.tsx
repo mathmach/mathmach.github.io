@@ -55,17 +55,17 @@ export function LiquidWaterCanvas({ className = '' }: { className?: string }) {
     resizeObserver.observe(parent);
 
     const addRipple = (x: number, y: number, strength = 1.0) => {
-      const maxRadius = Math.max(width, height) * 0.85 + 40;
+      const maxRadius = Math.max(width, height) * 0.95 + 60;
       ripples.push({
         x,
         y,
-        radius: 2,
+        radius: 4,
         maxRadius,
-        speed: 2.6 + strength * 0.4,
-        opacity: 0.95 * strength,
+        speed: 2.8 + strength * 0.5,
+        opacity: 0.92 * strength,
         strength,
       });
-      if (ripples.length > 25) {
+      if (ripples.length > 20) {
         ripples.shift();
       }
       startLoop();
@@ -81,8 +81,8 @@ export function LiquidWaterCanvas({ className = '' }: { className?: string }) {
 
       const now = performance.now();
       const dist = Math.hypot(x - lastX, y - lastY);
-      if (dist >= 12 || (dist > 4 && now - lastTime > 70)) {
-        addRipple(x, y, Math.min(1.3, 0.7 + dist * 0.02));
+      if (dist >= 16 || (dist > 6 && now - lastTime > 65)) {
+        addRipple(x, y, Math.min(1.4, 0.75 + dist * 0.02));
         lastX = x;
         lastY = y;
         lastTime = now;
@@ -97,10 +97,10 @@ export function LiquidWaterCanvas({ className = '' }: { className?: string }) {
       pointerX = x;
       pointerY = y;
       isPointerInside = true;
-      addRipple(x, y, 1.6);
+      addRipple(x, y, 1.8);
       setTimeout(() => {
-        addRipple(x, y, 1.2);
-      }, 90);
+        addRipple(x, y, 1.3);
+      }, 95);
     };
 
     const handlePointerLeave = () => {
@@ -113,112 +113,116 @@ export function LiquidWaterCanvas({ className = '' }: { className?: string }) {
     parent.addEventListener('pointerdown', handlePointerDown, { passive: true });
     parent.addEventListener('pointerleave', handlePointerLeave, { passive: true });
 
-    const render = (time: number) => {
+    const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.scale(dpr, dpr);
 
       const isDark = document.documentElement.classList.contains('dark');
+      ctx.globalCompositeOperation = isDark ? 'screen' : 'source-over';
 
       if (isPointerInside && pointerX >= 0 && pointerY >= 0) {
-        const meniscusRadius = 30;
-        const meniscusGrad = ctx.createRadialGradient(
+        const dropRadius = 45;
+        const dropGrad = ctx.createRadialGradient(
+          pointerX - 8,
+          pointerY - 8,
+          2,
           pointerX,
           pointerY,
-          0,
-          pointerX,
-          pointerY,
-          meniscusRadius
+          dropRadius
         );
 
         if (isDark) {
-          meniscusGrad.addColorStop(0, 'rgba(0, 242, 254, 0.18)');
-          meniscusGrad.addColorStop(0.5, 'rgba(79, 172, 254, 0.08)');
-          meniscusGrad.addColorStop(1, 'rgba(0, 242, 254, 0)');
+          dropGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.45)');
+          dropGrad.addColorStop(0.2, 'rgba(0, 242, 254, 0.28)');
+          dropGrad.addColorStop(0.55, 'rgba(79, 172, 254, 0.12)');
+          dropGrad.addColorStop(1.0, 'rgba(0, 242, 254, 0.0)');
         } else {
-          meniscusGrad.addColorStop(0, 'rgba(3, 105, 161, 0.15)');
-          meniscusGrad.addColorStop(0.5, 'rgba(3, 105, 161, 0.06)');
-          meniscusGrad.addColorStop(1, 'rgba(3, 105, 161, 0)');
+          dropGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.7)');
+          dropGrad.addColorStop(0.25, 'rgba(3, 105, 161, 0.22)');
+          dropGrad.addColorStop(0.65, 'rgba(3, 105, 161, 0.08)');
+          dropGrad.addColorStop(1.0, 'rgba(3, 105, 161, 0.0)');
         }
 
-        ctx.fillStyle = meniscusGrad;
+        ctx.fillStyle = dropGrad;
         ctx.beginPath();
-        const points = 12;
-        for (let i = 0; i <= points; i++) {
-          const angle = (i / points) * Math.PI * 2;
-          const wobble =
-            Math.sin(angle * 3 + time * 0.006) * 3 +
-            Math.cos(angle * 2 - time * 0.005) * 2;
-          const r = meniscusRadius + wobble;
-          const px = pointerX + Math.cos(angle) * r;
-          const py = pointerY + Math.sin(angle) * r;
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.closePath();
+        ctx.arc(pointerX, pointerY, dropRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.strokeStyle = isDark
-          ? 'rgba(255, 255, 255, 0.22)'
-          : 'rgba(255, 255, 255, 0.6)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        const glintGrad = ctx.createRadialGradient(
+          pointerX - 12,
+          pointerY - 12,
+          0,
+          pointerX - 12,
+          pointerY - 12,
+          10
+        );
+        glintGrad.addColorStop(0.0, isDark ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.95)');
+        glintGrad.addColorStop(0.5, isDark ? 'rgba(0, 242, 254, 0.4)' : 'rgba(255, 255, 255, 0.4)');
+        glintGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+
+        ctx.fillStyle = glintGrad;
+        ctx.beginPath();
+        ctx.arc(pointerX - 12, pointerY - 12, 10, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       for (let i = ripples.length - 1; i >= 0; i--) {
         const r = ripples[i];
         r.radius += r.speed;
-        r.opacity *= 0.965;
+        r.opacity *= 0.962;
 
-        if (r.opacity < 0.015 || r.radius > r.maxRadius) {
+        if (r.opacity < 0.012 || r.radius > r.maxRadius) {
           ripples.splice(i, 1);
           continue;
         }
 
         const waveCount = 2;
-        const waveSpacing = 14;
+        const waveSpacing = 22;
 
         for (let w = 0; w < waveCount; w++) {
-          const currentRadius = r.radius - w * waveSpacing;
-          if (currentRadius <= 1) continue;
+          const waveRadius = r.radius - w * waveSpacing;
+          if (waveRadius <= 2) continue;
+
+          const waveBand = Math.max(14, 10 + waveRadius * 0.14);
+          const innerR = Math.max(0, waveRadius - waveBand);
+          const outerR = waveRadius + waveBand;
 
           const waveFade = Math.max(0, 1 - w * 0.35);
           const alpha = r.opacity * waveFade;
 
-          const grad = ctx.createLinearGradient(
-            r.x - currentRadius,
-            r.y - currentRadius,
-            r.x + currentRadius,
-            r.y + currentRadius
+          const lightOffsetX = -6;
+          const lightOffsetY = -6;
+
+          const grad = ctx.createRadialGradient(
+            r.x + lightOffsetX,
+            r.y + lightOffsetY,
+            innerR,
+            r.x,
+            r.y,
+            outerR
           );
 
           if (isDark) {
-            grad.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.85})`);
-            grad.addColorStop(0.35, `rgba(0, 242, 254, ${alpha * 0.55})`);
-            grad.addColorStop(0.7, `rgba(79, 172, 254, ${alpha * 0.3})`);
-            grad.addColorStop(1, `rgba(0, 15, 40, ${alpha * 0.25})`);
+            grad.addColorStop(0.0, 'rgba(0, 0, 0, 0.0)');
+            grad.addColorStop(0.3, `rgba(0, 25, 60, ${alpha * 0.35})`);
+            grad.addColorStop(0.48, `rgba(0, 242, 254, ${alpha * 0.75})`);
+            grad.addColorStop(0.54, `rgba(255, 255, 255, ${alpha * 0.92})`);
+            grad.addColorStop(0.72, `rgba(79, 172, 254, ${alpha * 0.3})`);
+            grad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
           } else {
-            grad.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.95})`);
-            grad.addColorStop(0.4, `rgba(3, 105, 161, ${alpha * 0.45})`);
-            grad.addColorStop(0.8, `rgba(3, 105, 161, ${alpha * 0.2})`);
-            grad.addColorStop(1, `rgba(0, 0, 0, ${alpha * 0.15})`);
+            grad.addColorStop(0.0, 'rgba(255, 255, 255, 0.0)');
+            grad.addColorStop(0.3, `rgba(0, 0, 0, ${alpha * 0.15})`);
+            grad.addColorStop(0.46, `rgba(3, 105, 161, ${alpha * 0.6})`);
+            grad.addColorStop(0.53, `rgba(255, 255, 255, ${alpha * 0.95})`);
+            grad.addColorStop(0.72, `rgba(3, 105, 161, ${alpha * 0.25})`);
+            grad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
           }
 
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = Math.max(0.8, (2.4 - w * 0.7) * (r.opacity + 0.2));
+          ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.arc(r.x, r.y, currentRadius, 0, Math.PI * 2);
-          ctx.stroke();
-
-          if (w === 0 && currentRadius > 10) {
-            ctx.beginPath();
-            ctx.arc(r.x, r.y, currentRadius, -Math.PI * 0.85, -Math.PI * 0.15);
-            ctx.strokeStyle = isDark
-              ? `rgba(255, 255, 255, ${alpha * 0.95})`
-              : `rgba(255, 255, 255, ${alpha * 1.0})`;
-            ctx.lineWidth = Math.max(1, 2.8 * r.opacity);
-            ctx.stroke();
-          }
+          ctx.arc(r.x, r.y, outerR, 0, Math.PI * 2);
+          ctx.fill();
         }
       }
 
