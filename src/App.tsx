@@ -25,6 +25,8 @@ import { DocsReader } from './components/DocsReader';
 import { HeroExperience } from './HeroExperience';
 import { GithubIcon, LinkedinIcon, BrazilFlag, USAFlag, SpainFlag } from './components/Icons';
 import { LiquidCard } from './components/LiquidCard';
+import { LiquidButton } from './components/LiquidButton';
+import { LiquidGlass } from './lib/liquid-glass/index.ts';
 import { LiquidEffectAnimation } from '@/components/ui/liquid-effect-animation';
 
 const AppContext = createContext<{
@@ -122,97 +124,103 @@ export default function App() {
         />
         
         <header className="fixed top-3 sm:top-4 md:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
-          <nav 
-            className="w-full max-w-4xl relative glass-card rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto border border-[var(--card-border)] bg-[var(--bg-color)]/80 backdrop-blur-2xl"
-          >
-
-            <a href="#" className="relative z-10 text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
-              <span>MD</span>
-              <span className="text-[#0369a1] dark:text-[#00f2fe]">.</span>
-            </a>
-            
-            <div className="relative z-10 hidden lg:flex gap-1 xl:gap-1.5 text-xs sm:text-[13px] font-medium text-muted">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.href} 
-                  href={link.href} 
-                  className="px-3 py-1.5 rounded-full hover:text-[var(--text-color)] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
-                >
-                  {link.label}
+          <div className="w-full max-w-4xl rounded-full overflow-hidden border border-[var(--card-border)] shadow-lg shadow-black/5 dark:shadow-black/30 pointer-events-auto">
+            <LiquidGlass preset="header" className="w-full h-full rounded-full">
+              <nav className="w-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex justify-between items-center">
+                <a href="#" className="relative z-10 text-base sm:text-lg font-bold font-['Syne'] tracking-wider shrink-0 flex items-center gap-1">
+                  <span>MD</span>
+                  <span className="text-[#0369a1] dark:text-[#00f2fe]">.</span>
                 </a>
-              ))}
-            </div>
-
-            <div className="relative z-10 flex items-center gap-1.5 sm:gap-2">
-              <div className="relative" ref={langMenuRef}>
-                <button 
-                  onClick={() => setLangDropdownOpen(prev => !prev)}
-                  className="liquid-pill flex items-center gap-1.5 bg-[var(--card-bg)] hover:bg-[var(--card-border)]/50 rounded-full px-2.5 py-1.5 border border-[var(--card-border)] text-xs font-bold text-[var(--text-color)] transition-colors focus:outline-none cursor-pointer"
-                  aria-label="Select language"
-                  aria-expanded={langDropdownOpen}
-                >
-                  <currentLang.Flag className="w-4.5 h-3" />
-                  <ChevronDown size={11} className={`text-muted transition-transform duration-200 ${langDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                <AnimatePresence>
-                  {langDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 6, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 6, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-2 w-40 rounded-2xl border border-black/10 dark:border-white/15 shadow-2xl shadow-black/20 dark:shadow-black/80 z-50 bg-white dark:bg-[#111216] p-1.5 flex flex-col gap-0.5"
+                
+                <div className="relative z-10 hidden lg:flex gap-1 xl:gap-1.5 text-xs sm:text-[13px] font-medium text-muted">
+                  {navLinks.map((link) => (
+                    <a 
+                      key={link.href} 
+                      href={link.href} 
+                      className="px-3 py-1.5 rounded-full hover:text-[var(--text-color)] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
                     >
-                      {LANGUAGES.map(item => {
-                        const isSelected = lang === item.code;
-                        return (
-                          <button
-                            key={item.code}
-                            onClick={() => {
-                              setLang(item.code);
-                              setLangDropdownOpen(false);
-                            }}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer ${
-                              isSelected
-                                ? 'bg-[#0369a1]/15 dark:bg-[#00f2fe]/15 text-[#0369a1] dark:text-[#00f2fe] font-bold'
-                                : 'text-[var(--text-color)] hover:bg-black/5 dark:hover:bg-white/5 font-medium'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              <item.Flag className="w-5 h-3.5" />
-                              <span>{t.languages[item.code]}</span>
-                            </div>
-                            {isSelected && <Check size={13} className="shrink-0 text-[#0369a1] dark:text-[#00f2fe]" />}
-                          </button>
-                        );
-                      })}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
 
-              <button 
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-1.5 rounded-full glass-card liquid-pill hover:scale-105 transition-transform cursor-pointer"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-              </button>
-              
-              <a href="#contact" className="hidden lg:block relative overflow-hidden px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full text-[11px] font-bold uppercase tracking-wider liquid-pill hover:scale-105 transition-transform shadow-md cursor-pointer">
-                <span>{t.nav.talk}</span>
-              </a>
+                <div className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+                  <div className="relative" ref={langMenuRef}>
+                    <LiquidButton 
+                      onClick={() => setLangDropdownOpen(prev => !prev)}
+                      className="px-2.5 py-1.5 text-xs font-bold text-[var(--text-color)]"
+                      aria-label="Select language"
+                      aria-expanded={langDropdownOpen}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <currentLang.Flag className="w-4.5 h-3" />
+                        <ChevronDown size={11} className={`text-muted transition-transform duration-200 ${langDropdownOpen ? 'rotate-180' : ''}`} />
+                      </div>
+                    </LiquidButton>
 
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-1.5 rounded-full glass-card liquid-pill hover:scale-105 transition-transform cursor-pointer"
-                aria-label="Open mobile menu"
-              >
-                {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-              </button>
-            </div>
-          </nav>
+                    <AnimatePresence>
+                      {langDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute right-0 top-full mt-2 w-40 rounded-2xl border border-black/10 dark:border-white/15 shadow-2xl shadow-black/20 dark:shadow-black/80 z-50 bg-white dark:bg-[#111216] p-1.5 flex flex-col gap-0.5"
+                        >
+                          {LANGUAGES.map(item => {
+                            const isSelected = lang === item.code;
+                            return (
+                              <button
+                                key={item.code}
+                                onClick={() => {
+                                  setLang(item.code);
+                                  setLangDropdownOpen(false);
+                                }}
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors cursor-pointer ${
+                                  isSelected
+                                    ? 'bg-[#0369a1]/15 dark:bg-[#00f2fe]/15 text-[#0369a1] dark:text-[#00f2fe] font-bold'
+                                    : 'text-[var(--text-color)] hover:bg-black/5 dark:hover:bg-white/5 font-medium'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5">
+                                  <item.Flag className="w-5 h-3.5" />
+                                  <span>{t.languages[item.code]}</span>
+                                </div>
+                                {isSelected && <Check size={13} className="shrink-0 text-[#0369a1] dark:text-[#00f2fe]" />}
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <LiquidButton 
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    className="p-1.5"
+                    aria-label="Toggle theme"
+                  >
+                    {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+                  </LiquidButton>
+                  
+                  <LiquidButton 
+                    href="#contact" 
+                    className="hidden lg:inline-flex px-3.5 py-1.5 bg-[var(--text-color)] text-[var(--bg-color)] text-[11px] font-bold uppercase tracking-wider"
+                  >
+                    <span>{t.nav.talk}</span>
+                  </LiquidButton>
+
+                  <LiquidButton
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="lg:hidden p-1.5"
+                    aria-label="Open mobile menu"
+                  >
+                    {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                  </LiquidButton>
+                </div>
+              </nav>
+            </LiquidGlass>
+          </div>
         </header>
 
         <AnimatePresence>
@@ -281,44 +289,44 @@ export default function App() {
 
               {/* Action Buttons & Social Links */}
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-8 sm:mb-10">
-                <a 
+                <LiquidButton 
                   href="#experience" 
-                  className="liquid-pill group relative overflow-hidden px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                  className="px-5 sm:px-6 py-2.5 sm:py-3 bg-[var(--text-color)] text-[var(--bg-color)] font-bold text-xs sm:text-sm flex items-center gap-3 shadow-lg hover:shadow-xl"
                 >
-                  <span className="relative z-10">{t.hero.cta}</span>
-                  <span className="relative z-10 p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                  <span>{t.hero.cta}</span>
+                  <span className="p-1 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:translate-x-1 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                     <ChevronRight size={15} />
                   </span>
-                </a>
+                </LiquidButton>
 
                 <div className="flex items-center gap-2">
-                  <a 
+                  <LiquidButton 
                     href="https://linkedin.com/in/matheusmgd" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
+                    className="p-2.5 sm:p-3 text-muted hover:text-[var(--text-color)]"
                     aria-label="LinkedIn Profile"
                     title="LinkedIn: matheusmgd"
                   >
                     <LinkedinIcon size={18} />
-                  </a>
-                  <a 
+                  </LiquidButton>
+                  <LiquidButton 
                     href="https://github.com/mathmach" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
+                    className="p-2.5 sm:p-3 text-muted hover:text-[var(--text-color)]"
                     aria-label="GitHub Profile"
                     title="GitHub: mathmach"
                   >
                     <GithubIcon size={18} />
-                  </a>
-                  <a 
+                  </LiquidButton>
+                  <LiquidButton 
                     href="mailto:matheusmgduarte@outlook.com"
-                    className="p-2.5 sm:p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
+                    className="p-2.5 sm:p-3 text-muted hover:text-[var(--text-color)]"
                     title="Direct Email"
                   >
                     <Mail size={18} />
-                  </a>
+                  </LiquidButton>
                 </div>
               </div>
 
@@ -502,36 +510,36 @@ export default function App() {
             </p>
             
             <div className="flex justify-center max-w-md mx-auto sm:max-w-none">
-              <a 
+              <LiquidButton 
                 href="mailto:matheusmgduarte@outlook.com" 
-                className="liquid-pill group relative overflow-hidden w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-full font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all text-sm cursor-pointer"
+                className="w-full sm:w-auto px-7 py-3.5 bg-[var(--text-color)] text-[var(--bg-color)] font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl text-sm"
               >
-                <span className="relative z-10 p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
+                <span className="p-1.5 rounded-full bg-[var(--bg-color)]/20 text-[var(--bg-color)] group-hover:scale-110 group-hover:bg-[var(--bg-color)]/30 transition-all duration-300 flex items-center justify-center">
                   <Mail size={16} />
                 </span>
-                <span className="relative z-10">{t.contact.btn}</span>
-              </a>
+                <span>{t.contact.btn}</span>
+              </LiquidButton>
             </div>
 
             <div className="mt-12 sm:mt-16 flex justify-center gap-3 sm:gap-4">
-              <a 
+              <LiquidButton 
                 href="https://linkedin.com/in/matheusmgd" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
+                className="p-3 text-muted hover:text-[var(--text-color)]"
                 title="LinkedIn Profile"
               >
                 <LinkedinIcon size={20} />
-              </a>
-              <a 
+              </LiquidButton>
+              <LiquidButton 
                 href="https://github.com/mathmach" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="p-3 rounded-full glass-card liquid-pill hover:border-[#0369a1] dark:hover:border-[#00f2fe] hover:scale-110 transition-all text-muted hover:text-[var(--text-color)] cursor-pointer"
+                className="p-3 text-muted hover:text-[var(--text-color)]"
                 title="GitHub Profile"
               >
                 <GithubIcon size={20} />
-              </a>
+              </LiquidButton>
             </div>
 
             <div className="mt-8 sm:mt-10 text-[11px] sm:text-xs font-mono text-muted space-y-1">
