@@ -40,7 +40,7 @@ export function LiquidEffectAnimation({
     }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
 
-    const simSize = 256
+    const baseSimH = 256
     const renderTargetOptions = {
       type: renderer.capabilities.isWebGL2 ? THREE.HalfFloatType : THREE.UnsignedByteType,
       minFilter: THREE.LinearFilter,
@@ -49,9 +49,9 @@ export function LiquidEffectAnimation({
       stencilBuffer: false,
     }
 
-    let targetA = new THREE.WebGLRenderTarget(simSize, simSize, renderTargetOptions)
-    let targetB = new THREE.WebGLRenderTarget(simSize, simSize, renderTargetOptions)
-    let targetC = new THREE.WebGLRenderTarget(simSize, simSize, renderTargetOptions)
+    let targetA = new THREE.WebGLRenderTarget(baseSimH, baseSimH, renderTargetOptions)
+    let targetB = new THREE.WebGLRenderTarget(baseSimH, baseSimH, renderTargetOptions)
+    let targetC = new THREE.WebGLRenderTarget(baseSimH, baseSimH, renderTargetOptions)
 
     let current = targetA
     let previous = targetB
@@ -73,11 +73,14 @@ export function LiquidEffectAnimation({
       uniform vec2 uCenter;
       uniform float uRadius;
       uniform float uStrength;
+      uniform float uAspect;
       varying vec2 vUv;
 
       void main() {
         vec4 color = texture2D(uTexture, vUv);
-        float dist = distance(vUv, uCenter);
+        vec2 diff = vUv - uCenter;
+        diff.x *= uAspect;
+        float dist = length(diff);
         if (dist < uRadius) {
           float factor = (cos(dist / uRadius * 3.14159265) + 1.0) * 0.5;
           color.r += factor * uStrength;
@@ -113,6 +116,7 @@ export function LiquidEffectAnimation({
       uniform vec2 uDelta;
       uniform float uDisplacement;
       uniform vec2 uImageAspect;
+      uniform float uAspect;
       varying vec2 vUv;
 
       void main() {
@@ -124,11 +128,14 @@ export function LiquidEffectAnimation({
         vec2 normal = vec2(left - right, down - up);
 
         vec2 uv = (vUv - 0.5) * uImageAspect + 0.5;
-        vec2 displacedUv = uv + normal * uDisplacement * 0.03;
+        vec2 dispVec = normal * uDisplacement * 0.03;
+        dispVec.x /= uAspect;
+        vec2 displacedUv = uv + dispVec;
 
         vec4 color = texture2D(uImage, displacedUv);
 
-        vec3 N = normalize(vec3(normal * 2.5, 1.0));
+        vec2 specNormal = vec2(normal.x * uAspect, normal.y);
+        vec3 N = normalize(vec3(specNormal * 2.5, 1.0));
         vec3 L = normalize(vec3(-0.35, 0.55, 0.75));
         vec3 V = vec3(0.0, 0.0, 1.0);
         vec3 H = normalize(L + V);
@@ -146,6 +153,7 @@ export function LiquidEffectAnimation({
         uCenter: { value: new THREE.Vector2(0.5, 0.5) },
         uRadius: { value: 0.03 },
         uStrength: { value: 0.02 },
+        uAspect: { value: 1.0 },
       },
     })
     const dropScene = new THREE.Scene()
@@ -157,7 +165,7 @@ export function LiquidEffectAnimation({
       uniforms: {
         uCurrent: { value: null },
         uPrevious: { value: null },
-        uDelta: { value: new THREE.Vector2(1 / simSize, 1 / simSize) },
+        uDelta: { value: new THREE.Vector2(1 / baseSimH, 1 / baseSimH) },
         uViscosity: { value: viscosity },
       },
     })
@@ -170,9 +178,10 @@ export function LiquidEffectAnimation({
       uniforms: {
         uTexture: { value: null },
         uImage: { value: null },
-        uDelta: { value: new THREE.Vector2(1 / simSize, 1 / simSize) },
+        uDelta: { value: new THREE.Vector2(1 / baseSimH, 1 / baseSimH) },
         uDisplacement: { value: displacementScale },
         uImageAspect: { value: new THREE.Vector2(1, 1) },
+        uAspect: { value: 1.0 },
       },
     })
     const displayScene = new THREE.Scene()
@@ -210,6 +219,20 @@ export function LiquidEffectAnimation({
       const width = parent.clientWidth || window.innerWidth
       const height = parent.clientHeight || window.innerHeight
       renderer.setSize(width, height)
+
+      const aspect = Math.max(0.001, width / height)
+      const simH = 256
+      const simW = Math.max(128, Math.min(1024, Math.round(256 * aspect)))
+
+      targetA.setSize(simW, simH)
+      targetB.setSize(simW, simH)
+      targetC.setSize(simW, simH)
+
+      dropMaterial.uniforms.uAspect.value = aspect
+      simMaterial.uniforms.uDelta.value.set(1 / simW, 1 / simH)
+      displayMaterial.uniforms.uDelta.value.set(1 / simW, 1 / simH)
+      displayMaterial.uniforms.uAspect.value = aspect
+
       updateAspect()
     }
 
