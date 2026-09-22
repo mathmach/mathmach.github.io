@@ -1,73 +1,73 @@
-# 🛡️ Padrões de Resiliência & Sistemas Distribuídos
+# 🛡️ Distributed Systems & Resilience Patterns
 
-Este documento especifica os padrões de engenharia para garantia de consistência eventual, tolerância a falhas e isolamento de recursos em arquiteturas distribuídas e assíncronas.
+This document specifies the software engineering patterns for ensuring eventual consistency, fault isolation, and resource protection in asynchronous and distributed architectures.
 
 ---
 
-## 1. Catálogo de Padrões de Resiliência
+## 1. Resilience Patterns Catalog
 
 ```mermaid
 graph TD
-    Saga["1. Saga Orchestrator<br/>Compensações Atômicas"] --- Outbox["2. Transactional Outbox<br/>Consistência Transacional"]
-    Outbox --- Idemp["3. Idempotent Consumer<br/>Deduplicação de Eventos"]
-    Idemp --- CB["4. Circuit Breaker<br/>Tolerância a Falhas Externas"]
-    CB --- Bulkhead["5. Bulkhead<br/>Isolamento de Recursos"]
-    Bulkhead --- TwoPhase["6. Two-Phase Reservation<br/>Hold & Settle Não-Bloqueante"]
-    TwoPhase --- ACL["7. Anti-Corruption Layer (ACL)<br/>Tradução de Fronteira"]
+    Saga["1. Saga Orchestrator<br/>Compensating Transactions"] --- Outbox["2. Transactional Outbox<br/>Transactional Consistency"]
+    Outbox --- Idemp["3. Idempotent Consumer<br/>Event Deduplication"]
+    Idemp --- CB["4. Circuit Breaker<br/>External Fault Tolerance"]
+    CB --- Bulkhead["5. Bulkhead<br/>Resource Partitioning"]
+    Bulkhead --- TwoPhase["6. Two-Phase Reservation<br/>Non-Blocking Hold & Settle"]
+    TwoPhase --- ACL["7. Anti-Corruption Layer (ACL)<br/>Boundary Translation"]
 ```
 
 ---
 
 ### 1.1 Saga Orchestrator (Garcia-Molina & Salem; Richardson)
-- **Problema:** Transações distribuídas tradicionais baseadas em Two-Phase Commit (2PC) bloqueiam recursos e sofrem de alta latência em fluxos assíncronos de longa duração.
-- **Solução:** O fluxo é decomposto em uma sequência de transações locais orquestradas por uma Máquina de Estados Finita (FSM). Para cada transação $T_i$ executada com sucesso, existe uma ação compensatória correspondente $C_i$.
-- **Garantia:** Se a etapa $k$ falhar de forma irrecuperável, o orquestrador aciona em ordem reversa as ações compensatórias $C_{k-1}, C_{k-2}, \dots, C_1$, restaurando a consistência do sistema (reembolso de créditos, liberação de locks, purga de artefatos temporários).
+- **Problem:** Traditional distributed transactions based on Two-Phase Commit (2PC) lock database resources for long periods and suffer prohibitive latency in long-running asynchronous workflows.
+- **Solution:** The workflow is decomposed into an ordered series of local transactions coordinated by an explicit Finite State Machine (FSM). For each successfully completed forward transaction $T_i$, a corresponding compensating action $C_i$ is registered.
+- **Guarantee:** If an unrecoverable failure occurs at step $k$, the orchestrator triggers compensating actions in reverse order ($C_{k-1}, C_{k-2}, \dots, C_1$), safely unwinding partial mutations, refunding reserved quotas, and purging orphaned temporary resources.
 
 ---
 
 ### 1.2 Transactional Outbox (Richardson)
-- **Problema:** O risco de escrita dupla (*dual-write hazard*), onde o sistema grava uma alteração no banco de dados e tenta publicar uma mensagem em um broker. Se a conexão com a rede falhar após o commit, a mensagem é perdida; se falhar antes, o evento foi emitido sem o registro persistido.
-- **Solução:** O evento de domínio a ser publicado é persistido em uma tabela de *Outbox* dentro da **mesma transação ACID** que realizou a mutação da entidade. Um processo em background lê os registros da tabela outbox e os despacha para a fila/broker com garantia de entrega de ao menos uma vez (*at-least-once delivery*).
+- **Problem:** The dual-write hazard occurs when a system attempts to mutate database state and publish an event to a message broker in separate operations. If the broker is unreachable after the database commit, the event is permanently lost; if the event is published before the commit, a subsequent database failure emits a ghost event.
+- **Solution:** The domain event to be dispatched is written to a dedicated `outbox` table **within the exact same ACID database transaction** as the business entity mutation. An asynchronous relay daemon continuously scans the outbox table and dispatches events to the message broker with guaranteed *at-least-once delivery*.
 
 ---
 
 ### 1.3 Idempotent Consumer (Hohpe & Woolf)
-- **Problema:** Redes distribuídas e brokers com entrega *at-least-once* podem reenviar a mesma mensagem repetidamente em casos de reconexão ou timeout.
-- **Solução:** Toda mensagem ou comando assíncrono transporta uma chave de idempotência determinística (`idempotencyKey`).
-- **Comportamento:** Antes de executar qualquer processamento com efeitos colaterais, o consumidor verifica se a chave já foi registrada:
-  - Se já foi processada: retorna o resultado anterior imediatamente sem re-execução.
-  - Se estiver em processamento: aguarda ou rejeita reentrância concorrente.
-  - Se for inédita: executa o processamento e registra a conclusão atomicamente.
+- **Problem:** In distributed networks with *at-least-once* messaging semantics, network timeouts or connection retries can deliver the exact same command or event multiple times.
+- **Solution:** Every inbound command or event must carry a deterministic `idempotencyKey`.
+- **Protocol:** Prior to executing any side-effecting operations, the consumer inspects its processed key registry:
+  - If the key is already marked as completed: returns the cached response immediately without re-executing business logic.
+  - If the key is currently processing: rejects concurrent re-entrance or initiates an orderly wait.
+  - If the key is unseen: executes the operation and commits completion atomic with state mutation.
 
 ---
 
 ### 1.4 Circuit Breaker (Nygard)
-- **Problema:** Falhas intermitentes ou lentidão em APIs e serviços externos podem prender threads e esgotar os pools de conexão locais, causando falha em cascata em todo o sistema.
-- **Solução:** As invocações externas são envolvidas em um disjuntor com 3 estados:
-  - **Closed (Fechado):** Operação normal. Requisições passam livremente e falhas são contabilizadas em janela deslizante.
-  - **Open (Aberto):** A taxa de erro ultrapassou o limiar de segurança. Todas as chamadas subsequentes falham imediatamente (*fast-fail*), sem tocar a rede externa, aliviando o serviço remoto.
-  - **Half-Open (Meio-Aberto):** Após um intervalo de resfriamento (*cooldown*), um número limitado de requisições de teste é permitido. Se forem bem-sucedidas, o circuito fecha; caso falhem, retorna imediatamente para o estado aberto.
+- **Problem:** Intermittent degradation or severe outages in external APIs and third-party dependencies can exhaust local connection pools and thread workers, resulting in cascading system-wide collapse.
+- **Solution:** External network invocations are encapsulated within a 3-state Circuit Breaker:
+  - **Closed:** Normal operations. Requests pass freely while errors are tracked across a rolling execution window.
+  - **Open:** The error rate exceeds the defined tolerance threshold. All subsequent requests fail immediately (*fast-fail*) without touching the remote network, allowing the failing dependency time to recover.
+  - **Half-Open:** Following an automated cool-down window, a trial batch of requests is allowed through. If successful, the circuit resets to *Closed*; if failures persist, it immediately returns to *Open*.
 
 ---
 
 ### 1.5 Bulkhead (Nygard)
-- **Problema:** Uma carga massiva de processamento pesado ou lento consome 100% da CPU, memória ou threads do servidor, tornando indisponíveis as operações interativas simples dos usuários.
-- **Solução:** Isolamento estrito de recursos através de partições independentes:
-  - Fila e limites de concorrência dedicados para tarefas computacionalmente pesadas em workers de background.
-  - Limites dedicados e isolados para requisições de API interativas e leituras do usuário.
+- **Problem:** A sudden surge in computationally heavy or slow tasks consumes 100% of server CPU, memory, or worker threads, causing starvation and total downtime for lightweight, interactive user requests.
+- **Solution:** Physical partitioning of concurrency pools and resources:
+  - Dedicated worker daemons and strict concurrency limits for resource-intensive background jobs.
+  - Isolated thread pools and database connections allocated specifically for responsive, user-facing API interactions.
 
 ---
 
 ### 1.6 Two-Phase Resource Reservation (Hold & Settle Pattern)
-- **Problema:** Em operações assíncronas de longa duração (ex: 2 a 10 minutos), manter uma transação de banco de dados aberta enquanto o processamento ocorre esgota o pool de conexões em segundos.
-- **Solução:** Protocolo de dois passos sem bloqueio de conexão:
-  1. **Fase 1 (Hold, transação rápida ~5ms):** Verifica o saldo/capacidade e insere um registro de reserva com status `HELD`. A transação fecha imediatamente.
-  2. **Processamento Assíncrono:** O worker executa fora de qualquer transação de banco de dados.
-  3. **Fase 2a (Settle, transação rápida ~5ms):** Concluído com sucesso, o registro é atualizado para `SETTLED` e o recurso é definitivamente consumido.
-  4. **Fase 2b (Release, compensação):** Em caso de falha ou timeout, o status é alterado para `RELEASED` e a reserva é estornada na íntegra.
+- **Problem:** During long-running asynchronous tasks (e.g., 2 to 10 minutes), maintaining an active database transaction while waiting for execution completely exhausts the database connection pool in seconds.
+- **Solution:** A non-blocking two-phase reservation protocol:
+  1. **Phase 1 (Hold, fast ACID transaction ~5ms):** Validates available balance or capacity and commits a reservation record with status `HELD`. The database transaction closes immediately.
+  2. **Asynchronous Execution:** Background workers perform execution entirely outside of any open database transaction.
+  3. **Phase 2a (Settle, fast ACID transaction ~5ms):** Upon successful completion, an atomic transaction transitions the hold status to `SETTLED` and permanently deducts the consumed quota.
+  4. **Phase 2b (Compensating Release):** In the event of task failure or timeout, the status transitions to `RELEASED`, unlocking reserved capacity with zero penalty.
 
 ---
 
 ### 1.7 Anti-Corruption Layer - ACL (Evans)
-- **Problema:** Acoplar o núcleo de domínio aos modelos de dados, nomenclaturas ou contratos de fornecedores externos e ferramentas de terceiros polui a linguagem ubíqua e cria dependência tecnológica perigosa.
-- **Solução:** Uma camada mediadora no perímetro do sistema que traduz bidirecionalmente os conceitos externos para as entidades e contratos do domínio interno. Se o fornecedor externo for trocado, apenas o adaptador ACL é reescrito; o núcleo do domínio permanece 100% inalterado.
+- **Problem:** Allowing external vendor schemas, third-party data shapes, or remote SDK structures to infiltrate core application services corrupts the ubiquitous language and binds the architecture to proprietary implementations.
+- **Solution:** A perimeter translation boundary that intercepts external data structures and bi-directionally maps them into strongly-typed internal domain entities. If external providers or protocols change, only the perimeter ACL adapter is updated; the core domain remains completely untouched.

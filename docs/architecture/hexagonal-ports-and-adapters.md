@@ -1,35 +1,35 @@
-# 🔌 Arquitetura Hexagonal: Portas, Adaptadores & Contratos
+# 🔌 Hexagonal Architecture: Ports, Adapters & Contracts
 
-Este documento define os princípios da **Arquitetura Hexagonal (Ports & Adapters)** e a padronização de contratos de entrada e saída.
+This document defines the core principles of **Hexagonal Architecture (Ports & Adapters)** and standardized contract boundaries.
 
 ---
 
-## 1. Conceito Central da Arquitetura Hexagonal (Cockburn)
+## 1. Core Architectural Concept (Cockburn)
 
-A aplicação reside no centro do hexágono, contendo a lógica de negócios e as regras do domínio. O mundo externo interage com a aplicação através de **Portas** (interfaces abstratas) que são implementadas por **Adaptadores** técnicos:
+The application business logic resides at the center of the hexagon, isolated from infrastructure concerns. The external environment interacts with the core exclusively through **Ports** (abstract interfaces) implemented by concrete technical **Adapters**:
 
 ```mermaid
 flowchart LR
-    subgraph AdaptadoresInbound["Adaptadores Primários (Inbound / Driving)"]
-        HTTP["Controladores de API / RPC"]
-        CLI["Linha de Comando (CLI)"]
-        Consumer["Consumidores de Mensageria"]
+    subgraph PrimaryAdapters["Primary Inbound Adapters (Driving)"]
+        HTTP["API / RPC Controllers"]
+        CLI["Command-Line Interface (CLI)"]
+        Consumer["Event & Message Consumers"]
     end
 
-    subgraph NucleoAplicacao["Núcleo da Aplicação"]
+    subgraph ApplicationCore["Application Core"]
         direction TB
-        PortIn["Portas de Entrada (Use Cases)"]
-        Domain["Regras de Negócio & Domínio"]
-        PortOut["Portas de Saída (SPI / Interfaces)"]
+        PortIn["Inbound Ports (Use Cases)"]
+        Domain["Domain Logic & Entities"]
+        PortOut["Outbound Ports (SPI Interfaces)"]
         PortIn --> Domain
         Domain --> PortOut
     end
 
-    subgraph AdaptadoresOutbound["Adaptadores Secundários (Outbound / Driven)"]
-        DBAdapter["Adaptador de Banco de Dados"]
-        ExternalAdapter["Adaptador de Serviços Externos"]
-        StorageAdapter["Adaptador de Arquivos / CAS"]
-        BusAdapter["Adaptador de Publicação de Eventos"]
+    subgraph SecondaryAdapters["Secondary Outbound Adapters (Driven)"]
+        DBAdapter["Persistence Adapter"]
+        ExternalAdapter["External Service Adapters"]
+        StorageAdapter["Object Storage / CAS Adapter"]
+        BusAdapter["Event Bus Publisher"]
     end
 
     HTTP --> PortIn
@@ -43,32 +43,32 @@ flowchart LR
 
 ---
 
-## 2. Adaptadores Primários (Inbound / Driving)
+## 2. Primary Adapters (Inbound / Driving)
 
-Os adaptadores primários são responsáveis por receber estímulos do mundo exterior, converter esses estímulos em dados compreensíveis pela aplicação e invocar a porta de entrada adequada.
+Primary adapters initiate communication with the application by translating external requests into internal use case commands.
 
-### 2.1 Padrão de Controlador Fino (Thin Controller)
-- **Tamanho Máximo:** Nenhum arquivo de controlador, rota ou comando deve exceder 300 linhas de código ($\le 300\text{ LOC}$).
-- **Responsabilidades Estritas:**
-  1. Validar a tipagem e conformidade da requisição através de esquemas imutáveis (Zod / JSON Schema).
-  2. Extrair contexto de identidade, sessão e permissões.
-  3. Delegar a execução para o Caso de Uso correspondente.
-  4. Mapear exceções de domínio em códigos de status de rede padronizados.
-- **Proibição:** É estritamente proibido incluir regras de negócio, manipulação direta de banco de dados ou loops computacionais dentro dos controladores.
+### 2.1 The Thin Controller Pattern
+- **Size Ceiling:** No individual controller, route handler, or command file may exceed 300 lines of code ($\le 300\text{ LOC}$).
+- **Strict Responsibilities:**
+  1. Validate incoming request structure and payload typing against immutable schemas (Zod / JSON Schema).
+  2. Extract session identity, tenancy context, and verify security permissions.
+  3. Delegate execution directly to the designated Application Use Case.
+  4. Map internal domain exceptions into standardized protocol status codes.
+- **Strict Prohibition:** Including business logic, direct database mutations, or complex processing loops inside controllers is strictly forbidden.
 
-### 2.2 Estratégia Contract-First & Suporte a Múltiplos Protocolos
-- As operações são definidas a partir de contratos tipados imutáveis (entrada, saída, metadados).
-- Uma única definição de contrato pode expor:
-  - **Protocolo RPC Tipado:** Para comunicação de alto desempenho e tipagem ponta a ponta em clientes internos.
-  - **Protocolo REST / OpenAPI:** Para integração de terceiros, interoperabilidade e documentação viva.
+### 2.2 Contract-First Strategy & Multi-Protocol Delivery
+- Operations are defined from immutable, typed contracts (input, output, metadata).
+- A unified contract definition can serve dual delivery protocols:
+  - **Type-Safe RPC Protocol:** Optimized for high-throughput, compile-time end-to-end type safety between first-party clients and servers.
+  - **REST / OpenAPI Protocol:** Standardized endpoints with automated OpenAPI 3.1 generation for external consumers and automated tooling.
 
 ---
 
-## 3. Adaptadores Secundários (Outbound / Driven)
+## 3. Secondary Adapters (Outbound / Driven)
 
-Os adaptadores secundários são invocados pela aplicação para interagir com o ambiente externo (bancos de dados, sistemas de arquivos, serviços de terceiros).
+Secondary adapters are invoked by the application to communicate with external infrastructure (databases, file systems, third-party network services).
 
-### 3.1 Princípio da Inversão de Dependência (DIP)
-- A aplicação declara a interface necessária para realizar seu objetivo (`IRepository`, `IStorageService`, `INotificationGateway`).
-- O módulo de infraestrutura implementa essa interface. O núcleo de domínio desconhece completamente o driver, banco ou protocolo de rede subjacente.
-- A substituição de uma tecnologia de infraestrutura (ex: trocar o motor de banco de dados ou o provedor de storage) ocorre sem alterar uma única linha de código nas camadas de Domínio ou Aplicação.
+### 3.1 The Dependency Inversion Principle (DIP)
+- The application defines the interface required to fulfill its goals (`IRepository`, `IStorageService`, `INotificationGateway`).
+- The infrastructure module implements this interface. The domain kernel has zero awareness of specific drivers, database dialects, or network protocols.
+- Swapping an infrastructure component (e.g., changing database engines or cloud storage providers) occurs without modifying a single line of domain or application code.

@@ -1,44 +1,44 @@
-# 🏛️ Teoria Geral dos Sistemas & Pilares Curriculares de Engenharia de Software
+# 🏛️ General Systems Theory & Software Engineering Pillars
 
-Este documento formaliza a base teórica de sistemas e os pilares de engenharia que sustentam o projeto de software.
-
----
-
-## 1. Teoria Geral dos Sistemas (TGS) & Cibernética
-
-- **Fundamentação Teórica:** Ludwig von Bertalanffy (1968) *General System Theory*; Norbert Wiener (1948) *Cybernetics*; Peter Checkland (1981) *Soft Systems Methodology (SSM)*.
-- **Formulação Sócio-Técnica:** O software é modelado como um **sistema sócio-técnico aberto**. Os operadores humanos exercem o papel estratégico e decisório, enquanto subsistemas autônomos e determinísticos executam tarefas operacionais e analíticas.
-- **Entropia e Negentropia (Negative Entropy):** Processos estocásticos ou integrados tendem naturalmente à desordem e inconsistência (deriva de contexto, dados corrompidos ou malformados). O sistema computacional introduz **negentropia** através de:
-  1. Contratos estritos de validação nas fronteiras (schemas imutáveis).
-  2. Livros-razão de auditoria (audit ledgers) para rastreabilidade de estado.
-  3. Quality gates automatizados que impedem a progressão de artefatos que não atinjam critérios objetivos de aceitação.
-- **Loops Cibernéticos de Retroalimentação:** Processos de tomada de decisão ou refinamento iterativo devem possuir sinais de feedback mensuráveis que alimentam mecanismos de autorregulação e convergência antes da persistência definitiva.
+This document formalises the systemic foundations and core engineering pillars underpinning the software design.
 
 ---
 
-## 2. Os Seis Pilares de Engenharia de Sistemas & Software
+## 1. General Systems Theory (GST) & Cybernetics
+
+- **Theoretical Grounding:** Ludwig von Bertalanffy (1968) *General System Theory*; Norbert Wiener (1948) *Cybernetics*; Peter Checkland (1981) *Soft Systems Methodology (SSM)*.
+- **Socio-Technical Formulation:** The software is modeled as an **open socio-technical system**. Human operators fulfill strategic, evaluative, and decision-making roles, while autonomous and deterministic computational subsystems execute operational, analytical, and transformation tasks.
+- **Entropy & Negentropy (Negative Entropy):** Stochastic, generative, or distributed processes inherently introduce systemic entropy (contextual drift, state desynchronization, malformed payloads). The computational system injects **negentropy** through:
+  1. Strict boundary validation contracts (immutable schemas at all perimeters).
+  2. Cryptographic audit ledgers to guarantee state traceability.
+  3. Automated quality gates that prevent corrupted or non-compliant artifacts from progressing downstream.
+- **Cybernetic Feedback Loops:** Deliberative and iterative decision processes must incorporate measurable feedback signals that drive self-correcting regulatory loops prior to definitive state commitment.
+
+---
+
+## 2. The Six Pillars of Software Systems & Engineering
 
 ```mermaid
 graph TD
-    TGS["1. Teoria Geral dos Sistemas<br/>Cibernética e Negentropia"] --- REQ["2. Engenharia de Requisitos<br/>Normas ISO e Rastreabilidade"]
-    REQ --- ARCH["3. Clean Architecture & DDD<br/>Padrões GoF e Branded Types"]
-    ARCH --- DIST["4. Sistemas Distribuídos & Resiliência<br/>Outbox, Sagas e Circuit Breakers"]
-    DIST --- IHC["5. Interação Humano-Computador<br/>Heurísticas e Ergonomia"]
-    IHC --- GOV["6. Governança e Segurança<br/>Privacidade, Autenticidade e Auditoria"]
+    TGS["1. General Systems Theory<br/>Cybernetics & Negentropy"] --- REQ["2. Requirements Engineering<br/>ISO Standards & Traceability"]
+    REQ --- ARCH["3. Clean Architecture & DDD<br/>GoF Patterns & Branded Types"]
+    ARCH --- DIST["4. Distributed Systems & Resilience<br/>Outbox, Sagas & Circuit Breakers"]
+    DIST --- HCI["5. Human-Computer Interaction<br/>Heuristics & Usability"]
+    HCI --- GOV["6. Governance, Security & Ethics<br/>Privacy, Provenance & Auditability"]
 ```
 
-1. **Teoria Geral dos Sistemas (TGS):** Modelagem holística do ecossistema, fronteiras de entrada/saída e retroalimentação.
-2. **Engenharia de Requisitos (ISO/IEC/IEEE 29148:2018):**
-   - Delineamento rigoroso entre o que é o **Núcleo Indivisível** (Core) e o que são extensões ou features opcionais.
-   - Requisitos funcionais atômicos e testáveis (`WHEN... THEN... AND`).
-   - Requisitos não-funcionais aderentes ao modelo de qualidade **ISO/IEC 25010:2023** (Confiabilidade, Eficiência de Desempenho, Manutenibilidade, Segurança).
+1. **General Systems Theory (GST):** Holistic modeling of system boundaries, inputs, outputs, subcomponents, and cybernetic feedback.
+2. **Requirements Engineering (ISO/IEC/IEEE 29148:2018):**
+   - Rigorous delineation between the **Indivisible Core** and optional downstream modular extensions.
+   - Atomic, verifiable requirements formulated in testable behavioral terms (`WHEN... THEN... AND`).
+   - Non-functional quality attributes grounded in the **ISO/IEC 25010:2023** Software Quality Model (Reliability, Performance Efficiency, Maintainability, Security).
 3. **Clean Architecture & Domain-Driven Design (DDD):**
-   - Núcleo de domínio puro sem dependências de frameworks, bibliotecas de terceiros ou mecanismos de persistência.
-   - Eliminação da obsessão por tipos primitivos através de *Branded Types*.
-4. **Sistemas Distribuídos & Resiliência:**
-   - Coordenação de fluxos assíncronos e orquestração de transações distribuídas (Sagas) com garantia de compensação.
-   - Prevenção do problema de escrita dupla (*dual-write hazard*) via *Transactional Outbox*.
-5. **Interação Humano-Computador (IHC):**
-   - Heurísticas de Nielsen, visibilidade do estado do sistema, prevenção de erros e design de interfaces orientado ao modelo mental do usuário.
-6. **Governança, Segurança & Ética:**
-   - Princípio do menor privilégio, sanitização de dados sensíveis e credenciais em logs/telemetria, auditoria imutável e proteção contra acesso indevido.
+   - Pure domain kernel isolated from external frameworks, databases, or delivery mechanisms.
+   - Elimination of primitive obsession through nominal *Branded Types*.
+4. **Distributed Systems & Resilience:**
+   - Asynchronous workflow orchestration via distributed Sagas with guaranteed compensating rollbacks.
+   - Elimination of dual-write anomalies through the *Transactional Outbox* pattern.
+5. **Human-Computer Interaction (HCI):**
+   - Nielsen's usability heuristics, clear system status visibility, user error prevention, and cognitive ergonomics aligned with the operator's mental model.
+6. **Governance, Security & Ethics:**
+   - Principle of least privilege, automated PII and credential scrubbing in telemetry/logs, immutable cryptographic auditability, and protection against unauthorized state mutations.

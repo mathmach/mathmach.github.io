@@ -1,35 +1,35 @@
 # 🏛️ Clean Architecture & Domain-Driven Design (DDD)
 
-Este documento estabelece as regras canônicas de separação de responsabilidades, estratificação em camadas e isolamento do domínio de negócio.
+This document establishes the canonical rules for separation of concerns, layer stratification, and business domain isolation.
 
 ---
 
-## 1. O Princípio da Dependência Unidirecional
+## 1. The Unidirectional Dependency Rule
 
-O fluxo de dependência é estritamente unidirecional, apontando sempre para dentro, em direção ao núcleo do domínio. As camadas mais externas (APIs, bancos de dados, interfaces com o usuário, bibliotecas de terceiros) são detalhes de infraestrutura e entrega; o núcleo do domínio possui **zero** conhecimento sobre elas.
+The dependency flow is strictly unidirectional inward toward the domain core. Outer delivery layers (APIs, databases, user interfaces, third-party libraries) are infrastructure and delivery details; the domain kernel has **zero** awareness of them.
 
 ```mermaid
 flowchart TD
-    subgraph Layer4["4. Camada de Apresentação e Entrega (Delivery / BFF)"]
-        UI["Interface com Usuário / CLI"]
-        Controller["Controladores e Roteadores Primários Inbound"]
+    subgraph Layer4["4. Presentation & Delivery Layer (Delivery / BFF)"]
+        UI["User Interface / CLI / Presenters"]
+        Controller["Inbound Primary Controllers & Routers"]
     end
 
-    subgraph Layer2["2. Camada de Aplicação (Application Business Rules)"]
-        UseCase["Casos de Uso (Application Use Cases)"]
-        Saga["Orquestradores de Saga"]
-        DomainService["Serviços de Domínio"]
+    subgraph Layer2["2. Application Business Rules (Use Cases)"]
+        UseCase["Application Use Cases"]
+        Saga["Saga Orchestrators"]
+        DomainService["Domain Services"]
     end
 
-    subgraph Layer1["1. Núcleo Puro de Domínio (Pure Domain Kernel)"]
-        Domain["Entidades, Agregados, Value Objects, Eventos e Portas"]
+    subgraph Layer1["1. Pure Domain Kernel (Enterprise Core)"]
+        Domain["Entities, Aggregates, Value Objects, Events & Port Interfaces"]
     end
 
-    subgraph Layer3["3. Camada de Infraestrutura (Infrastructure Adapters)"]
-        RepoImpl["Implementação de Repositórios"]
-        ServiceAdapters["Adaptadores de Serviços Externos"]
-        StorageAdapters["Adaptadores de Storage / Cache"]
-        QueueAdapters["Adaptadores de Mensageria / Filas"]
+    subgraph Layer3["3. Infrastructure Layer (Outbound Adapters)"]
+        RepoImpl["Persistence Repositories"]
+        ServiceAdapters["External Service Adapters"]
+        StorageAdapters["Object Storage & CAS Adapters"]
+        QueueAdapters["Message Broker & Task Queue Adapters"]
     end
 
     UI --> Controller
@@ -39,38 +39,38 @@ flowchart TD
     UseCase --> ServiceAdapters
     UseCase --> StorageAdapters
     UseCase --> QueueAdapters
-    RepoImpl -.->|implementa| Domain
-    ServiceAdapters -.->|implementa| Domain
-    StorageAdapters -.->|implementa| Domain
+    RepoImpl -.->|implements| Domain
+    ServiceAdapters -.->|implements| Domain
+    StorageAdapters -.->|implements| Domain
 ```
 
 ---
 
-## 2. Estratificação em Camadas
+## 2. Layered Stratification
 
-### 2.1 Núcleo Puro de Domínio (Pure Domain Kernel)
-- **Conteúdo:** Entidades de domínio, Raízes de Agregação (*Aggregate Roots*), Objetos de Valor (*Value Objects*), Eventos de Domínio (*Domain Events*), Exceções de Domínio e Interfaces de Portas (*Ports*).
-- **Invariante Absoluta:** O domínio é escrito em linguagem pura (TypeScript/ecossistema nativo), sem qualquer dependência de frameworks web, ORMs, drivers de banco de dados, bibliotecas de UI ou utilitários externos de rede.
+### 2.1 Pure Domain Kernel
+- **Contents:** Domain Entities, Aggregate Roots, Value Objects, Domain Events, Domain Exceptions, and Port Interfaces.
+- **Constitutional Invariant:** The domain is authored in pure language constructs (standard TypeScript/native primitives), with **zero** dependencies on web frameworks, ORMs, database drivers, UI components, or network utilities.
 
-### 2.2 Camada de Aplicação (Application Business Rules)
-- **Conteúdo:** Casos de Uso (*Use Cases*), coordenadores de fluxo, políticas de orquestração e contratos de entrada/saída.
-- **Responsabilidade:** Orquestra a execução das regras de negócio expressas no domínio, coordenando a persistência e a invocação de serviços externos através de injeção de dependência / inversão de controle das interfaces de portas.
+### 2.2 Application Business Rules (Use Cases)
+- **Contents:** Application Use Cases, workflow coordinators, orchestration policies, and input/output contracts.
+- **Responsibility:** Orchestrates business operations expressed in the domain model, coordinating persistence, transactions, and external communication exclusively via Dependency Inversion over declared Port interfaces.
 
-### 2.3 Camada de Infraestrutura (Infrastructure Outbound Adapters)
-- **Conteúdo:** Implementações concretas de repositórios, comunicação de rede, clientes de banco de dados, brokers de mensageria e sistemas de arquivos.
-- **Responsabilidade:** Traduz as interfaces de porta declaradas pelo domínio para as chamadas técnicas específicas das tecnologias e fornecedores utilizados.
+### 2.3 Infrastructure Layer (Outbound Adapters)
+- **Contents:** Concrete repository implementations, database clients, network connectors, file system drivers, and message brokers.
+- **Responsibility:** Translates domain port interfaces into concrete technical invocations required by underlying databases, storage engines, or third-party APIs.
 
-### 2.4 Camada de Apresentação / Entrega (Presentation & Inbound Adapters)
-- **Conteúdo:** Controladores HTTP, rotas de API, comandos CLI ou componentes de tela.
-- **Responsabilidade:** Atua estritamente como *Inbound Primary Adapter*: decodifica a requisição externa, valida a tipagem dos dados na fronteira, extrai o contexto de sessão e delega a execução diretamente ao Caso de Uso correspondente.
+### 2.4 Presentation & Delivery Layer (Inbound Adapters)
+- **Contents:** HTTP controllers, API routers, CLI commands, or frontend presenters.
+- **Responsibility:** Functions strictly as an *Inbound Primary Adapter*: parses external requests, validates input data schemas at the boundary, extracts authentication context, and delegates execution directly to the designated Application Use Case.
 
 ---
 
-## 3. Eliminação da Obsessão por Primitivos (Branded Types)
+## 3. Eliminating Primitive Obsession (Branded Types)
 
-No design de domínio, tipos primitivos puros (`string`, `number`) mascaram significados semânticos distintos e permitem erros sutis de invocação (ex: passar um `UserId` onde se esperava um `TenantId`).
+In domain modeling, raw primitives (`string`, `number`) obscure semantic meaning and allow subtle invocation errors (e.g., supplying a `UserId` where an `AccountId` was expected).
 
-- **Regra de Branded Types:** Identificadores únicos, valores monetários, unidades de tempo e métricas críticas devem ser modelados como tipos nominais enriquecidos (*Branded Types*):
+- **Branded Types Rule:** Unique identifiers, monetary amounts, execution intervals, and critical domain metrics must be modeled as nominal types (*Branded Types*):
 
 ```typescript
 export type Brand<T, B extends string> = T & { readonly __brand: B };
@@ -81,4 +81,4 @@ export type Microseconds = Brand<number, "Microseconds">;
 export type ExecutionBudget = Brand<number, "ExecutionBudget">;
 ```
 
-- **Benefício:** O compilador impede estaticamente que tipos semânticos distintos sejam confundidos ou passados invertidos em chamadas de função, garantindo integridade conceitual em todo o sistema.
+- **Architectural Benefit:** The compiler statically prevents semantic type confusion and inverted arguments across function signatures, preserving model integrity throughout the entire application.

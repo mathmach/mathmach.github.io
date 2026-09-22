@@ -1,55 +1,55 @@
-# 🎓 Portal de Fundamentos & Arquitetura de Software (TCC / PoC)
+# 🎓 Software Architecture & Academic Foundations Portal (Thesis / PoC)
 
-Bem-vindo ao repositório de fundamentação acadêmica e arquitetura de software para o **Trabalho de Conclusão de Curso (TCC)** e desenvolvimento da **Prova de Conceito (PoC)**.
+Welcome to the formal academic foundation and software architecture repository for the **Undergraduate Capstone Project / Thesis (_Trabalho de Conclusão de Curso - TCC_)** and its computational **Proof of Concept (PoC)**.
 
-> **Status do Projeto:**  
-> A documentação foi integralmente saneada para remover falsos positivos de produto ou acoplamentos a ferramentas e bibliotecas específicas.  
-> **O escopo, o problema real e a ideia do produto estão sendo definidos a partir do zero.**  
-> Este portal preserva exclusivamente os **padrões de projeto**, as **metodologias científicas** e os **fundamentos arquiteturais agnósticos**.
-
----
-
-## 🏛️ 1. Fundamentação Científica & Epistemologia (`docs/foundation/`)
-
-- **[Metodologia Científica: Design Science Research (DSR)](foundation/academic-methodology-dsr.md):**  
-  O processo metodológico em 6 estágios de Peffers et al. (2007) e as 7 diretrizes de Hevner et al. (2004) para a concepção, construção e avaliação de artefatos computacionais no TCC.
-
-- **[Teoria Geral dos Sistemas & Pilares de Engenharia](foundation/systems-theory-and-pillars.md):**  
-  A base sistêmica de Bertalanffy e Wiener (sistemas sócio-técnicos, entropia vs. negentropia, loops de retroalimentação) e os 6 pilares curriculares (Requisitos ISO 29148, Clean Architecture, Sistemas Distribuídos, IHC, Governança e Qualidade ISO 25010).
+> **Project Status:**  
+> All documentation has been sanitized to eliminate product false positives or couplings to premature feature sets.  
+> **The problem statement, stakeholder needs, and product vision are being formulated from scratch.**  
+> This portal preserves exclusively **tool-agnostic software architecture principles**, **formal design patterns**, and the **academic scientific methodology**.
 
 ---
 
-## 🏗️ 2. Arquitetura de Software & Padrões de Projeto (`docs/architecture/`)
+## 🏛️ 1. Scientific Foundations & Epistemology (`docs/foundation/`)
+
+- **[Scientific Methodology: Design Science Research (DSR)](foundation/academic-methodology-dsr.md):**  
+  The 6-stage process model by Peffers et al. (2007) and the 7 guidelines by Hevner et al. (2004) for designing, implementing, and evaluating computational artifacts in software engineering research.
+
+- **[General Systems Theory & Engineering Pillars](foundation/systems-theory-and-pillars.md):**  
+  Systemic foundations by Bertalanffy and Wiener (socio-technical systems, entropy vs. negentropy, cybernetic feedback loops) and the 6 curricular pillars of software systems (ISO 29148 Requirements, Clean Architecture, Distributed Systems, HCI, Governance, and ISO 25010 Quality Model).
+
+---
+
+## 🏗️ 2. Software Architecture & Design Patterns (`docs/architecture/`)
 
 - **[Clean Architecture & Domain-Driven Design (DDD)](architecture/clean-architecture-and-ddd.md):**  
-  A regra de dependência unidirecional, isolamento do Núcleo de Domínio Puro sem dependência de frameworks, Casos de Uso na camada de aplicação e eliminação da obsessão por primitivos através de *Branded Types*.
+  The unidirectional dependency rule, isolation of the Pure Domain Kernel without framework dependencies, Application Use Cases, and elimination of primitive obsession via nominal *Branded Types*.
 
-- **[Padrões de Projeto GoF (Gang of Four)](architecture/gof-design-patterns.md):**  
-  Catálogo formal dos padrões Criacionais, Estruturais e Comportamentais de Gamma et al. (1994) aplicados à arquitetura de software, com regras de uso e proibições de anti-padrões.
+- **[GoF Design Patterns Handbook](architecture/gof-design-patterns.md):**  
+  Formal catalog of Creational, Structural, and Behavioral patterns (Gamma et al., 1994) applied to modern software architecture, detailing architectural use cases and strict prohibitions.
 
-- **[Padrões de Resiliência & Sistemas Distribuídos](architecture/distributed-resilience-patterns.md):**  
-  Orquestração de Sagas com transações compensatórias (Garcia-Molina), Transactional Outbox (eliminação do dual-write), Consumidor Idempotente, Circuit Breakers (Nygard), Bulkhead, Reserva em Dois Passos (Hold & Settle) e Anti-Corruption Layer (ACL).
+- **[Distributed Systems & Resilience Patterns](architecture/distributed-resilience-patterns.md):**  
+  Saga Orchestration with compensating actions (Garcia-Molina), Transactional Outbox (dual-write prevention), Idempotent Consumer, Circuit Breaker (Nygard), Bulkhead, Two-Phase Resource Reservation (Hold & Settle), and Anti-Corruption Layer (ACL).
 
-- **[Arquitetura Hexagonal: Portas, Adaptadores & Contratos](architecture/hexagonal-ports-and-adapters.md):**  
-  O modelo de Portas e Adaptadores (Cockburn), adaptadores primários (Inbound/Thin Controllers $\le 300\text{ LOC}$), adaptadores secundários (Outbound/Inversão de Dependência) e abordagem Contract-First com suporte a múltiplos protocolos.
+- **[Hexagonal Architecture: Ports, Adapters & Contracts](architecture/hexagonal-ports-and-adapters.md):**  
+  The Ports and Adapters architectural model (Cockburn), Inbound Primary Adapters (Thin Controllers $\le 300\text{ LOC}$), Outbound Secondary Adapters (Dependency Inversion), and Contract-First multi-protocol API design.
 
-- **[Persistência Relacional, Armazenamento CAS & Ciclo de Vida](architecture/persistence-and-cas-storage.md):**  
-  Modelagem relacional normalizada contra o anti-padrão de blobs JSON monolíticos, armazenamento endereçado por conteúdo (CAS) via hashes SHA-256, ciclo de vida de armazenamento em 3 camadas (`scratch`, `vault`, `releases`) e Controle de Concorrência Otimista (OCC).
+- **[Relational Persistence, CAS Storage & Lifecycles](architecture/persistence-and-cas-storage.md):**  
+  Normalized relational data modeling versus the monolithic JSON blob anti-pattern, Content-Addressable Storage (CAS) via cryptographic SHA-256 digests, 3-Tier Storage Lifecycle (`scratch/`, `vault/`, `releases/`), and Optimistic Concurrency Control (OCC).
 
 ---
 
-## 🗺️ Mapa da Documentação
+## 🗺️ Documentation Directory Map
 
 ```
 docs/
 ├── foundation/
-│   ├── academic-methodology-dsr.md       # Metodologia DSR (Peffers / Hevner)
-│   └── systems-theory-and-pillars.md     # Teoria Geral dos Sistemas e 6 Pilares
+│   ├── academic-methodology-dsr.md       # DSR Methodology (Peffers et al. / Hevner et al.)
+│   └── systems-theory-and-pillars.md     # General Systems Theory & 6 Engineering Pillars
 ├── architecture/
-│   ├── clean-architecture-and-ddd.md     # Camadas Concêntricas, Regras de Dependência e Branded Types
-│   ├── gof-design-patterns.md            # Catálogo Completo GoF (Criacionais, Estruturais, Comportamentais)
-│   ├── distributed-resilience-patterns.md# Sagas, Outbox, Circuit Breaker, Idempotência e Hold/Settle
-│   ├── hexagonal-ports-and-adapters.md   # Portas Inbound/Outbound, Thin Controllers e Multi-Protocolo
-│   └── persistence-and-cas-storage.md    # Normalização Relacional, CAS SHA-256 e Concorrência Otimista (OCC)
-└── README.md                             # Portal Mestre de Arquitetura e Fundamentos
+│   ├── clean-architecture-and-ddd.md     # Concentric Layers, Dependency Rules & Branded Types
+│   ├── gof-design-patterns.md            # Complete GoF Catalog (Creational, Structural, Behavioral)
+│   ├── distributed-resilience-patterns.md# Sagas, Outbox, Circuit Breakers, Idempotency & Hold/Settle
+│   ├── hexagonal-ports-and-adapters.md   # Inbound/Outbound Ports, Thin Controllers & Multi-Protocol
+│   └── persistence-and-cas-storage.md    # Relational Normalization, CAS SHA-256 & Concurrency (OCC)
+└── README.md                             # Master Architecture Portal
 ```
