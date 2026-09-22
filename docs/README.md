@@ -1,6 +1,6 @@
 # 🎓 Software Architecture & Academic Foundations Portal (Thesis / PoC)
 
-Welcome to the formal academic foundation and software architecture repository for the **Undergraduate Capstone Project / Thesis (_Trabalho de Conclusão de Curso - TCC_)** and its computational **Proof of Concept (PoC)**.
+Welcome to the formal academic foundation and software architecture repository for the **Undergraduate Capstone Project / Thesis** and its computational **Proof of Concept (PoC)**.
 
 > **Project Status:**  
 > All documentation has been sanitized to eliminate product false positives or couplings to premature feature sets.  

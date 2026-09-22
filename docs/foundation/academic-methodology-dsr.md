@@ -1,6 +1,6 @@
 # 🎓 Scientific Methodology: Design Science Research (DSR)
 
-This document establishes the epistemological and methodological framework for developing the **Capstone Project / Thesis (_Trabalho de Conclusão de Curso - TCC_)** and its computational **Proof of Concept (PoC)**.
+This document establishes the epistemological and methodological framework for developing the **Capstone Project / Thesis** and its computational **Proof of Concept (PoC)**.
 
 ---
 
