@@ -11,7 +11,6 @@ class App {
   init() {
     this.initNav();
     this.initDocsPortal();
-    this.initConsole();
     this.initMetrics();
   }
 
@@ -163,82 +162,6 @@ class App {
         </div>
       `;
     }
-  }
-
-  initConsole() {
-    const terminalBody = document.getElementById('terminal-body');
-    const runBtn = document.getElementById('btn-run-audit');
-    const clearBtn = document.getElementById('btn-clear-terminal');
-    const filterSelect = document.getElementById('terminal-filter');
-
-    if (!terminalBody || !runBtn) return;
-
-    const logLine = (html) => {
-      const line = document.createElement('div');
-      line.className = 'terminal-line';
-      line.innerHTML = html;
-      terminalBody.appendChild(line);
-      terminalBody.scrollTop = terminalBody.scrollHeight;
-    };
-
-    const clearLogs = () => {
-      terminalBody.innerHTML = `
-        <div class="terminal-line term-meta"># Anti-Hallucination Empirical Audit Console v2.4</div>
-        <div class="terminal-line term-meta"># Ready. Click 'Run Live Verification' to audit citations against live DOIs & HTML DOMs.</div>
-        <div class="terminal-line">&nbsp;</div>
-      `;
-    };
-
-    clearLogs();
-
-    if (clearBtn) {
-      clearBtn.addEventListener('click', clearLogs);
-    }
-
-    runBtn.addEventListener('click', async () => {
-      if (this.isAuditing) return;
-      this.isAuditing = true;
-      runBtn.disabled = true;
-      runBtn.style.opacity = '0.5';
-
-      clearLogs();
-      logLine(`<span class="term-cmd">$ python3 scripts/verify-references.py --live-stream</span>`);
-      logLine(`<span class="term-info">=== Initializing Verification Audit (${REFERENCES.length} Academic Items) ===</span>`);
-      logLine(`&nbsp;`);
-
-      let passed = 0;
-      const filter = filterSelect ? filterSelect.value : 'all';
-      const targets = filter === 'all' 
-        ? REFERENCES 
-        : REFERENCES.filter(r => r.category.toLowerCase().includes(filter.toLowerCase()));
-
-      for (let i = 0; i < targets.length; i++) {
-        const item = targets[i];
-        logLine(`<span class="term-info">[*] [${i+1}/${targets.length}] Auditing:</span> <strong>${item.author}</strong> - <em>${item.work}</em>`);
-        logLine(`&nbsp;&nbsp;&nbsp;&nbsp;Target URL: <a href="${item.url}" target="_blank" style="color: var(--accent-cyan);">${item.url}</a>`);
-        
-        
-        await new Promise(r => setTimeout(r, 60));
-
-        if (item.doi) {
-          logLine(`&nbsp;&nbsp;&nbsp;&nbsp;<span class="term-pass">✓ Crossref OK:</span> <span class="term-doi">doi.org/${item.doi}</span> | "${item.work}" (${item.venue})`);
-        } else {
-          logLine(`&nbsp;&nbsp;&nbsp;&nbsp;<span class="term-pass">✓ HTML Match:</span> Verified author/title presence in HTTP DOM | ${item.venue}`);
-        }
-        logLine(`&nbsp;&nbsp;&nbsp;&nbsp;<span class="term-pass">-> [PASS]</span> <span class="term-meta">[Zero Speculation Guard Passed]</span>`);
-        logLine(`&nbsp;`);
-        passed++;
-      }
-
-      logLine(`<span class="term-info">============================================================</span>`);
-      logLine(`<span class="term-pass">Audit Complete: ${passed} PASSED, 0 FAILED across ${targets.length} verified items.</span>`);
-      logLine(`<span class="term-meta">Status: 100% Deterministically Grounded. Zero Synthetic URLs. Zero Hallucinations.</span>`);
-      logLine(`<span class="term-info">============================================================</span>`);
-
-      this.isAuditing = false;
-      runBtn.disabled = false;
-      runBtn.style.opacity = '1';
-    });
   }
 }
 

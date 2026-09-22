@@ -49,10 +49,8 @@
       <ul class="nav-links">
         <li class="nav-item active"><a href="#hero"><span>Overview</span></a></li>
         <li class="nav-item"><a href="#methodology"><span>Methodology</span></a></li>
-        <li class="nav-item"><a href="#anti-hallucination"><span>Anti-Hallucination AI</span></a></li>
-        <li class="nav-item"><a href="#console"><span>Live Audit</span></a></li>
         <li class="nav-item"><a href="#docs"><span>Architecture Docs</span></a></li>
-        <li class="nav-item"><a href="#experience"><span>Expertise</span></a></li>
+        <li class="nav-item"><a href="#experience"><span>Experience</span></a></li>
       </ul>
       <div class="nav-cta">
         <a href="mailto:matheusmgduarte@outlook.com" class="btn-island" style="padding: 6px 14px; font-size: 12px;">
@@ -112,9 +110,9 @@
           <span>View Career History</span>
           <span>↓</span>
         </a>
-        <a href="#console" class="btn-secondary">
-          <span>Test Live Audit Console</span>
-          <span style="font-family: 'JetBrains Mono'; font-size: 11px; opacity: 0.7;">[30/30 DOIs]</span>
+        <a href="https://github.com/mathmach" target="_blank" rel="noopener" class="btn-secondary">
+          <span>GitHub Profile</span>
+          <span>↗</span>
         </a>
       </div>
 
@@ -243,141 +241,14 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  
-  <section id="anti-hallucination" style="background: rgba(255, 255, 255, 0.01);">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow-badge">
-          <div class="badge-dot" style="background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></div>
-          <span>The Core Differentiator</span>
-        </div>
-        <h2 class="section-title">Anti-Hallucination Engineering: Taming Generative AI.</h2>
-        <p class="section-desc">
-          Standard LLM coding assistants suffer from hallucinations: phantom APIs, synthetic URLs, fabricated library exports, and silent fallback masks. My operational methodology enforces <strong>100% Grounded Determinism</strong>.
-        </p>
-      </div>
-
-      
-      <div class="bezel-card" style="margin-bottom: 30px;">
-        <div class="bezel-inner">
-          <div class="invariant-num">CASE STUDY / EMPIRICAL AUDIT IN REAL-TIME</div>
-          <h3 class="card-title">How We Eliminate AI Hallucinations at the Source</h3>
-          <p class="card-body">
-            During our academic reference audit, a standard generative query hallucinated synthetic Google Books IDs (e.g. <code>id=zrkqAAAAMAAJ</code>, <code>id=f_pEAAAAMAAJ</code> which opened a Russian historical novel) and redirected IEEE paths. Instead of accepting plausibility, our protocol deployed <code>verify-references.py</code> to test live HTTP headers, scrape DOM <code>&lt;title&gt;</code> elements, and query the official <strong>Crossref REST API</strong>. Every false citation was trapped, purged, and replaced with peer-reviewed DOIs and unblocked primary sources.
-          </p>
-
-          <div class="audit-split">
-            <div class="audit-column danger">
-              <div class="column-header">
-                <span>✕ The Naive AI Default (Unchecked Hallucination)</span>
-              </div>
-              <ul class="audit-list">
-                <li><span>•</span> <span>Generates synthetic book IDs (<code>id=f_pEAAAAMAAJ</code>) that lead to 404s or unrelated books.</span></li>
-                <li><span>•</span> <span>Uses masked error handling: <code>.catch(() => fallback)</code> hiding broken dependencies.</span></li>
-                <li><span>•</span> <span>Speculates method signatures instead of checking AST on disk.</span></li>
-                <li><span>•</span> <span>Leaves partial refactorings across repos, creating "wave" prompting friction.</span></li>
-              </ul>
-            </div>
-
-            <div class="audit-column success">
-              <div class="column-header">
-                <span>✓ Matheus's Deterministic Protocol (Zero Speculation)</span>
-              </div>
-              <ul class="audit-list">
-                <li><span>•</span> <span><strong>AST & Symbol Grounding:</strong> Inspects live TypeScript/Python AST before writing code.</span></li>
-                <li><span>•</span> <span><strong>Automated Verification Engines:</strong> Proves claims via real HTTP requests & Crossref APIs.</span></li>
-                <li><span>•</span> <span><strong>Zero Fallback Debt:</strong> Strict parsing (Zod/Pydantic) with zero silent swallowing.</span></li>
-                <li><span>•</span> <span><strong>Exhaustive Refactoring:</strong> 100% of references updated in a single turn.</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-      <div class="bento-grid-3">
-        <div class="bezel-card col-span-4">
+        <div class="bezel-card col-span-12">
           <div class="bezel-inner">
-            <div class="invariant-num">INVARIANT 01</div>
-            <h4 class="card-title">Context Before Code</h4>
-            <p class="card-body">Map callers, callees, dependency injection points, and consumers before touching a single line.</p>
+            <div class="invariant-num">05 / GROUNDED AI & EMPIRICAL SCRUTINY</div>
+            <h3 class="card-title">Disciplined AI Orchestration & Anti-Hallucination Methodology</h3>
+            <p class="card-body">
+              When utilizing Generative AI and LLMs in production engineering, I enforce strict empirical verification rather than passive acceptance. AI assistance is treated with systematic skepticism: grounded via live Abstract Syntax Tree (AST) symbol inspection before execution, verified against authoritative primary sources and schemas, constrained by Zero Fallback Debt (eliminating silent error masks, phantom APIs, and speculative types), and strictly gated by pre-commit automated test suites.
+            </p>
           </div>
-        </div>
-        <div class="bezel-card col-span-4">
-          <div class="bezel-inner">
-            <div class="invariant-num">INVARIANT 02</div>
-            <h4 class="card-title">Exhaustive Refactoring</h4>
-            <p class="card-body">100% project-wide replacement. Zero partial edits, zero dangling exports, zero orphan surfaces.</p>
-          </div>
-        </div>
-        <div class="bezel-card col-span-4">
-          <div class="bezel-inner">
-            <div class="invariant-num">INVARIANT 03</div>
-            <h4 class="card-title">Anti-Wave Execution</h4>
-            <p class="card-body">Extract all requirements upfront and deliver complete, production-ready code in a single turn. Zero placeholders.</p>
-          </div>
-        </div>
-        <div class="bezel-card col-span-6">
-          <div class="bezel-inner">
-            <div class="invariant-num">INVARIANT 04</div>
-            <h4 class="card-title">Strict Grounding & Zero Speculation</h4>
-            <p class="card-body">Never assume an API exists. Verify disk AST signatures (<code>ck-signatures</code>) and runtime behavior before referencing.</p>
-          </div>
-        </div>
-        <div class="bezel-card col-span-6">
-          <div class="bezel-inner">
-            <div class="invariant-num">INVARIANT 05</div>
-            <h4 class="card-title">Pre-Commit Evidence Gates</h4>
-            <p class="card-body">Never declare completion based on generative assertions. Run verification suites and demand empirical proof.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  
-  <section id="console">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow-badge">
-          <span>Interactive Verification Engine</span>
-        </div>
-        <h2 class="section-title">Live Empirical Audit Console.</h2>
-        <p class="section-desc">
-          Test the anti-hallucination verification engine directly in your browser. This console executes real-time validation of all 30 foundational academic papers, international standards, and seminal computer science monographs cited in our architecture.
-        </p>
-      </div>
-
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-          </div>
-          <div class="terminal-title">bash — python3 scripts/verify-references.py</div>
-          <div class="terminal-actions">
-            <select id="terminal-filter" class="btn-terminal" style="background: rgba(255,255,255,0.05); color: #fff;">
-              <option value="all">Filter: All 30 Items</option>
-              <option value="Systems Engineering">Systems Engineering</option>
-              <option value="Distributed">Distributed Systems</option>
-              <option value="Database">Database Internals</option>
-              <option value="Performance">Performance & Queuing</option>
-            </select>
-            <button id="btn-run-audit" class="btn-terminal" style="color: var(--accent-emerald); border-color: rgba(52, 211, 153, 0.4);">
-              <span>▶ Run Live Verification</span>
-            </button>
-            <button id="btn-clear-terminal" class="btn-terminal">
-              <span>Clear</span>
-            </button>
-          </div>
-        </div>
-        <div id="terminal-body" class="terminal-body">
-          
         </div>
       </div>
     </div>
