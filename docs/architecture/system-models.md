@@ -1,1 +1,0 @@
-../core/system-models.md

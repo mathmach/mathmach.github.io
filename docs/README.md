@@ -1,59 +1,67 @@
-# 📖 Wind Comic Documentation Portal
+# 🎓 Academic Monograph & Architecture Portal (TCC / PoC)
 
-Welcome to the documentation suite for **Wind Comic** (v1.0.0).
-
----
-
-## 🏛️ System Core, Charters & Requirements
-
-- **[Foundational Constitution & Academic Monograph (TCC)](core/foundation-constitution.md):** The master epistemological framework (DSR), General Systems Theory (TGS), microeconomics of vertical video ("Cold Water Analysis"), the Stakeholder Triptych, and the Indivisible Core Mandate.
-- **[Core Premises, System Mandate & Stakeholder Triptych](core/core-mandate.md):** The indivisible core contract ("Zero-Stitch Finished Video Engine"), the 5-app nightmare diagnosis, the Stakeholder Triptych (UGC Advertisers, Agile Publishers, Narrative Studios), and industry benchmarks (TopView.ai, HeyGen, Runway).
-- **[Requirements Specification & Traceability Matrix (ISO/IEC/IEEE 29148)](core/requirements-matrix.md):** Formal engineering requirements (`RF-CORE-*`, `RF-FEAT-*`, `RNF-*`), ISO 25010 quality model, and bidirectional traceability matrix.
-- **[Formal System Models & Architecture Diagrams (UML)](core/system-models.md):** Formal UML class diagram (DDD & branded types), Garcia-Molina Saga sequence diagram, pipeline finite state machine, Clean Architecture stratification, and deployment topology.
+Welcome to the formal architectural and scientific documentation suite for the **Zero-Stitch Finished Video Co-Synthesis Engine** — developed under the **Design Science Research (DSR)** paradigm as a Graduation Thesis (_Trabalho de Conclusão de Curso - TCC_) and computational Proof of Concept (PoC).
 
 ---
 
-## 🏗️ Architecture, Data Layer & Algorithms
+## 🏛️ 1. Epistemological Foundation, Core Mandate & Requirements (`docs/core/`)
 
-- **[The Engineering Constitution & Architecture Rules](architecture/engineering-constitution.md):** The non-negotiable 7 architectural dimensions, GoF design patterns, zero fallback debt, zero orphan surfaces, and pre-commit quality gates.
-- **[Formal System Models & Architecture Diagrams (UML)](architecture/system-models.md):** Formal UML class diagram (DDD & branded types), Garcia-Molina Saga sequence diagram, pipeline finite state machine, Clean Architecture stratification, and deployment topology.
-- **[Database Architecture & Data Layer](architecture/database.md):** PostgreSQL 17 exclusively via Prisma, 52 repositories (`@wind/db/repos/*`), transaction commit/rollback, and pooling.
-- **[API Architecture: Type-Safe oRPC](architecture/orpc-api.md):** Thin orchestrators ($\le 300\text{ LOC}$), RPC and OpenAPI dual protocols, client hooks, and procedure invocation.
-- **[Pipeline Algorithms & Pacing Math](architecture/algorithms.md):** Deterministic heuristics, beat-aligned cutting ($\pm 150\text{ ms}$), emotion curves, emphasis weighting, and BYO upgrade paths.
-- **[Design Tokens & Theme Architecture](architecture/design-tokens.md):** Tailwind 4 `@theme` integration, Cinema workbench tokens (`--cinema-*`), and UI boundary rules.
+- **[Foundational Constitution & Academic Monograph](core/foundation-constitution.md):**  
+  The formal epistemological framework: Design Science Research (DSR; Hevner et al., 2004; Peffers et al., 2007), General Systems Theory (TGS) & cybernetic feedback loops, microeconomic analysis of vertical video ("Cold Water Analysis"), the Stakeholder Triptych, and the 6 Curricular Pillars of Information Systems & Software Engineering.
 
----
+- **[Core Premises, System Mandate & Agency Formalism](core/core-mandate.md):**  
+  The indivisible core contract ("Zero-Stitch Finished Video Engine"), Core vs. Feature Boundary Matrix, formal distinction between **Cognitive Autonomous AI Agents** and **Deterministic Processing Services**, and the 7 Invariable Architectural Principles.
 
-## 🔌 AI Engines & Media Providers Hub
+- **[Requirements Specification & Traceability Matrix (ISO/IEC/IEEE 29148)](core/requirements-matrix.md):**  
+  Formal engineering requirements specification (`RF-CORE-01` through `RF-CORE-08`), Non-Functional Quality Attributes adhering to ISO/IEC 25010 (`RNF-REL`, `RNF-PERF`, `RNF-MAINT`, `RNF-SEC`), and the bidirectional traceability matrix.
 
-- **[AI Provider Architecture Overview](providers/overview.md):** Master overview of Gemini reasoning + ComfyUI media co-synthesis and priority selection rules (`0..999`).
-- **[Google Gemini Setup & Configuration](providers/gemini-llm.md):** Setup guide for `gemini-2.5-flash`, RPM limits, embeddings, and runtime model overrides.
-- **[ComfyUI Workflow Catalog](providers/comfyui.md):** Authoritative workflows for all 6 modalities (Image, Video, TTS, Lipsync, Music, Cover) and placeholder templates.
-- **[Bring Your Own (BYO) Provider Plugin Guide](providers/custom-plugins.md):** Extensible single-file plugin integration for custom Image, Video, and TTS endpoints.
-- **[Plugin Cutover & Telemetry Runbook](providers/cutover-and-telemetry.md):** Shadow testing, telemetry inspection, agreement verification, and zero-downtime cutover.
+- **[Formal System Models & Architecture Diagrams (UML / DDD)](core/system-models.md):**  
+  Formal UML class diagrams (Domain-Driven Design Aggregate Roots & Branded Types), Garcia-Molina Saga distributed transaction sequence diagrams, pipeline Finite State Machine (FSM), and Clean Architecture stratification.
 
 ---
 
-## ✍️ Creative Screenwriting Subsystem
+## 🏗️ 2. System Architecture & Algorithms (`docs/architecture/`)
 
-- **[Screenwriter Skills & Cinematic Reference](screenwriter/skills-reference.md):** Narrative structuring (McKee 3-Act & UGC Direct-Response), character voice profiles, 8-dimensional Character DNA locks, and composite workflows.
+- **[The Engineering Constitution & Architecture Rules](architecture/engineering-constitution.md):**  
+  The 7 non-negotiable architectural dimensions, mandatory GoF design patterns (Creational, Structural, Behavioral), distributed systems fault-tolerance (Transactional Outbox, Idempotent Consumers, Circuit Breakers, Bulkheads), and zero fallback debt principles.
+
+- **[Pipeline Algorithms & Audio-Visual Pacing Math](architecture/algorithms.md):**  
+  Deterministic mathematical heuristics: beat-aligned cutting ($\pm 150\text{ ms}$), oscillatory dramatic emotion curves, dialogue-to-action density thresholds, and automated sidechain audio ducking formulas.
+
+- **[Relational Persistence & CAS Storage Lifecycle](architecture/persistence-and-storage.md):**  
+  Eradication of monolithic JSON blobs via normalized relational entities, Content-Addressable Storage (CAS) SHA-256 reference model, 3-Tier Storage Lifecycle (`scratch/`, `vault/`, `releases/`), Optimistic Concurrency Control (OCC), and the Two-Phase Financial Hold pattern.
+
+- **[Contract-First Type-Safe API & Inbound Adapters](architecture/api-contracts.md):**  
+  Clean BFF Inbound Primary Adapters, Thin Orchestrators ($\le 300\text{ LOC}$), unified dual-protocol architecture (Type-Safe RPC + OpenAPI 3.1 REST), and declarative cross-cutting middleware pipelines.
+
+- **[Hexagonal Ports, Adapters & Anti-Corruption Layer (ACL)](architecture/ports-and-adapters.md):**  
+  Hexagonal Architecture boundary rules, decoupling core domain logic from external multimodal AI engines, declarative `GenerativeWorkflowManifest` specifications, and deterministic provider selection with Nygard Circuit Breakers.
 
 ---
 
-## 🚀 Operations, Deployment & DevOps
+## ✍️ 3. Cognitive Narrative Subsystem (`docs/narrative/`)
 
-- **[Production Deployment Guide](operations/deployment.md):** Single-machine and multi-replica deployment topologies, Docker Compose, MinIO, Redis event bus, and complete environment variable matrix.
-- **[Upstream Fork Synchronization Guide](operations/upstream-sync.md):** Fork maintenance workflow, upstream tracking, conflict resolution, and git remotes.
-- **[Screenshot Capture Manifest & Automation](operations/screenshots.md):** Automated script capture, photography conventions, and visual verification checklist.
-- **[ModelScope Platform Profile](operations/modelscope-profile.md):** Chinese and English community introduction cards.
-- **[ModelScope Full Introduction](operations/modelscope-intro.md):** Technical documentation mirrored for ModelScope.
+- **[Cognitive Narrative Engine & Actor-Critic Architecture](narrative/narrative-engine.md):**  
+  Dramaturgical architecture: Robert McKee Three-Act progression, Sudowrite Story Bible canonical constraints, per-character Voice Fingerprints, Scene Budgets, and the closed dialectic **Actor-Critic Convergence Loop** (`ScreenwriterAgent` $\leftrightarrow$ `NarrativeCriticAgent`).
 
 ---
 
-## 📈 Features & Marketing
+## 🗺️ Architectural Map
 
-- **[Marketing Copy & Pitch Deck](marketing/pitch.md):** One-liners, social copy (Twitter, Product Hunt, HN, Reddit), and repository metadata.
-- **[Feature Blueprints](features/):** Architectural specifications and workflows for key platform capabilities:
-  - [AI Pull-Sheet Replication Workbench](features/pull-sheet-replication.md)
-  - [Intelligent Timeline Audio Editing](features/timeline-audio-editing.md)
-  - [Commercial Ad Factory](features/commercial-ad-factory.md)
+```
+docs/
+├── core/
+│   ├── foundation-constitution.md   # DSR Methodology, Epistemology & Academic Monograph (TCC)
+│   ├── core-mandate.md             # Core Mandate, Cognitive vs Deterministic Boundaries
+│   ├── requirements-matrix.md      # ISO 29148 Requirements & ISO 25010 Quality Model
+│   └── system-models.md            # UML Class Diagrams, Saga Sequence, Pipeline FSM
+├── architecture/
+│   ├── engineering-constitution.md # 7 Dimensions, GoF Patterns & Distributed Resilience
+│   ├── algorithms.md               # Pacing Math, Beat Alignment (+-150ms) & Audio Ducking
+│   ├── persistence-and-storage.md  # Normalized Relational Data, CAS & 3-Tier Storage
+│   ├── api-contracts.md            # Contract-First Type-Safe API & Thin BFF Orchestrators
+│   └── ports-and-adapters.md       # Hexagonal Architecture & Anti-Corruption Layer (ACL)
+├── narrative/
+│   └── narrative-engine.md         # McKee Structure, Story Bible & Actor-Critic Dialectic
+└── README.md                       # Master Architecture Portal
+```

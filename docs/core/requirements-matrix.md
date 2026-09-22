@@ -67,71 +67,54 @@ To ensure vendor neutrality, zero lock-in, and architectural longevity, the core
 
 ---
 
-## 4. Functional Requirements: Downstream Modular Features (`RF-FEAT`)
-
-| Requirement ID | Requirement Name                               | Description                                                                                                                                                                                                                                                                                                                                                                               | Acceptance Criteria & Verification                                                                                                                     |
-| :------------- | :--------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **RF-FEAT-01** | **Social Media Multi-Platform Publishing**     | The system shall provide a fully decoupled 1-click dispatch interface routing the finished video to external platforms via the `SocialDistributionGateway` implementing the `SocialPublishingPort` (decoupled behind an Anti-Corruption Layer with pluggable infrastructure brokers). Social API errors or token expirations shall never impede video completion or cause Saga rollbacks. | Generates ready-to-post bundle; executes authenticated dispatch via configured publishing adapter; degrades to manual bundle download if disconnected. |
-| **RF-FEAT-02** | **Collaborative Multi-Track Timeline**         | The system shall provide a browser-based multi-track timeline editor allowing manual clip retiming, J-cuts/L-cuts, and text re-editing.                                                                                                                                                                                                                                                   | Real-time presence via `@wind/ws`; segment-level locking via PostgreSQL preventing concurrent edit collisions.                                         |
-| **RF-FEAT-03** | **Studio NLE Lossless Interchange**            | The system shall export the assembled timeline into standardized `NLEInterchangeFormat` structures (native binary AAF, EDL, FCPXML, and timeline exchange descriptors) via extensible `NLEExportVisitor` implementations.                                                                                                                                                                 | Emits valid MS-CFB binary AAF or `NLEInterchangeFormat` containers with linked audio/video track references verified by NLE parsers.                   |
-| **RF-FEAT-04** | **Bulk A/B Hook Variant Generation**           | The system shall generate multiple distinct opening hook variations (visual + copy) for a single ad script to enable paid traffic creative testing.                                                                                                                                                                                                                                       | Produces 3–5 alternative Shot 1 variations with identical body assets and unique asset tags.                                                           |
-| **RF-FEAT-05** | **Platform Safe-Area Masking & Normalization** | The system shall provide visual safe-area guides (TikTok/Reels UI overlay boundaries) and loudness normalization to $-14\text{ LUFS}$.                                                                                                                                                                                                                                                    | Enforces audio normalization adhering to ITU-R BS.1770-4 standard.                                                                                     |
-
 ---
 
-## 5. Non-Functional Requirements (ISO/IEC 25010:2023)
+## 4. Non-Functional Requirements (ISO/IEC 25010:2023)
 
 Detailed implementation rules and quality floors are defined in the [Engineering Constitution](../architecture/engineering-constitution.md).
 
-### 5.1 Reliability & Fault Tolerance (RNF-REL)
+### 4.1 Reliability & Fault Tolerance (RNF-REL)
 
-- **RNF-REL-01 (Zero Fallback Debt):** 0 fallback debt violations across all 7 architectural ceilings. Enforced via `bun run check:fallback-debt`.
+- **RNF-REL-01 (Zero Fallback Debt):** 0 fallback debt violations across all architectural ceilings.
 - **RNF-REL-02 (Circuit Breaker Protection):** External AI engine invocations execute inside Nygard 3-state Circuit Breakers (`Closed`, `Open`, `Half-Open`).
-- **RNF-REL-03 (Transactional Outbox):** State mutations and queue/event dispatches (`@wind/events`, `@wind/queue`) committed in a single ACID transaction.
-- **RNF-REL-04 (Saga Orchestration & Compensation):** Multi-stage production pipelines execute as explicit Sagas with 100% full credit refund and orphan storage cleanup on terminal failure.
-- **RNF-REL-05 (Two-Phase Financial Hold & Settle):** Non-blocking financial holds (`credit_holds` status: `HELD`, 5ms) eliminate database connection pool starvation during long GPU inference runs (2–5 min), with atomic completion settlement (`SETTLED`) or compensating release (`RELEASED`).
+- **RNF-REL-03 (Transactional Outbox):** State mutations and queue/event dispatches committed in a single ACID transaction.
+- **RNF-REL-04 (Saga Orchestration & Compensation):** Multi-stage production pipelines execute as explicit Sagas with 100% compensating actions and orphan storage cleanup on terminal failure.
+- **RNF-REL-05 (Two-Phase Financial Hold & Settle):** Non-blocking financial holds (`credit_holds` status: `HELD`) eliminate connection pool starvation during long GPU inference runs (2–5 min), with atomic completion settlement (`SETTLED`) or compensating release (`RELEASED`).
 - **RNF-REL-06 (Shot Idempotency & Reentrancy):** Every shot computes a deterministic hash `hash(prompt, dnaId, seed, cameraMove)` allowing instant object store cache hits upon worker restart without redundant GPU computation.
-- **RNF-REL-07 (Anti-Corruption Layer Schema Isolation):** External AI engines, rendering graphs, and social distribution brokers are isolated behind domain ports. Third-party schemas are strictly translated into internal domain entities at the architectural boundary.
+- **RNF-REL-07 (Anti-Corruption Layer Schema Isolation):** External AI engines, rendering graphs, and distribution brokers are isolated behind domain ports. Third-party schemas are strictly translated into internal domain entities at the architectural boundary.
 
-### 5.2 Performance Efficiency & Scalability (RNF-PERF)
+### 4.2 Performance Efficiency & Scalability (RNF-PERF)
 
 - **RNF-PERF-01 (Zero N+1 Queries):** Database queries within loops prohibited; mandatory batch loading or relational joins.
 - **RNF-PERF-02 (Deterministic Cursor Pagination):** Listing endpoints enforce cursor-based pagination with $\text{limit} \le 50$.
-- **RNF-PERF-03 (Bulkhead Process Isolation):** Heavy FFmpeg transcoding and AI inference isolated in dedicated background worker daemons (`@wind/worker`).
+- **RNF-PERF-03 (Bulkhead Process Isolation):** Heavy transcode processing and AI inference isolated in dedicated background worker daemons.
 - **RNF-PERF-04 (Three-Tier CAS Storage Lifecycle):** Automated lifecycle rules enforce a 24-hour TTL on ephemeral render scraps (`scratch/`), reserving permanent bucket storage for Character Vault assets (`vault/`) and production deliverables (`releases/`). Zero media or vector payloads stored inline in database rows.
 
-### 5.3 Maintainability & Code Quality (RNF-MAINT)
+### 4.3 Maintainability & Code Quality (RNF-MAINT)
 
-- **RNF-MAINT-01 (Cognitive Complexity Ceiling):** No function exceeds 15 points of cognitive complexity in Biome.
-- **RNF-MAINT-02 (Router Line Ceiling):** No oRPC router or sub-router exceeds 300 lines of code.
-- **RNF-MAINT-03 (Zero Comments Rule):** Code files contain zero comments (`bun scripts/strip-comments.ts`).
-- **RNF-MAINT-04 (Monorepo Architectural Boundaries):** Dependency hierarchy strictly unidirectional (`bun run boundaries`).
+- **RNF-MAINT-01 (Cognitive Complexity Ceiling):** No function exceeds 15 points of cognitive complexity in static analysis.
+- **RNF-MAINT-02 (Router Line Ceiling):** No API router or sub-router exceeds 300 lines of code.
+- **RNF-MAINT-03 (Self-Documenting Code):** Clean Architecture, atomic functions, and strict type signatures replace unmaintained inline commentary.
+- **RNF-MAINT-04 (Architectural Boundaries):** Dependency hierarchy strictly unidirectional toward the pure domain kernel.
 
-### 5.4 Usability & Accessibility (RNF-USAB)
+### 4.4 Security & Data Governance (RNF-SEC)
 
-- **RNF-USAB-01 (WCAG 2.1 AA Compliance):** All interactive non-button elements declare `role="button"`, `tabIndex={0}`, and accessible keyboard handlers.
-- **RNF-USAB-02 (Zero Native `<img>` Tags):** Exclusive use of Next.js `Image` with descriptive `alt` text to eliminate Cumulative Layout Shift (CLS).
-- **RNF-USAB-03 (Safe Reconciliation):** Proscription of `key={index}` on mutable or sortable lists.
-
-### 5.5 Security & Data Governance (RNF-SEC)
-
-- **RNF-SEC-01 (Telemetry PII & Credential Scrubbing):** OpenTelemetry spans and log sinks scrub API keys (`sk-`, `Bearer `, `key-`), passwords, and emails.
-- **RNF-SEC-02 (C2PA AI Provenance):** Rendered video containers (`final.mp4`) support cryptographic C2PA manifest injection (JUMBF box).
-- **RNF-SEC-03 (Secure Object Access):** Media assets stored in private S3/MinIO buckets with short-lived presigned URLs and SSRF validation.
+- **RNF-SEC-01 (Telemetry PII & Credential Scrubbing):** Telemetry spans and log sinks scrub API keys, passwords, and sensitive user credentials.
+- **RNF-SEC-02 (AI Provenance & Attestation):** Rendered video containers (`final.mp4`) support cryptographic C2PA manifest injection for authenticity attestation.
+- **RNF-SEC-03 (Secure Object Access):** Media assets stored in private object storage with short-lived presigned URLs and SSRF validation.
 
 ---
 
-## 6. Bidirectional Traceability Matrix
+## 5. Bidirectional Traceability Matrix
 
-| Stakeholder / Business Need          | Requirement ID                                                  | Architecture Layer & Service Implementation                                                                                                                                                              | Quality Gate & Verification Suite                                                                          |
-| :----------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| **BR-01** (Performance UGC Ads)      | `RF-CORE-01`<br/>`RF-CORE-02`                                   | `apps/web/server/routers/creative.ts`<br/>`packages/ai/src/director/prompt-planner.ts`                                                                                                                   | Vitest: `apps/web/tests/create-presets-front2.test.ts`<br/>Gate: `bun run check:fallback-debt`             |
-| **BR-01** (Performance UGC Ads)      | `RF-FEAT-04`<br/>`RF-FEAT-05`                                   | `apps/web/services/video-export-service.ts`<br/>`lib/hook-audit.ts`                                                                                                                                      | Vitest: `apps/web/tests/features-editing-timeline-100.test.tsx`                                            |
-| **BR-02** (Agile Daily Publishing)   | `RF-CORE-06`<br/>`RF-CORE-07`<br/>`RF-CORE-08`                  | `services/video-composer.ts`<br/>`@wind/lib/ffmpeg-builder`<br/>`lib/subtitle-burn.ts`                                                                                                                   | Vitest: `packages/lib/src/tests/ffmpeg-builder.test.ts`<br/>Integration: `services/video-composer.test.ts` |
-| **BR-02** (Agile Daily Publishing)   | `RF-FEAT-01`                                                    | `SocialDistributionGateway` / `SocialPublishingPort`<br/>`services/distribution/postiz-publish-broker.ts` adapter<br/>`packages/db/src/repos/publish-record-repo.ts`                                     | Vitest: `apps/web/tests/publish-package.test.ts`<br/>Gate: `bun run boundaries`                            |
-| **BR-03** (Narrative Studio & Comic) | `RF-CORE-03`<br/>`RF-CORE-04`                                   | `FaceConsistencyEvaluator` (`services/cameo-evaluator.ts` adapter)<br/>`GenerativeWorkflowManifest` executor (`packages/ai/src/comfyui/client.ts` adapter)<br/>`packages/db/src/repos/character-repo.ts` | Vitest: `apps/web/tests/dashboard-modals-actions.test.tsx`<br/>Vitest: `cameo-evaluator.test.ts`           |
-| **BR-03** (Narrative Studio & Comic) | `RF-FEAT-02`<br/>`RF-FEAT-03`                                   | `apps/ws/src/index.ts` (`@wind/ws`)<br/>`NLEExportVisitor` / `NLEInterchangeFormat` (`packages/lib/src/aaf/builder.ts`)                                                                                  | Vitest: `packages/lib/src/tests/aaf-builder.test.ts`<br/>Gate: `bun run typecheck`                         |
-| **All Stakeholders**                 | `RNF-REL-01`<br/>`RNF-REL-02`<br/>`RNF-REL-04`<br/>`RNF-REL-07` | `@wind/lib/circuit-breaker`<br/>`services/saga/creation-saga-orchestrator.ts`<br/>Anti-Corruption Layer (ACL) Boundary Adapters                                                                          | Automated: `bun run check:fallback-debt`<br/>Vitest: `saga-orchestrator.test.ts`                           |
-| **All Stakeholders**                 | `RNF-PERF-01`<br/>`RNF-PERF-02`                                 | `packages/db/src/repos/*` (52 repositories)<br/>`@wind/worker/src/runner.ts`                                                                                                                             | Automated: `bun run check:orphan-surface`<br/>Inspection: Prisma query plan audit                          |
-| **All Stakeholders**                 | `RNF-MAINT-01`<br/>`RNF-MAINT-03`<br/>`RNF-MAINT-04`            | Monorepo architecture rules<br/>`apps/web/server/router.ts`                                                                                                                                              | Automated: `bun run format-and-lint`<br/>Automated: `bun scripts/strip-comments.ts`                        |
-| **All Stakeholders**                 | `RNF-SEC-01`<br/>`RNF-SEC-02`                                   | `@wind/telemetry/src/scrubber.ts`<br/>`@wind/lib/c2pa-manifest.ts`                                                                                                                                       | Vitest: `packages/telemetry/tests/scrubber.test.ts`<br/>Security gate: audit pass                          |
+| Stakeholder / Scientific Need        | Requirement ID                                                  | Architecture Layer & Core Domain Concept                                                                                                  | Verification Method & Quality Gate                                                         |
+| :----------------------------------- | :-------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
+| **BR-01** (Narrative Structuring)    | `RF-CORE-01`<br/>`RF-CORE-02`                                   | `CreativeIdeaSchema` (Domain Boundary)<br/>`IScriptingStrategy` (McKee, Direct-Response, Inverted Pyramid)                                | Schema Validation Suites & Dramatic Progression Heuristics                                 |
+| **BR-02** (Zero-Stitch Assembly)     | `RF-CORE-06`<br/>`RF-CORE-07`<br/>`RF-CORE-08`                  | `TimelineCompositionEngine`<br/>`FFmpegCommandBuilder`<br/>Dynamic Subtitle Compilation & Audio Ducking Engine                             | Automated Audio Transient Alignment ($\pm 150\text{ ms}$) & MP4 Container Probe Audit     |
+| **BR-03** (Biometric Visual Continuity)| `RF-CORE-03`<br/>`RF-CORE-04`                                 | `CharacterVault` Aggregate Root<br/>`FaceConsistencyEvaluator` & `CharacterIdentityLedger`<br/>`GenerativeWorkflowManifest` Execution Port | Biometric Embedding Cosine Similarity ($r \ge 0.75$) & Deterministic Latent Cache Verifier |
+| **All Dimensions**                   | `RF-CORE-05`                                                    | `VoiceProfile` & `VisemeAlignmentPort`<br/>`NeuralLipSyncEngine`                                                                           | Viseme-to-Phoneme Alignment Verification ($\le 100\text{ ms}$)                             |
+| **All Dimensions**                   | `RNF-REL-01`<br/>`RNF-REL-02`<br/>`RNF-REL-04`<br/>`RNF-REL-07` | Nygard Circuit Breakers<br/>Garcia-Molina Distributed Saga Orchestrator<br/>Anti-Corruption Layer (ACL) Perimeter Translation             | Fault-Injection Scenarios, Circuit State Transitions & Rollback Compensation Suites       |
+| **All Dimensions**                   | `RNF-REL-05`<br/>`RNF-REL-06`                                   | Two-Phase Financial Hold (`credit_holds`)<br/>Micro-Shot Deterministic Hash Cache                                                          | Concurrent Hold Stress Tests & Idempotent Resumption Audit                                 |
+| **All Dimensions**                   | `RNF-PERF-01`<br/>`RNF-PERF-04`                                 | Relational Normalized Schema (No Monolithic Blobs)<br/>3-Tier CAS Storage Lifecycle (`scratch/`, `vault/`, `releases/`)                   | Query Plan Inspection (Zero N+1) & Storage TTL Automated Sweep Validation                  |
+| **All Dimensions**                   | `RNF-MAINT-01`<br/>`RNF-MAINT-04`                               | Pure Domain Kernel (`@wind/domain`)<br/>Application Use Cases (`@wind/engine`)                                                            | Static Boundary Linter & Cognitive Complexity Metric ($\le 15$)                            |
+| **All Dimensions**                   | `RNF-SEC-01`<br/>`RNF-SEC-02`                                   | Telemetry Data Scrubber<br/>C2PA Provenance Manifest Generator                                                                             | Security Redaction Audit & JUMBF Box Metadata Verification                                 |
