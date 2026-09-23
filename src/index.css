@@ -127,15 +127,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .liquid-btn {
   border-radius: 9999px;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   font-weight: 700;
   cursor: pointer;
   user-select: none;
   outline: none;
   text-decoration: none;
-  transform: translateY(0) scale(1);
-  backface-visibility: hidden;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.2s ease,
               border-color 0.2s ease,
@@ -153,62 +151,60 @@ h1, h2, h3, h4, h5, h6 {
 
 .liquid-btn-prominent-glass,
 .liquid-btn-primary {
-  background: rgba(2, 132, 199, 0.12);
-  border: 1px solid rgba(2, 132, 199, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(2, 132, 199, 0.40);
   color: #0284c7;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 4px 16px -2px rgba(2, 132, 199, 0.20);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .liquid-btn-prominent-glass:hover,
 .liquid-btn-primary:hover {
-  background: rgba(2, 132, 199, 0.20);
+  background: rgba(2, 132, 199, 0.15);
   border-color: rgba(2, 132, 199, 0.60);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 6px 24px -2px rgba(2, 132, 199, 0.35);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(2, 132, 199, 0.20);
 }
 
 .dark .liquid-btn-prominent-glass,
 .dark .liquid-btn-primary {
-  background: rgba(0, 242, 254, 0.12);
-  border: 1px solid rgba(0, 242, 254, 0.35);
+  background: rgba(18, 18, 26, 0.35);
+  border: 1px solid rgba(0, 242, 254, 0.40);
   color: #00f2fe;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25), 0 4px 20px -2px rgba(0, 242, 254, 0.25);
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 .dark .liquid-btn-prominent-glass:hover,
 .dark .liquid-btn-primary:hover {
-  background: rgba(0, 242, 254, 0.20);
+  background: rgba(0, 242, 254, 0.15);
   border-color: rgba(0, 242, 254, 0.60);
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.35), 0 6px 28px -2px rgba(0, 242, 254, 0.40);
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25), 0 10px 15px -3px rgba(0, 242, 254, 0.25);
 }
 
 .liquid-btn-glass,
 .liquid-btn-secondary {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--card-border);
   color: var(--text-color);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .liquid-btn-glass:hover,
 .liquid-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--glass-tint-hover);
   border-color: rgba(2, 132, 199, 0.40);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 4px 16px -2px rgba(2, 132, 199, 0.15);
 }
 
 .dark .liquid-btn-glass,
 .dark .liquid-btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 26, 0.35);
+  border: 1px solid var(--card-border);
   color: var(--text-color);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 12px 0 rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 .dark .liquid-btn-glass:hover,
 .dark .liquid-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--glass-tint-hover);
   border-color: rgba(0, 242, 254, 0.40);
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25), 0 0 16px -2px rgba(0, 242, 254, 0.25);
 }
 
 .liquid-btn-clear-glass,

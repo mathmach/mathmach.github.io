@@ -27,10 +27,10 @@ export const LIQUID_GLASS_CONFIG: Record<GlassPreset, GlassStyleConfig> = {
     borderWidth: 1,
   },
   button: {
-    backgroundOpacity: 0.25,
-    blur: 16,
+    backgroundOpacity: 0.35,
+    blur: 24,
     saturation: 1.8,
-    brightness: 1.06,
+    brightness: 1.04,
     borderRadius: 9999,
     borderWidth: 1,
   },
