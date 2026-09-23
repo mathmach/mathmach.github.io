@@ -36,6 +36,7 @@ Every agent and developer working on this codebase must strictly adhere to the a
 3. **Strict Quality Ratchets (`docs/architecture/engineering-quality-and-invariants.md`):**
    - **Zero Fallback Debt:** Enforce all 7 golden rules (no `.catch(value)` masking, no `safeParse().data ?? fallback`, no `env.VAR ?? fallback`, no unvalidated `process.env`).
    - **Zero Orphan Surfaces:** No uncalled procedures, dangling exports, or dead code.
+   - **Zero Knowledge Duplication (DRY):** Every domain rule, validation predicate, type contract, and constant must have exactly one canonical definition. Zero Type-1/Type-2 clones.
    - **Cognitive Complexity Ceiling:** Functions must not exceed 15 points of cognitive complexity.
    - **Coverage Floor Ratchet:** Automated test coverage can only ratchet upward.
 

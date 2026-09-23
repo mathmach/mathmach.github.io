@@ -18,6 +18,33 @@
     <!-- Modern SVG Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23050505'/><path d='M8 23V9l8 8 8-8v14h-3.5V14.5L16 19l-4.5-4.5V23H8z' fill='%2300f2fe'/></svg>" />
     
+    <script>
+      (function() {
+        try {
+          document.documentElement.classList.add('no-transition');
+          var storedTheme = localStorage.getItem('theme');
+          var isDark = storedTheme ? storedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          var storedLang = localStorage.getItem('lang');
+          if (storedLang) {
+            document.documentElement.lang = storedLang;
+          } else {
+            var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+            for (var i = 0; i < langs.length; i++) {
+              var l = (langs[i] || '').toLowerCase();
+              if (l.indexOf('pt') === 0) { document.documentElement.lang = 'pt'; break; }
+              if (l.indexOf('es') === 0) { document.documentElement.lang = 'es'; break; }
+              if (l.indexOf('en') === 0) { document.documentElement.lang = 'en'; break; }
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>

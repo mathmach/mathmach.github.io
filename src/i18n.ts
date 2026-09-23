@@ -37,7 +37,6 @@ export const translations = {
       title: 'Building Resilient Systems.',
       subtitle: "Hello, I'm Matheus Machado, a Senior Software Engineer with over 8 years of experience in distributed and mission-critical systems across finance, agriculture, and telecommunications. Expertise in Node.js, Java (Spring), SQL/NoSQL, and GenAI integration.",
       cta: 'View Career Journey',
-      dragHint: 'Drag to rotate 3D studio',
       stats: [
         { value: '8+ Years', label: 'Production Engineering' },
         { value: '3 Tier-1 Banks', label: 'Santander, BB & Itaú' },
@@ -178,6 +177,7 @@ export const translations = {
     },
     docs: {
       title: 'Academic & Knowledge Base',
+      subtitle: 'Formal catalog of software architecture, distributed systems, and theoretical foundations with specifications and estimated reading times.',
       c1: {
         title: 'Academic Background & Certifications',
         items: [
@@ -198,6 +198,14 @@ export const translations = {
         ]
       }
     },
+    docsReader: {
+      searchPlaceholder: 'Search architecture topics...',
+      archTitle: 'ARCHITECTURE',
+      foundationTitle: 'FOUNDATION',
+      standard: 'STANDARD',
+      loading: 'Loading document...',
+      topicsBtn: 'Browse Topics',
+    },
     contact: {
       title: 'Ready to build something extraordinary?',
       desc: "Always open to discussing system architecture, distributed networks, or GenAI integrations.",
@@ -217,7 +225,6 @@ export const translations = {
       title: 'Construindo Sistemas Resilientes.',
       subtitle: 'Olá, eu sou Matheus Machado, Engenheiro de Software Sênior com mais de 8 anos de experiência no desenvolvimento, evolução e sustentação de sistemas distribuídos e de missão crítica nos setores financeiro, agrícola e de telecomunicações. Especialista em Node.js, Java (Spring), SQL/NoSQL e integração GenAI.',
       cta: 'Ver Trajetória Profissional',
-      dragHint: 'Arraste para girar o estúdio 3D',
       stats: [
         { value: '8+ Anos', label: 'Engenharia em Produção' },
         { value: '3 Grandes Bancos', label: 'Santander, BB & Itaú' },
@@ -358,6 +365,7 @@ export const translations = {
     },
     docs: {
       title: 'Formação Acadêmica & Conhecimento',
+      subtitle: 'Catálogo formal de arquitetura, sistemas distribuídos e fundamentos teóricos com especificações e tempos de leitura estimados.',
       c1: {
         title: 'Formação & Certificações',
         items: [
@@ -378,6 +386,14 @@ export const translations = {
         ]
       }
     },
+    docsReader: {
+      searchPlaceholder: 'Buscar tópicos de arquitetura...',
+      archTitle: 'ARQUITETURA',
+      foundationTitle: 'FUNDAMENTOS',
+      standard: 'PADRÃO',
+      loading: 'Carregando documento...',
+      topicsBtn: 'Navegar por Tópicos',
+    },
     contact: {
       title: 'Pronto para criar algo extraordinário?',
       desc: "Sempre aberto para discutir arquitetura de sistemas, redes distribuídas ou contratação para projetos de alta criticidade.",
@@ -397,7 +413,6 @@ export const translations = {
       title: 'Construyendo Sistemas Resilientes.',
       subtitle: 'Hola, soy Matheus Machado, Ingeniero de Software Senior con más de 8 años de experiencia en desarrollo, evolución y soporte de sistemas distribuidos y críticos en finanzas, agricultura y telecomunicaciones. Especialista en Node.js, Java (Spring), SQL/NoSQL y GenAI.',
       cta: 'Ver Trayectoria Profesional',
-      dragHint: 'Arrastra para rotar el estudio 3D',
       stats: [
         { value: '8+ Años', label: 'Ingeniería en Producción' },
         { value: '3 Grandes Bancos', label: 'Santander, BB & Itaú' },
@@ -538,6 +553,7 @@ export const translations = {
     },
     docs: {
       title: 'Formación Académica & Conocimiento',
+      subtitle: 'Catálogo formal de arquitectura, sistemas distribuidos y fundamentos teóricos con especificaciones y tiempos de lectura estimados.',
       c1: {
         title: 'Formación & Certificaciones',
         items: [
@@ -557,6 +573,14 @@ export const translations = {
           'Recuperación de Bases de Datos y WAL (B+ Tree, LSM, ARIES WAL)'
         ]
       }
+    },
+    docsReader: {
+      searchPlaceholder: 'Buscar temas de arquitectura...',
+      archTitle: 'ARQUITECTURA',
+      foundationTitle: 'FUNDAMENTOS',
+      standard: 'ESTÁNDAR',
+      loading: 'Cargando documento...',
+      topicsBtn: 'Explorar Temas',
     },
     contact: {
       title: '¿Listo para construir algo extraordinario?',

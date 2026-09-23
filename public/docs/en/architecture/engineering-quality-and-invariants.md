@@ -167,4 +167,3 @@ This converges to $1.0$ rapidly, making duplication an inevitable source of defe
 | Scattered literal constants | Typed constant module or validated env schema |
 | Duplicated test object construction | Builder pattern or shared fixture factory |
 | Cross-layer mapping logic | Dedicated mapper/adapter with single ownership |
-
