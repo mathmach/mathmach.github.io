@@ -40,6 +40,9 @@ function parseMarkdownWithMath(markdown: string): string {
 
   html = html.replace(/%%MATH_BLOCK_(\d+)%%/g, (_, id) => mathPlaceholders[Number(id)] || '');
   html = html.replace(/%%MATH_INLINE_(\d+)%%/g, (_, id) => mathPlaceholders[Number(id)] || '');
+  html = html.replace(/<table(?:\s+[^>]*)?>[\s\S]*?<\/table>/gi, (match) => {
+    return `<div class="docs-table-wrapper custom-scrollbar">${match}</div>`;
+  });
 
   return html;
 }
@@ -291,7 +294,7 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
           </div>
 
           
-          <div className="flex-1 overflow-y-auto max-h-[550px] lg:max-h-[620px] pr-2 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 max-w-full max-h-[550px] lg:max-h-[620px] pr-2 custom-scrollbar">
             {loading && (
               <div className="flex flex-col items-center justify-center h-64 gap-3 text-muted">
                 <Loader2 size={24} className="animate-spin text-[var(--accent)]" />
@@ -309,7 +312,7 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
             {!loading && !error && renderedHtml && (
               <article
                 ref={articleRef}
-                className="docs-markdown"
+                className="docs-markdown min-w-0 max-w-full"
                 dangerouslySetInnerHTML={{ __html: renderedHtml }}
               />
             )}

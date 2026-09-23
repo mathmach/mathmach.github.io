@@ -337,7 +337,10 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--card-border) transparent;
+}
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -426,30 +429,45 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
   font-weight: 600;
 }
+.docs-table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  border: 1px solid var(--card-border);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+}
+.docs-table-wrapper table,
 .docs-markdown table {
   width: 100%;
+  min-width: 580px;
   border-collapse: collapse;
-  margin: 1.25rem 0;
+  margin: 0;
   font-size: 0.8125rem;
-  border: 1px solid var(--card-border);
-  border-radius: 0.5rem;
-  overflow: hidden;
+  border: none;
 }
 .docs-markdown th {
   background: var(--card-bg);
-  padding: 0.625rem 0.875rem;
+  padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 700;
   border-bottom: 1px solid var(--card-border);
   color: var(--text-color);
+  white-space: nowrap;
 }
 .docs-markdown td {
-  padding: 0.625rem 0.875rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--card-border);
   color: var(--text-muted);
+  line-height: 1.6;
 }
 .docs-markdown tr:last-child td {
   border-bottom: none;
+}
+.docs-markdown tbody tr:hover {
+  background: var(--glass-tint-hover);
 }
 .docs-markdown code:not(pre code) {
   font-family: monospace;
