@@ -66,6 +66,39 @@ Conforme formulado por Barry Boehm (1981):
 - **Validação:** *"Estamos construindo o produto certo?"*  
   Avalia se o sistema realizado atinge seu propósito pretendido, satisfaz as necessidades reais dos stakeholders e resolve o problema do mundo real em seu contexto operacional.
 
+### 2.2 Model-Based Systems Engineering (MBSE) & OMG UML 2.5.1
+A Engenharia de Sistemas Baseada em Modelos (MBSE), padronizada pelo **INCOSE Systems Engineering Handbook** e pela norma **ISO/IEC/IEEE 15288:2023**, substitui especificações textuais ambíguas por modelos diagramáticos formais e semanticamente integrados. O planejamento baseado em diagramas opera como o instrumento primário para os processos de *System Architecture Definition* e *Design Definition* antes da implementação.
+
+Sob a norma **OMG UML 2.5.1 (ISO/IEC 19505:2012)**, a modelagem é particionada em formalismos complementares estruturais e comportamentais:
+- **Blueprints Estruturais:** Diagramas de Classes, Pacotes, Componentes e Implantação (Deployment). Ancorados no princípio de **Information Hiding de David Parnas (1972)**, a modelagem estrutural decompõe o sistema em módulos coesos onde segredos de implementação ficam encapsulados atrás de fronteiras de interface estritas.
+- **Dinâmica Comportamental & Contratos Formais:** Diagramas de Sequência, Máquina de Estados e Atividades. Invariantes, transições de estado e fluxos de mensagens são regidos por **Design by Contract (Bertrand Meyer, 1988)** e pela **Object Constraint Language (OMG OCL / ISO/IEC 19507)**, especificando pré-condições ($pre$), pós-condições ($post$) e invariantes de estado matemáticos entre as operações.
+
+#### Modelo de Visões Arquiteturais "4+1" de Kruchten
+Philippe Kruchten (1995, *IEEE Software*) estabeleceu o padrão canônico para organização de modelos arquiteturais, abordando as preocupações de diferentes stakeholders através de cinco visões interconectadas:
+
+```mermaid
+flowchart TD
+    UC["+1 Cenários e Casos de Uso (Validação Sistêmica Ponta a Ponta)"]
+    LV["1. Visão Lógica: Diagramas de Classes UML (Entidades e Contratos)"]
+    PV["2. Visão de Processo: Diagramas de Sequência UML (Concorrência e Vazão)"]
+    DV["3. Visão de Desenvolvimento: Diagramas de Componentes UML (Pacotes e Módulos)"]
+    PhV["4. Visão Física: Diagramas de Implantação UML (Nós e Topologia)"]
+
+    UC --> LV
+    UC --> PV
+    UC --> DV
+    UC --> PhV
+
+    LV -.-> DV
+    PV -.-> PhV
+```
+
+1. **Visão Lógica (Modelo de Objetos de Design):** Captura requisitos funcionais, fronteiras de domínio e serviços conceituais. Representada por Diagramas de Classes e Objetos UML.
+2. **Visão de Processo (Concorrência & Sincronização):** Trata requisitos não funcionais como concorrência, threads de execução, mecanismos de comunicação e orçamentos de latência. Representada por Diagramas de Sequência, Atividades e Máquina de Estados UML.
+3. **Visão de Desenvolvimento (Organização Modular do Software):** Define a estrutura de código, hierarquia de pacotes, camadas internas e dependências de compilação. Representada por Diagramas de Pacotes e Componentes UML.
+4. **Visão Física (Implantação & Topologia):** Mapeia componentes de software em nós computacionais, clusters de servidores, malhas de rede e nuvem. Representada por Diagramas de Implantação (Deployment) UML.
+5. **+1 Cenários (Casos de Uso Operacionais):** Jornadas operacionais reais que validam e integram as outras quatro visões, assegurando que a arquitetura holística satisfaça as missões de negócio. Representada por Diagramas de Casos de Uso UML.
+
 ---
 
 ## 3. Taxonomia de Confiabilidade & Tolerância a Falhas

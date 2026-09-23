@@ -242,46 +242,132 @@ export function LiquidEffectAnimation({
     const pendingDrops: Array<{ x: number; y: number; radius: number; strength: number }> = []
 
     const addDrop = (x: number, y: number, radius = 0.035, strength = 0.02) => {
+      if (pendingDrops.length > 12) {
+        pendingDrops.shift()
+      }
       pendingDrops.push({ x, y, radius, strength })
     }
 
+    let isDown = false
     let lastX = -1
     let lastY = -1
+    let lastDownX = -1
+    let lastDownY = -1
     let lastTime = 0
+    let lastDownTime = 0
 
-    const handlePointerMove = (e: PointerEvent) => {
+    const updatePointer = (clientX: number, clientY: number, pressed: boolean) => {
       const rect = canvas.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width
-      const y = 1.0 - (e.clientY - rect.top) / rect.height
+      if (rect.width <= 0 || rect.height <= 0) return
+      const x = (clientX - rect.left) / rect.width
+      const y = 1.0 - (clientY - rect.top) / rect.height
 
       const now = performance.now()
       const dist = Math.hypot(x - lastX, y - lastY)
+      const minDist = pressed ? 0.003 : 0.008
+      const minInterval = pressed ? 25 : 60
 
-      if (dist > 0.008 || (dist > 0.002 && now - lastTime > 60)) {
+      if (lastX < 0 || dist > minDist || (dist > 0.001 && now - lastTime > minInterval)) {
         lastX = x
         lastY = y
         lastTime = now
-        addDrop(x, y, 0.03 + Math.min(dist * 0.5, 0.02), 0.015 + Math.min(dist * 0.4, 0.03))
+        const radius = pressed ? 0.045 + Math.min(dist * 0.5, 0.03) : 0.03 + Math.min(dist * 0.5, 0.02)
+        const strength = pressed ? 0.035 + Math.min(dist * 0.4, 0.04) : 0.015 + Math.min(dist * 0.4, 0.03)
+        addDrop(x, y, radius, strength)
       }
     }
 
-    const handlePointerDown = (e: PointerEvent) => {
+    const triggerDown = (clientX: number, clientY: number) => {
       const rect = canvas.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width
-      const y = 1.0 - (e.clientY - rect.top) / rect.height
+      if (rect.width <= 0 || rect.height <= 0) return
+      const x = (clientX - rect.left) / rect.width
+      const y = 1.0 - (clientY - rect.top) / rect.height
+      const now = performance.now()
+
+      if (now - lastDownTime < 50 && Math.hypot(x - lastDownX, y - lastDownY) < 0.01) {
+        return
+      }
+
+      isDown = true
+      lastX = x
+      lastY = y
+      lastDownX = x
+      lastDownY = y
+      lastTime = now
+      lastDownTime = now
       addDrop(x, y, 0.05, 0.06)
+    }
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const pressed = isDown || e.buttons !== 0
+      updatePointer(e.clientX, e.clientY, pressed)
+    }
+
+    const handlePointerDown = (e: PointerEvent) => {
+      triggerDown(e.clientX, e.clientY)
+    }
+
+    const handlePointerUp = () => {
+      isDown = false
+    }
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        triggerDown(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        isDown = true
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY, true)
+      }
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 0) {
+        isDown = false
+      }
+    }
+
+    const handleDragOver = (e: DragEvent) => {
+      isDown = true
+      updatePointer(e.clientX, e.clientY, true)
+    }
+
+    const handleDragEnd = () => {
+      isDown = false
+    }
+
+    const handleMouseUp = () => {
+      isDown = false
+    }
+
+    const handleBlur = () => {
+      isDown = false
     }
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true })
     window.addEventListener("pointerdown", handlePointerDown, { passive: true })
+    window.addEventListener("pointerup", handlePointerUp, { passive: true })
+    window.addEventListener("touchstart", handleTouchStart, { passive: true })
+    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+    window.addEventListener("touchend", handleTouchEnd, { passive: true })
+    window.addEventListener("touchcancel", handleTouchEnd, { passive: true })
+    window.addEventListener("dragover", handleDragOver, { passive: true })
+    window.addEventListener("dragend", handleDragEnd, { passive: true })
+    window.addEventListener("mouseup", handleMouseUp, { passive: true })
+    window.addEventListener("blur", handleBlur)
 
     let lastRainTime = 0
 
-    const animate = (time: number) => {
+    const animate = () => {
       if (disposed) return
 
-      if (rain && time - lastRainTime > 120) {
-        lastRainTime = time
+      const now = performance.now()
+
+      if (rain && now - lastRainTime > 120) {
+        lastRainTime = now
         addDrop(Math.random(), Math.random(), 0.02 + Math.random() * 0.015, 0.01 + Math.random() * 0.015)
       }
 
@@ -329,6 +415,15 @@ export function LiquidEffectAnimation({
       window.removeEventListener("resize", resize)
       window.removeEventListener("pointermove", handlePointerMove)
       window.removeEventListener("pointerdown", handlePointerDown)
+      window.removeEventListener("pointerup", handlePointerUp)
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchend", handleTouchEnd)
+      window.removeEventListener("touchcancel", handleTouchEnd)
+      window.removeEventListener("dragover", handleDragOver)
+      window.removeEventListener("dragend", handleDragEnd)
+      window.removeEventListener("mouseup", handleMouseUp)
+      window.removeEventListener("blur", handleBlur)
 
       const imageTex = displayMaterial.uniforms.uImage.value
       if (imageTex) imageTex.dispose()

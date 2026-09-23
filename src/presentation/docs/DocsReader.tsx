@@ -151,10 +151,10 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
             <span className="text-xs font-semibold line-clamp-2 leading-snug">{selectedDoc.title}</span>
           </div>
           <LiquidButton
-            variant="glass"
+            variant="prominentGlass"
             size="sm"
             onClick={() => setMobileDrawerOpen(!mobileDrawerOpen)}
-            className="shrink-0 gap-1.5 whitespace-nowrap"
+            className="shrink-0 gap-1.5 whitespace-nowrap font-semibold shadow-none"
           >
             {mobileDrawerOpen ? <X size={14} /> : <Menu size={14} />}
             <span>{uiText.topicsBtn}</span>

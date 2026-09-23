@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <title>Matheus Duarte | Senior Systems Architect & Software Engineer</title>
-    <meta name="description" content="Senior Software Engineer with 8+ years of production experience in distributed, mission-critical systems across banking (Santander, Itaú, Banco do Brasil), agriculture, and GenAI." />
+    <meta name="description" content="Senior Software Engineer with 10+ years of production experience in distributed, mission-critical systems across banking (Santander, Itaú, Banco do Brasil), agriculture, and GenAI." />
     <meta name="author" content="Matheus Machado Guerzoni Duarte" />
     <meta name="keywords" content="Systems Architecture, Distributed Systems, Clean Architecture, SOLID, GoF, Node.js, Java Spring, Microservices, GenAI, AST Grounding" />
     
@@ -40,6 +40,11 @@
               if (l.indexOf('es') === 0) { document.documentElement.lang = 'es'; break; }
               if (l.indexOf('en') === 0) { document.documentElement.lang = 'en'; break; }
             }
+          }
+          var expYears = Math.max(0, new Date().getFullYear() - 2016);
+          var metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) {
+            metaDesc.setAttribute('content', 'Senior Software Engineer with ' + expYears + '+ years of production experience in distributed, mission-critical systems across banking (Santander, Itaú, Banco do Brasil), agriculture, and GenAI.');
           }
         } catch (e) {}
       })();

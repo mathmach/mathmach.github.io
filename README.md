@@ -9,7 +9,7 @@
 
 This repository serves as the personal portfolio, virtual executive resume, and professional engineering knowledge base of **Matheus Machado Guerzoni Duarte**.
 
-With **over 8 years of production experience**, Matheus specializes in the architecture, evolution, and support of distributed, mission-critical systems across the **financial, agricultural, and telecommunications** sectors. He has engineered scalable microservices, high-stakes APIs, and geospatial monitoring pipelines for leading institutions, including **Santander LATAM, Banco do Brasil, and Itaú**.
+With **over 10+ years of production experience (since 2016)**, Matheus specializes in the architecture, evolution, and support of distributed, mission-critical systems across the **financial, agricultural, and telecommunications** sectors. He has engineered scalable microservices, high-stakes APIs, and geospatial monitoring pipelines for leading institutions, including **Santander LATAM, Banco do Brasil, and Itaú**.
 
 ### Key Highlights
 - **Production Provenance:** Enterprise delivery across credit ecosystems (Auto financing Santander LATAM), nationwide agricultural risk monitoring (Audsat), and financial market intelligence (Anbima Data).

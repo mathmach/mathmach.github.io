@@ -66,6 +66,39 @@ As formulated by Barry Boehm (1981):
 - **Validation:** *"Are we building the right product?"*  
   Evaluates whether the realized system accomplishes its intended purpose, satisfies genuine stakeholder needs, and resolves the real-world problem in its operational context.
 
+### 2.2 Model-Based Systems Engineering (MBSE) & OMG UML 2.5.1
+Model-Based Systems Engineering (MBSE), standardized by the **INCOSE Systems Engineering Handbook** and **ISO/IEC/IEEE 15288:2023**, replaces ambiguous textual specifications with formal, semantically unified diagrammatic models. Diagrammatic planning operates as the primary instrument for the *System Architecture Definition* and *Design Definition* processes before implementation.
+
+Under **OMG UML 2.5.1 (ISO/IEC 19505:2012)**, modeling is partitioned into complementary structural and behavioral formalisms:
+- **Structural Blueprints:** Class, Package, Component, and Deployment diagrams. Anchored in David Parnas's principle of **Information Hiding (1972)**, structural modeling partitions systems into cohesive modules where implementation secrets are hidden behind unyielding interface boundaries.
+- **Behavioral Dynamics & Formal Contracts:** Sequence, State Machine, and Activity diagrams. Invariants, state transitions, and messaging flows are bound by **Design by Contract (Bertrand Meyer, 1988)** and the **Object Constraint Language (OMG OCL / ISO/IEC 19507)**, specifying mathematical preconditions ($pre$), postconditions ($post$), and state invariants across operations.
+
+#### Kruchten's "4+1" Architectural View Model
+Philippe Kruchten (1995, *IEEE Software*) established the canonical standard for organizing architectural models by addressing distinct stakeholder concerns through five interconnected views:
+
+```mermaid
+flowchart TD
+    UC["+1 Scenarios and Use Cases (End-to-End Systemic Validation)"]
+    LV["1. Logical View: UML Class Diagrams (Domain Entities and Contracts)"]
+    PV["2. Process View: UML Sequence Diagrams (Concurrency and Throughput)"]
+    DV["3. Development View: UML Component Diagrams (Packages and Modules)"]
+    PhV["4. Physical View: UML Deployment Diagrams (Nodes and Networks)"]
+
+    UC --> LV
+    UC --> PV
+    UC --> DV
+    UC --> PhV
+
+    LV -.-> DV
+    PV -.-> PhV
+```
+
+1. **Logical View (Design Object Model):** Captures functional requirements, domain boundaries, and conceptual services. Represented via UML Class and Object diagrams.
+2. **Process View (Concurrency & Synchronization):** Addresses non-functional requirements such as concurrency, execution threads, communication mechanisms, and latency budgets. Represented via UML Sequence, Activity, and State Machine diagrams.
+3. **Development View (Software Module Organization):** Defines code structure, package hierarchies, internal layering, and build dependencies. Represented via UML Package and Component diagrams.
+4. **Physical View (Deployment & Topology):** Details mapping of software components to compute nodes, server clusters, network fabrics, and cloud environments. Represented via UML Deployment diagrams.
+5. **+1 Scenarios (Operational Use Cases):** Ground truth operational journeys that validate and tie together the other four views, ensuring the holistic architecture satisfies business missions. Represented via UML Use Case diagrams.
+
 ---
 
 ## 3. Dependability & Fault-Tolerance Taxonomy

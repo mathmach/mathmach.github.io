@@ -25,7 +25,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       id: "gof",
       category: "Architecture",
       title: "Gang of Four (GoF) Patterns",
-      subtitle: "Canonical Adoption across Creational, Structural & Behavioral",
+      subtitle: "Creational, Structural & Behavioral Software Patterns",
       file: "architecture/gof-design-patterns.md",
       readTime: "12 min",
       highlights: ["23 GoF Design Patterns", "Anti-Pattern Invariants", "Factory / Strategy / Decorator", "Zero Ad-Hoc Instantiation"]
@@ -42,7 +42,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "hexagonal",
       category: "Architecture",
-      title: "Hexagonal Ports & Adapters",
+      title: "Hexagonal Architecture (Ports & Adapters)",
       subtitle: "Driver & Driven Isolation for Production Resilience",
       file: "architecture/hexagonal-ports-and-adapters.md",
       readTime: "8 min",
@@ -69,11 +69,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "database-internals",
       category: "Architecture",
-      title: "Database Internals & Transactions",
-      subtitle: "Storage Engines, ARIES WAL & Isolation Anomalies",
+      title: "Database Internals, Relational Theory & Transactions",
+      subtitle: "Codd Algebra, Schema DDL/DML, Storage Engines & ARIES WAL",
       file: "architecture/database-internals-and-transaction-theory.md",
-      readTime: "10 min",
-      highlights: ["B+ Tree vs. LSM-Tree Asymptotics", "ARIES Recovery Protocol", "ANSI SQL Anomaly Critique (Berenson 1995)", "PACELC Theorem (Abadi 2012)"]
+      readTime: "12 min",
+      highlights: ["Codd Relational Model & Completeness", "Chen ERD & Normalization (1NF–BCNF)", "Declarative DDL vs. DML Operators", "B+ Tree vs. LSM-Tree Asymptotics", "ARIES Recovery Protocol", "Isolation Anomalies & SSI"]
     },
     {
       id: "observability",
@@ -82,7 +82,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       subtitle: "Distributed Telemetry, 4 Golden Signals & Quantitative Reliability",
       file: "architecture/observability-and-evidence-based-decisions.md",
       readTime: "9 min",
-      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Golden Signals & RED/USE", "Tail-Based Sampling", "SLI/SLO Error Budgets", "Automated Canary", "Blameless Post-Mortems"]
+      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Golden Signals & RED/USE", "Tail-Based Sampling", "SLI/SLO Error Budgets (Service Level)", "Automated Canary", "Blameless Post-Mortems"]
     },
     {
       id: "engineering-quality",
@@ -105,11 +105,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "systems-engineering",
       category: "Foundation",
-      title: "Systems Engineering & Dependability",
-      subtitle: "Lifecycle Standards, V&V Formalism & Pugh Selection",
+      title: "Systems Engineering, MBSE & Dependability",
+      subtitle: "ISO 15288 Lifecycle, OMG UML 2.5, Kruchten 4+1 & V&V Formalism",
       file: "foundation/systems-engineering-and-dependability.md",
-      readTime: "12 min",
-      highlights: ["ISO/IEC/IEEE 15288:2023", "Boehm Verification vs. Validation (1981)", "Pugh Controlled Convergence", "Avizienis Fault/Error/Failure Taxonomy"]
+      readTime: "14 min",
+      highlights: ["ISO/IEC/IEEE 15288:2023", "Model-Based Systems Engineering (MBSE)", "OMG UML 2.5 & Kruchten 4+1 View", "Parnas Information Hiding & OCL", "Boehm Verification vs. Validation", "Avizienis Fault/Error/Failure Taxonomy"]
     },
     {
       id: "complexity",
@@ -153,7 +153,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       id: "gof",
       category: "Architecture",
       title: "Padrões Gang of Four (GoF)",
-      subtitle: "Adoção Canônica em Criacionais, Estruturais & Comportamentais",
+      subtitle: "Padrões Criacionais, Estruturais & Comportamentais de Software",
       file: "architecture/gof-design-patterns.md",
       readTime: "12 min",
       highlights: ["23 Padrões GoF", "Invariantes Anti-Pattern", "Factory / Strategy / Decorator", "Zero Instanciação Ad-Hoc"]
@@ -170,7 +170,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "hexagonal",
       category: "Architecture",
-      title: "Portas & Adaptadores Hexagonais",
+      title: "Arquitetura Hexagonal (Portas & Adaptadores)",
       subtitle: "Isolamento Driver & Driven para Resiliência em Produção",
       file: "architecture/hexagonal-ports-and-adapters.md",
       readTime: "8 min",
@@ -197,11 +197,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "database-internals",
       category: "Architecture",
-      title: "Internals de Bancos de Dados & Transações",
-      subtitle: "Mecanismos de Armazenamento, ARIES WAL & Anomalias de Isolamento",
+      title: "Internals de Bancos de Dados, Teoria Relacional & Transações",
+      subtitle: "Álgebra de Codd, Schemas DDL/DML, Storage Engines & ARIES WAL",
       file: "architecture/database-internals-and-transaction-theory.md",
-      readTime: "10 min",
-      highlights: ["Assintótica B+ Tree vs. LSM-Tree", "Protocolo de Recuperação ARIES", "Crítica a Anomalias ANSI SQL (Berenson 1995)", "Teorema PACELC (Abadi 2012)"]
+      readTime: "12 min",
+      highlights: ["Modelo Relacional de Codd & Completude", "Chen ERD & Normalização (1NF–BCNF)", "Operadores Declarativos DDL vs. DML", "Assintótica B+ Tree vs. LSM-Tree", "Protocolo de Recuperação ARIES", "Anomalias de Isolamento & SSI"]
     },
     {
       id: "observability",
@@ -210,7 +210,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       subtitle: "Telemetria Distribuída, 4 Sinais Dourados & Confiabilidade Quantitativa",
       file: "architecture/observability-and-evidence-based-decisions.md",
       readTime: "9 min",
-      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Sinais Dourados & RED/USE", "Tail-Based Sampling", "Orçamentos de Erro SLI/SLO", "Canary Automatizado", "Post-Mortems Sem Culpa"]
+      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Sinais Dourados & RED/USE", "Tail-Based Sampling", "Orçamentos de Erro SLI/SLO (Metas de Serviço)", "Canary Automatizado", "Post-Mortems Sem Culpa"]
     },
     {
       id: "engineering-quality",
@@ -219,7 +219,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       subtitle: "Catracas de Qualidade, Tetos Cognitivos & Dívida de Fallback",
       file: "architecture/engineering-quality-and-invariants.md",
       readTime: "7 min",
-      highlights: ["Zero Fallback Debt (7 Regras de Ouro)", "Zero Superfícies Órfãs", "Teto de Complexidade Cognitiva <= 15", "Catraca de Cobertura de Testes"]
+      highlights: ["Zero Dívida de Fallbacks (7 Regras de Ouro)", "Zero Superfícies Órfãs", "Teto de Complexidade Cognitiva <= 15", "Catraca de Cobertura de Testes"]
     },
     {
       id: "persistence-cas",
@@ -233,11 +233,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "systems-engineering",
       category: "Foundation",
-      title: "Engenharia de Sistemas & Confiabilidade",
-      subtitle: "Padrões de Ciclo de Vida, Formalismo V&V & Seleção de Pugh",
+      title: "Engenharia de Sistemas, MBSE & Confiabilidade",
+      subtitle: "Ciclo de Vida ISO 15288, OMG UML 2.5, Kruchten 4+1 & Formalismo V&V",
       file: "foundation/systems-engineering-and-dependability.md",
-      readTime: "12 min",
-      highlights: ["ISO/IEC/IEEE 15288:2023", "Verificação vs. Validação de Boehm (1981)", "Convergência Controlada de Pugh", "Taxonomia de Falha/Erro/Defeito de Avizienis"]
+      readTime: "14 min",
+      highlights: ["ISO/IEC/IEEE 15288:2023", "Model-Based Systems Engineering (MBSE)", "OMG UML 2.5 & Kruchten 4+1 View", "Information Hiding de Parnas & OCL", "Verificação vs. Validação de Boehm", "Taxonomia de Falha/Erro/Defeito de Avizienis"]
     },
     {
       id: "complexity",
@@ -281,7 +281,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       id: "gof",
       category: "Architecture",
       title: "Patrones Gang of Four (GoF)",
-      subtitle: "Adopción Canónica en Creacionales, Estructurales & Comportamentales",
+      subtitle: "Patrones Creacionales, Estructurales & Comportamentales de Software",
       file: "architecture/gof-design-patterns.md",
       readTime: "12 min",
       highlights: ["23 Patrones GoF", "Invariantes Anti-Patrón", "Factory / Strategy / Decorator", "Cero Instanciación Ad-Hoc"]
@@ -298,7 +298,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "hexagonal",
       category: "Architecture",
-      title: "Puertos & Adaptadores Hexagonales",
+      title: "Arquitectura Hexagonal (Puertos & Adaptadores)",
       subtitle: "Aislamiento Driver & Driven para Resiliencia en Producción",
       file: "architecture/hexagonal-ports-and-adapters.md",
       readTime: "8 min",
@@ -325,11 +325,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "database-internals",
       category: "Architecture",
-      title: "Internals de Bases de Datos & Transacciones",
-      subtitle: "Motores de Almacenamiento, ARIES WAL & Anomalías de Aislamiento",
+      title: "Internals de Bases de Datos, Teoría Relacional & Transacciones",
+      subtitle: "Álgebra de Codd, Esquemas DDL/DML, Motores de Almacenamiento & ARIES WAL",
       file: "architecture/database-internals-and-transaction-theory.md",
-      readTime: "10 min",
-      highlights: ["Asintótica B+ Tree vs. LSM-Tree", "Protocolo de Recuperación ARIES", "Crítica a Anomalías ANSI SQL (Berenson 1995)", "Teorema PACELC (Abadi 2012)"]
+      readTime: "12 min",
+      highlights: ["Modelo Relacional de Codd & Completitud", "Chen ERD & Normalización (1NF–BCNF)", "Operadores Declarativos DDL vs. DML", "Asintótica B+ Tree vs. LSM-Tree", "Protocolo de Recuperación ARIES", "Anomalías de Aislamiento & SSI"]
     },
     {
       id: "observability",
@@ -338,7 +338,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       subtitle: "Telemetría Distribuida, 4 Señales Doradas & Confiabilidad Cuantitativa",
       file: "architecture/observability-and-evidence-based-decisions.md",
       readTime: "9 min",
-      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Señales Doradas & RED/USE", "Tail-Based Sampling", "Presupuestos de Error SLI/SLO", "Canary Automatizado", "Post-Mortems Sin Culpa"]
+      highlights: ["OpenTelemetry OTLP", "W3C Trace Context", "4 Señales Doradas & RED/USE", "Tail-Based Sampling", "Presupuestos de Error SLI/SLO (Metas de Servicio)", "Canary Automatizado", "Post-Mortems Sin Culpa"]
     },
     {
       id: "engineering-quality",
@@ -347,7 +347,7 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
       subtitle: "Trinquetes de Calidad, Techos Cognitivos & Deuda de Fallback",
       file: "architecture/engineering-quality-and-invariants.md",
       readTime: "7 min",
-      highlights: ["Cero Fallback Debt (7 Regras de Oro)", "Cero Superficies Huérfanas", "Techo de Complejidad Cognitiva <= 15", "Trinquete de Cobertura de Pruebas"]
+      highlights: ["Cero Deuda de Fallbacks (7 Reglas de Oro)", "Cero Superficies Huérfanas", "Techo de Complejidad Cognitiva <= 15", "Trinquete de Cobertura de Pruebas"]
     },
     {
       id: "persistence-cas",
@@ -361,11 +361,11 @@ const DOCS_INDEX: Record<Lang, DocItem[]> = {
     {
       id: "systems-engineering",
       category: "Foundation",
-      title: "Ingeniería de Sistemas & Confiabilidad",
-      subtitle: "Estándares de Ciclo de Vida, Formalismo V&V & Selección de Pugh",
+      title: "Ingeniería de Sistemas, MBSE & Confiabilidad",
+      subtitle: "Ciclo de Vida ISO 15288, OMG UML 2.5, Kruchten 4+1 & Formalismo V&V",
       file: "foundation/systems-engineering-and-dependability.md",
-      readTime: "12 min",
-      highlights: ["ISO/IEC/IEEE 15288:2023", "Verificación vs. Validación de Boehm (1981)", "Convergencia Controlada de Pugh", "Taxonomía de Fallo/Error/Avería de Avizienis"]
+      readTime: "14 min",
+      highlights: ["ISO/IEC/IEEE 15288:2023", "Model-Based Systems Engineering (MBSE)", "OMG UML 2.5 & Kruchten 4+1 View", "Information Hiding de Parnas & OCL", "Verificación vs. Validación de Boehm", "Taxonomía de Fallo/Error/Avería de Avizienis"]
     },
     {
       id: "complexity",
