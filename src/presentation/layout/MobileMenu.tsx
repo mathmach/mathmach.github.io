@@ -1,9 +1,9 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import type { Lang } from '../../i18n';
-import { translations } from '../../i18n';
-import { buildNavLinks } from '../../domain/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 import { GlassSurface } from '../../components/ui/GlassSurface';
 import { LiquidButton } from '../../components/ui/LiquidButton';
+import { buildNavLinks } from '../../domain/navigation';
+import type { Lang } from '../../i18n';
+import { translations } from '../../i18n';
 
 interface MobileMenuProps {
   open: boolean;

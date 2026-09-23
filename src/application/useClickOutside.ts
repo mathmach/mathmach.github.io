@@ -1,13 +1,13 @@
-import { useEffect, type RefObject } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 export function useClickOutside(
   ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[],
-  onClickOutside: () => void,
+  onClickOutside: () => void
 ): void {
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       const refs = Array.isArray(ref) ? ref : [ref];
-      const clickedInside = refs.some(r => r.current?.contains(event.target as Node));
+      const clickedInside = refs.some((r) => r.current?.contains(event.target as Node));
       if (!clickedInside) {
         onClickOutside();
       }

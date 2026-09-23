@@ -1,20 +1,14 @@
-import { useState, useRef, useCallback } from 'react';
-import {
-  Sun,
-  Moon,
-  Check,
-  Menu,
-  X,
-} from 'lucide-react';
-import type { Lang } from '../../i18n';
-import { translations } from '../../i18n';
-import { buildNavLinks } from '../../domain/navigation';
+import { Check, Menu, Moon, Sun, X } from 'lucide-react';
+import type { FC } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useAppContext } from '../../AppContext';
 import { useClickOutside } from '../../application/useClickOutside';
+import { BrazilFlag, SpainFlag, USAFlag } from '../../components/Icons';
 import { LiquidButton } from '../../components/ui/LiquidButton';
 import { LiquidGlass } from '../../components/ui/LiquidGlass';
-import { BrazilFlag, USAFlag, SpainFlag } from '../../components/Icons';
-import type { FC } from 'react';
+import { buildNavLinks } from '../../domain/navigation';
+import type { Lang } from '../../i18n';
+import { translations } from '../../i18n';
 
 const LANGUAGES: { code: Lang; Flag: FC<{ className?: string; width?: number; height?: number }> }[] = [
   { code: 'pt', Flag: BrazilFlag },
@@ -33,7 +27,7 @@ export function Header({ onMobileMenuToggle, mobileMenuOpen }: HeaderProps) {
   const langMenuRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const t = translations[lang];
-  const currentLang = LANGUAGES.find(item => item.code === lang) || LANGUAGES[0];
+  const currentLang = LANGUAGES.find((item) => item.code === lang) || LANGUAGES[0];
 
   const closeLangDropdown = useCallback(() => setLangDropdownOpen(false), []);
   useClickOutside(langMenuRef, closeLangDropdown);
@@ -79,7 +73,7 @@ export function Header({ onMobileMenuToggle, mobileMenuOpen }: HeaderProps) {
             <LiquidButton
               variant="icon"
               className="w-11 h-11 sm:w-12 sm:h-12"
-              onClick={() => setLangDropdownOpen(prev => !prev)}
+              onClick={() => setLangDropdownOpen((prev) => !prev)}
               aria-label="Select language"
               aria-expanded={langDropdownOpen}
               title={t.languages[lang]}
@@ -100,7 +94,7 @@ export function Header({ onMobileMenuToggle, mobileMenuOpen }: HeaderProps) {
               </div>
 
               <div className="relative z-10 p-1.5 flex flex-col gap-1 w-full">
-                {LANGUAGES.map(item => {
+                {LANGUAGES.map((item) => {
                   const isSelected = lang === item.code;
                   return (
                     <button

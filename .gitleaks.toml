@@ -1,0 +1,55 @@
+title = "project-ai gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-secret-key"
+description = "Generic secret key or token assignment"
+regex = '''(?i)\b(API_KEY|SECRET_KEY|AUTH_TOKEN|PRIVATE_KEY|ACCESS_TOKEN)\s*[:=]\s*["']?([A-Za-z0-9/+._=-]{20,})["']?'''
+secretGroup = 2
+keywords = [
+    "api_key",
+    "secret_key",
+    "auth_token",
+    "private_key",
+    "access_token",
+]
+tags = ["key", "generic"]
+
+[[rules]]
+id = "postgres-connection-uri"
+description = "PostgreSQL connection string with embedded credentials"
+regex = '''(?i)\bpostgres(?:ql)?:\/\/[^\s:@\/]+:[^\s:@\/]+@[^\s\/]+'''
+keywords = ["postgres://", "postgresql://"]
+tags = ["database", "connection-string"]
+
+[[rules]]
+id = "jwt-token"
+description = "JSON Web Token pattern"
+regex = '''\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b'''
+keywords = ["eyJ"]
+tags = ["token", "jwt"]
+
+[allowlist]
+description = "Allowlist for examples, documentation, test fixtures, and mock values"
+paths = [
+    '''(?i).*\.env\.example$''',
+    '''(?i).*/tests/.*''',
+    '''(?i)docs/.*''',
+    '''(?i)public/docs/.*''',
+    '''(?i)openspec/.*''',
+]
+regexes = [
+    '''(?i)(your|my|the|some|example|placeholder|changeme|xxx+|dummy|fake|test|sample)[-_a-z0-9]*''',
+    '''sk_test_[A-Za-z0-9]{0,8}example''',
+    '''\benv\.[A-Z0-9_]+\b''',
+    '''\bprocess\.env\.[A-Z0-9_]+\b''',
+]
+stopwords = [
+    "example",
+    "placeholder",
+    "changeme",
+    "dummy",
+]
+

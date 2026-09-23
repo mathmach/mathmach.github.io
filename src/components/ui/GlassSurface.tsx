@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import type React from 'react';
+import { useRef } from 'react';
 
 interface GlassSurfaceProps {
   children?: React.ReactNode;
@@ -39,18 +40,10 @@ export function GlassSurface({
   const lightBg = `rgba(255, 255, 255, ${backgroundOpacity})`;
 
   const extraShadowDark =
-    typeof shadow === 'string'
-      ? `, ${shadow}`
-      : shadow
-      ? ', 0 20px 48px -12px rgba(0, 0, 0, 0.75)'
-      : '';
+    typeof shadow === 'string' ? `, ${shadow}` : shadow ? ', 0 20px 48px -12px rgba(0, 0, 0, 0.75)' : '';
 
   const extraShadowLight =
-    typeof shadow === 'string'
-      ? `, ${shadow}`
-      : shadow
-      ? ', 0 8px 32px -4px rgba(15, 23, 42, 0.06)'
-      : '';
+    typeof shadow === 'string' ? `, ${shadow}` : shadow ? ', 0 8px 32px -4px rgba(15, 23, 42, 0.06)' : '';
 
   const shadowLight = `inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.02)${extraShadowLight}`;
   const shadowDark = `inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), inset 0 0 18px 0 rgba(255, 255, 255, 0.02)${extraShadowDark}`;
@@ -78,10 +71,7 @@ export function GlassSurface({
       className={`glass-surface-base relative ${overflow === 'visible' ? 'overflow-visible' : 'overflow-hidden'} ${className}`}
       style={containerStyles}
     >
-      <div className="relative z-10 w-full h-full pointer-events-auto">
-        {children}
-      </div>
+      <div className="relative z-10 w-full h-full pointer-events-auto">{children}</div>
     </div>
   );
 }
-

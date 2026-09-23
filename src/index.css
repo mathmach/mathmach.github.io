@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap");
 @import "tailwindcss";
 @import "katex/dist/katex.min.css";
 @import "highlight.js/styles/github-dark-dimmed.min.css";
@@ -19,10 +19,10 @@
 }
 
 :root {
-  --bg-color: #F8FAFC;
-  --text-color: #0F172A;
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
   --text-secondary: #334155;
-  --text-muted: #64748B;
+  --text-muted: #64748b;
   --accent: #0284c7;
   --accent-glow: rgba(2, 132, 199, 0.16);
   --card-bg: rgba(255, 255, 255, 0.72);
@@ -35,11 +35,11 @@
 
 .dark {
   --bg-color: #000000;
-  --text-color: #FFFFFF;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
+  --text-color: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
   --accent: #00f2fe;
-  --accent-glow: rgba(0, 242, 254, 0.20);
+  --accent-glow: rgba(0, 242, 254, 0.2);
   --card-bg: rgba(18, 18, 26, 0.45);
   --card-border: rgba(255, 255, 255, 0.12);
   --glass-tint: rgba(255, 255, 255, 0.04);
@@ -56,18 +56,25 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   max-width: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Syne', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Syne", sans-serif;
 }
 
 .glass-surface-base {
@@ -79,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .dark .glass-surface-base {
   background: var(--glass-bg-dark);
-  border: var(--glass-border-w, 1px) solid rgba(255, 255, 255, 0.10);
+  border: var(--glass-border-w, 1px) solid rgba(255, 255, 255, 0.1);
   box-shadow: var(--glass-shadow-dark);
 }
 
@@ -92,10 +99,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--liquid-specular);
   transform: translateZ(0);
   backface-visibility: hidden;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.2s ease,
-              border-color 0.2s ease,
-              background-color 0.2s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .liquid-input {
@@ -103,26 +111,37 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 8px -2px rgba(0, 0, 0, 0.04);
   transform: translateZ(0);
   backface-visibility: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .liquid-input:focus-within {
   border-color: var(--accent);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 3px var(--accent-glow);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 0 0 3px var(--accent-glow);
 }
 
 .dark .liquid-input {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), inset 0 0 12px 0 rgba(255, 255, 255, 0.02);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 12px 0 rgba(255, 255, 255, 0.02);
 }
 
 .dark .liquid-input:focus-within {
   border-color: var(--accent);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.22), 0 0 0 3px var(--accent-glow);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px var(--accent-glow);
 }
 
 .liquid-btn {
@@ -134,11 +153,12 @@ h1, h2, h3, h4, h5, h6 {
   user-select: none;
   outline: none;
   text-decoration: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.2s ease,
-              border-color 0.2s ease,
-              background-color 0.2s ease,
-              color 0.2s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .liquid-btn:hover {
@@ -152,31 +172,39 @@ h1, h2, h3, h4, h5, h6 {
 .liquid-btn-prominent-glass,
 .liquid-btn-primary {
   background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(2, 132, 199, 0.40);
+  border: 1px solid rgba(2, 132, 199, 0.4);
   color: #0284c7;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .liquid-btn-prominent-glass:hover,
 .liquid-btn-primary:hover {
   background: rgba(2, 132, 199, 0.15);
-  border-color: rgba(2, 132, 199, 0.60);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(2, 132, 199, 0.20);
+  border-color: rgba(2, 132, 199, 0.6);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 15px -3px rgba(2, 132, 199, 0.2);
 }
 
 .dark .liquid-btn-prominent-glass,
 .dark .liquid-btn-primary {
   background: rgba(18, 18, 26, 0.35);
-  border: 1px solid rgba(0, 242, 254, 0.40);
+  border: 1px solid rgba(0, 242, 254, 0.4);
   color: #00f2fe;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 .dark .liquid-btn-prominent-glass:hover,
 .dark .liquid-btn-primary:hover {
   background: rgba(0, 242, 254, 0.15);
-  border-color: rgba(0, 242, 254, 0.60);
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25), 0 10px 15px -3px rgba(0, 242, 254, 0.25);
+  border-color: rgba(0, 242, 254, 0.6);
+  box-shadow:
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25),
+    0 10px 15px -3px rgba(0, 242, 254, 0.25);
 }
 
 .liquid-btn-glass,
@@ -184,13 +212,15 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.35);
   border: 1px solid var(--card-border);
   color: var(--text-color);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.95), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .liquid-btn-glass:hover,
 .liquid-btn-secondary:hover {
   background: var(--glass-tint-hover);
-  border-color: rgba(2, 132, 199, 0.40);
+  border-color: rgba(2, 132, 199, 0.4);
 }
 
 .dark .liquid-btn-glass,
@@ -198,13 +228,15 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(18, 18, 26, 0.35);
   border: 1px solid var(--card-border);
   color: var(--text-color);
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 .dark .liquid-btn-glass:hover,
 .dark .liquid-btn-secondary:hover {
   background: var(--glass-tint-hover);
-  border-color: rgba(0, 242, 254, 0.40);
+  border-color: rgba(0, 242, 254, 0.4);
 }
 
 .liquid-btn-clear-glass,
@@ -235,11 +267,12 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1);
   transform-origin: center center;
   will-change: transform;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.2s ease,
-              border-color 0.2s ease,
-              background-color 0.2s ease,
-              color 0.2s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .liquid-btn-icon:hover {
@@ -264,13 +297,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .liquid-pill-accent {
-  background: rgba(2, 132, 199, 0.10);
+  background: rgba(2, 132, 199, 0.1);
   border: 1px solid rgba(2, 132, 199, 0.25);
   color: #0284c7;
 }
 
 .dark .liquid-pill-accent {
-  background: rgba(0, 242, 254, 0.10);
+  background: rgba(0, 242, 254, 0.1);
   border: 1px solid rgba(0, 242, 254, 0.25);
   color: #00f2fe;
 }
@@ -306,14 +339,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .liquid-menu-item.active {
-  background: rgba(2, 132, 199, 0.10);
+  background: rgba(2, 132, 199, 0.1);
   border: 1px solid rgba(2, 132, 199, 0.25);
   color: #0284c7;
   font-weight: 600;
 }
 
 .dark .liquid-menu-item.active {
-  background: rgba(0, 242, 254, 0.10);
+  background: rgba(0, 242, 254, 0.1);
   border: 1px solid rgba(0, 242, 254, 0.25);
   color: #00f2fe;
 }
@@ -357,7 +390,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .docs-markdown h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 1.75rem;
@@ -365,7 +398,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
 }
 .docs-markdown h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   margin-top: 1.5rem;

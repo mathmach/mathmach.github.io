@@ -7,7 +7,7 @@ export interface GlassStyleConfig {
   borderWidth: number;
 }
 
-export type GlassPreset = "header" | "card" | "button";
+export type GlassPreset = 'header' | 'card' | 'button';
 
 export const LIQUID_GLASS_CONFIG: Record<GlassPreset, GlassStyleConfig> = {
   header: {
@@ -44,7 +44,7 @@ interface LiquidEffectConfig {
 }
 
 export const LIQUID_EFFECT_CONFIG: LiquidEffectConfig = {
-  imageUrl: "/images/liquid-effect.jpg",
+  imageUrl: '/images/liquid-effect.jpg',
   displacementScale: 4.0,
   viscosity: 0.98,
   rain: false,

@@ -1,35 +1,23 @@
-import { Suspense, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Float } from "@react-three/drei";
-import * as THREE from "three";
-import { Room } from "../three/Room";
+import { Float, OrbitControls } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Suspense, useRef } from 'react';
+import type * as THREE from 'three';
+import { Room } from '../three/Room';
 
 function HeroLights({ theme }: { theme: 'dark' | 'light' }) {
   const isDark = theme === 'dark';
   return (
     <>
-      <ambientLight intensity={isDark ? 0.6 : 1.5} color={isDark ? "#1a1a40" : "#ffffff"} />
+      <ambientLight intensity={isDark ? 0.6 : 1.5} color={isDark ? '#1a1a40' : '#ffffff'} />
       <spotLight
         position={[2, 8, 6]}
         angle={0.25}
         penumbra={0.4}
         intensity={isDark ? 80 : 120}
-        color={isDark ? "#ffffff" : "#fff7ed"}
+        color={isDark ? '#ffffff' : '#fff7ed'}
       />
-      <spotLight
-        position={[4, 7, 4]}
-        angle={0.35}
-        penumbra={0.5}
-        intensity={isDark ? 60 : 80}
-        color="#4cc9f0"
-      />
-      <spotLight
-        position={[-4, 7, 5]}
-        angle={0.4}
-        penumbra={0.8}
-        intensity={isDark ? 80 : 100}
-        color="#9d4edd"
-      />
+      <spotLight position={[4, 7, 4]} angle={0.35} penumbra={0.5} intensity={isDark ? 60 : 80} color="#4cc9f0" />
+      <spotLight position={[-4, 7, 5]} angle={0.4} penumbra={0.8} intensity={isDark ? 80 : 100} color="#9d4edd" />
       <pointLight position={[0, 2, 0]} intensity={isDark ? 20 : 30} color="#00f2fe" />
       <pointLight position={[1, 3, -2]} intensity={isDark ? 15 : 20} color="#7209b7" />
     </>
@@ -61,7 +49,7 @@ function FloatingRoom() {
 
 export function HeroExperience({ theme }: { theme: 'dark' | 'light' }) {
   return (
-    <Canvas 
+    <Canvas
       camera={{ position: [0, 1.8, 15], fov: 38 }}
       dpr={[1, 2]}
       style={{ width: '100%', height: '100%', touchAction: 'pan-y' }}

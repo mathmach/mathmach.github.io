@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { Mail, ChevronRight } from 'lucide-react';
-import type { Lang, HeroStat } from '../../i18n';
-import { translations } from '../../i18n';
-import { HeroExperience } from '../hero/HeroExperience';
+import { ChevronRight, Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../../components/Icons';
 import { LiquidButton } from '../../components/ui/LiquidButton';
 import { LiquidCard } from '../../components/ui/LiquidCard';
-import { GithubIcon, LinkedinIcon } from '../../components/Icons';
+import type { HeroStat, Lang } from '../../i18n';
+import { translations } from '../../i18n';
+import { HeroExperience } from '../hero/HeroExperience';
 
 interface HeroSectionProps {
   lang: Lang;
@@ -26,7 +26,13 @@ export function HeroSection({ lang, theme }: HeroSectionProps) {
         >
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 leading-[1.08] sm:leading-tight tracking-tight">
             {t.hero.title.split(' ').map((word: string, i: number, arr: string[]) =>
-              i === arr.length - 2 ? <span key={i} className="gradient-text">{word} </span> : <span key={i}>{word} </span>
+              i === arr.length - 2 ? (
+                <span key={i} className="gradient-text">
+                  {word}{' '}
+                </span>
+              ) : (
+                <span key={i}>{word} </span>
+              )
             )}
           </h1>
 
@@ -35,12 +41,7 @@ export function HeroSection({ lang, theme }: HeroSectionProps) {
           </p>
 
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-8 sm:mb-10">
-            <LiquidButton
-              variant="prominentGlass"
-              size="md"
-              href="#experience"
-              className="gap-3"
-            >
+            <LiquidButton variant="prominentGlass" size="md" href="#experience" className="gap-3">
               <span>{t.hero.cta}</span>
               <span className="p-1 rounded-full liquid-pill-accent group-hover:translate-x-1 transition-all duration-300 flex items-center justify-center">
                 <ChevronRight size={15} />
@@ -70,12 +71,7 @@ export function HeroSection({ lang, theme }: HeroSectionProps) {
               >
                 <GithubIcon size={18} />
               </LiquidButton>
-              <LiquidButton
-                variant="icon"
-                size="md"
-                href="mailto:matheusmgduarte@outlook.com"
-                title="Direct Email"
-              >
+              <LiquidButton variant="icon" size="md" href="mailto:matheusmgduarte@outlook.com" title="Direct Email">
                 <Mail size={18} />
               </LiquidButton>
             </div>

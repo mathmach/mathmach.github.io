@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Theme } from '../domain/types';
+import { onDarkModeChange, prefersDarkMode } from '../infrastructure/mediaQuery';
 import { readStorage, writeStorage } from '../infrastructure/storage';
-import { prefersDarkMode, onDarkModeChange } from '../infrastructure/mediaQuery';
 
 function resolveInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark';

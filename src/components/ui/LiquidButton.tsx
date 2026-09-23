@@ -1,15 +1,8 @@
-import React from 'react';
+import type React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { LiquidGlass } from './LiquidGlass.tsx';
 
-export type ButtonVariant =
-  | 'prominentGlass'
-  | 'glass'
-  | 'clearGlass'
-  | 'icon'
-  | 'primary'
-  | 'secondary'
-  | 'ghost';
+export type ButtonVariant = 'prominentGlass' | 'glass' | 'clearGlass' | 'icon' | 'primary' | 'secondary' | 'ghost';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface LiquidButtonBaseProps {
@@ -25,9 +18,7 @@ export interface LiquidButtonAsButtonProps
   href?: undefined;
 }
 
-export interface LiquidButtonAsLinkProps
-  extends LiquidButtonBaseProps,
-    React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LiquidButtonAsLinkProps extends LiquidButtonBaseProps, React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
 }
 
@@ -60,7 +51,8 @@ export function LiquidButton({
 
   const sizeClass = isIcon ? ICON_SIZE_CLASSES[size] : SIZE_CLASSES[size];
 
-  const baseClasses = 'relative group inline-flex items-center justify-center rounded-full select-none outline-none no-underline transition-all duration-200 active:scale-95 cursor-pointer';
+  const baseClasses =
+    'relative group inline-flex items-center justify-center rounded-full select-none outline-none no-underline transition-all duration-200 active:scale-95 cursor-pointer';
 
   const glassClasses = isGlass
     ? isProminent
@@ -68,31 +60,20 @@ export function LiquidButton({
       : 'border border-[var(--card-border)] shadow-lg shadow-black/5 dark:shadow-black/30 text-[var(--text-color)] hover:border-[var(--accent)]/40'
     : 'border border-transparent text-[var(--text-muted)] hover:text-[var(--text-color)] hover:bg-[var(--glass-tint-hover)]';
 
-  const combinedClass = twMerge(
-    baseClasses,
-    glassClasses,
-    sizeClass,
-    className
-  );
+  const combinedClass = twMerge(baseClasses, glassClasses, sizeClass, className);
 
   const content = (
     <>
       {isGlass && (
         <div className="absolute inset-0 rounded-[inherit] overflow-hidden pointer-events-none">
-          <LiquidGlass
-            preset="header"
-            borderWidth={0}
-            className="w-full h-full rounded-[inherit]"
-          />
+          <LiquidGlass preset="header" borderWidth={0} className="w-full h-full rounded-[inherit]" />
           {isProminent && (
             <div className="absolute inset-0 bg-[var(--accent)]/12 dark:bg-[var(--accent)]/15 pointer-events-none transition-colors" />
           )}
           <div className="absolute inset-0 bg-transparent group-hover:bg-[var(--glass-tint-hover)] pointer-events-none transition-colors" />
         </div>
       )}
-      <span className="relative z-10 flex items-center justify-center gap-2 pointer-events-none">
-        {children}
-      </span>
+      <span className="relative z-10 flex items-center justify-center gap-2 pointer-events-none">{children}</span>
     </>
   );
 

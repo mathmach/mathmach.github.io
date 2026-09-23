@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, BookOpen, Clock, Loader2, Menu, X } from 'lucide-react';
-import { marked } from 'marked';
 import hljs from 'highlight.js';
 import katex from 'katex';
-import { translations } from '../../i18n';
-import { getDocsIndex } from '../../docsData';
+import { BookOpen, Clock, Loader2, Menu, Search, X } from 'lucide-react';
+import { marked } from 'marked';
+import type React from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { GlassSurface } from '../../components/ui/GlassSurface';
 import { LiquidButton } from '../../components/ui/LiquidButton';
 import { LiquidPill } from '../../components/ui/LiquidPill';
+import { getDocsIndex } from '../../docsData';
+import { translations } from '../../i18n';
 
 interface DocsReaderProps {
   lang: 'en' | 'pt' | 'es';
@@ -19,14 +20,16 @@ function parseMarkdownWithMath(markdown: string): string {
   let text = markdown.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
     try {
       const rendered = katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
-      mathPlaceholders.push(`<div class="my-4 overflow-x-auto text-center py-2.5 px-3 rounded-xl border border-[var(--card-border)] bg-[var(--glass-tint)]">${rendered}</div>`);
+      mathPlaceholders.push(
+        `<div class="my-4 overflow-x-auto text-center py-2.5 px-3 rounded-xl border border-[var(--card-border)] bg-[var(--glass-tint)]">${rendered}</div>`
+      );
       return `%%MATH_BLOCK_${mathPlaceholders.length - 1}%%`;
     } catch {
       return `$$${math}$$`;
     }
   });
 
-  text = text.replace(/\$([^\$\n]+?)\$/g, (_, math) => {
+  text = text.replace(/\$([^$\n]+?)\$/g, (_, math) => {
     try {
       const rendered = katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
       mathPlaceholders.push(`<span class="inline-math">${rendered}</span>`);
@@ -59,26 +62,27 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
   const readerTopRef = useRef<HTMLDivElement>(null);
 
   const selectedDoc = useMemo(() => {
-    return docsList.find(d => d.id === selectedDocId) || docsList[0];
+    return docsList.find((d) => d.id === selectedDocId) || docsList[0];
   }, [docsList, selectedDocId]);
 
   const filteredDocs = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return docsList;
-    return docsList.filter(d =>
-      d.title.toLowerCase().includes(q) ||
-      d.subtitle.toLowerCase().includes(q) ||
-      d.category.toLowerCase().includes(q) ||
-      d.highlights.some(h => h.toLowerCase().includes(q))
+    return docsList.filter(
+      (d) =>
+        d.title.toLowerCase().includes(q) ||
+        d.subtitle.toLowerCase().includes(q) ||
+        d.category.toLowerCase().includes(q) ||
+        d.highlights.some((h) => h.toLowerCase().includes(q))
     );
   }, [docsList, searchQuery]);
 
   const architectureDocs = useMemo(() => {
-    return filteredDocs.filter(d => d.category === 'Architecture');
+    return filteredDocs.filter((d) => d.category === 'Architecture');
   }, [filteredDocs]);
 
   const foundationDocs = useMemo(() => {
-    return filteredDocs.filter(d => d.category === 'Foundation');
+    return filteredDocs.filter((d) => d.category === 'Foundation');
   }, [filteredDocs]);
 
   const cacheKey = `${lang}:${selectedDoc.file}`;
@@ -102,7 +106,7 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
           throw new Error(`HTTP ${res.status}`);
         }
         const text = await res.text();
-        setCache(prev => ({ ...prev, [cacheKey]: text }));
+        setCache((prev) => ({ ...prev, [cacheKey]: text }));
       } catch (err: any) {
         setError(err.message || 'Failed to load document');
       } finally {
@@ -120,7 +124,7 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
 
   useEffect(() => {
     if (articleRef.current && renderedHtml) {
-      articleRef.current.querySelectorAll('pre code').forEach(block => {
+      articleRef.current.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightElement(block as HTMLElement);
       });
     }
@@ -138,7 +142,6 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
 
   return (
     <div ref={readerTopRef} className="w-full">
-
       <GlassSurface
         borderRadius={16}
         backgroundOpacity={0.55}
@@ -177,149 +180,132 @@ export const DocsReader: React.FC<DocsReaderProps> = ({ lang }) => {
               mobileDrawerOpen ? 'flex' : 'hidden'
             } md:flex flex-col w-full md:w-72 lg:w-80 shrink-0 border-b md:border-b-0 md:border-r border-[var(--card-border)] bg-[var(--glass-tint)] p-4 sm:p-5`}
           >
-          
-          <div className="relative mb-4 rounded-xl liquid-input">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder={uiText.searchPlaceholder}
-              className="w-full bg-transparent pl-9 pr-8 py-2 text-xs placeholder:text-muted focus:outline-none text-[var(--text-color)]"
-            />
-            {searchQuery && (
-              <LiquidButton
-                variant="clearGlass"
-                size="sm"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 p-0 text-muted hover:text-[var(--text-color)] text-xs"
-                aria-label="Clear search"
-              >
-                ×
-              </LiquidButton>
-            )}
-          </div>
-
-          
-          <div className="flex-1 overflow-y-auto space-y-5 pr-1 max-h-[420px] md:max-h-[600px] custom-scrollbar">
-            {architectureDocs.length > 0 && (
-              <div>
-                <div className="text-[10px] font-bold tracking-widest text-muted uppercase px-2 mb-2">
-                  {uiText.archTitle}
-                </div>
-                <div className="space-y-1">
-                  {architectureDocs.map(doc => {
-                    const isActive = doc.id === selectedDocId;
-                    return (
-                      <button
-                        key={doc.id}
-                        type="button"
-                        onClick={() => handleSelectDoc(doc.id)}
-                        className={`w-full flex items-center justify-between gap-2 text-left px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-                          isActive
-                            ? 'liquid-pill-accent font-semibold shadow-sm'
-                            : 'hover:bg-[var(--glass-tint-hover)] text-secondary hover:text-[var(--text-color)]'
-                        }`}
-                      >
-                        <span className="text-xs line-clamp-1 leading-snug">{doc.title}</span>
-                        <LiquidPill
-                          variant={isActive ? 'accent' : 'outline'}
-                          size="sm"
-                          className="shrink-0"
-                        >
-                          {doc.readTime}
-                        </LiquidPill>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {foundationDocs.length > 0 && (
-              <div>
-                <div className="text-[10px] font-bold tracking-widest text-muted uppercase px-2 mb-2">
-                  {uiText.foundationTitle}
-                </div>
-                <div className="space-y-1">
-                  {foundationDocs.map(doc => {
-                    const isActive = doc.id === selectedDocId;
-                    return (
-                      <button
-                        key={doc.id}
-                        type="button"
-                        onClick={() => handleSelectDoc(doc.id)}
-                        className={`w-full flex items-center justify-between gap-2 text-left px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
-                          isActive
-                            ? 'liquid-pill-accent font-semibold shadow-sm'
-                            : 'hover:bg-[var(--glass-tint-hover)] text-secondary hover:text-[var(--text-color)]'
-                        }`}
-                      >
-                        <span className="text-xs line-clamp-1 leading-snug">{doc.title}</span>
-                        <LiquidPill
-                          variant={isActive ? 'accent' : 'outline'}
-                          size="sm"
-                          className="shrink-0"
-                        >
-                          {doc.readTime}
-                        </LiquidPill>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        </aside>
-
-        
-        <main className="flex-1 flex flex-col min-w-0 p-5 sm:p-8 lg:p-10">
-          
-          <div className="border-b border-[var(--card-border)] pb-5 mb-6">
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              <LiquidPill variant="accent" size="sm" className="font-mono uppercase tracking-wider">
-                {selectedDoc.category} {uiText.standard}
-              </LiquidPill>
-              <LiquidPill variant="outline" size="sm" className="font-mono flex items-center gap-1.5">
-                <Clock size={12} />
-                <span>{selectedDoc.readTime}</span>
-              </LiquidPill>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold font-['Syne'] tracking-tight mb-2">
-              {selectedDoc.title}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted">
-              {selectedDoc.subtitle}
-            </p>
-          </div>
-
-          
-          <div className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 max-w-full max-h-[550px] lg:max-h-[620px] pr-2 custom-scrollbar">
-            {loading && (
-              <div className="flex flex-col items-center justify-center h-64 gap-3 text-muted">
-                <Loader2 size={24} className="animate-spin text-[var(--accent)]" />
-                <span className="text-xs">{uiText.loading}</span>
-              </div>
-            )}
-
-            {error && (
-              <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/5 text-red-500 text-xs">
-                <p className="font-bold mb-1">Error loading document</p>
-                <p>{error}</p>
-              </div>
-            )}
-
-            {!loading && !error && renderedHtml && (
-              <article
-                ref={articleRef}
-                className="docs-markdown min-w-0 max-w-full"
-                dangerouslySetInnerHTML={{ __html: renderedHtml }}
+            <div className="relative mb-4 rounded-xl liquid-input">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={uiText.searchPlaceholder}
+                className="w-full bg-transparent pl-9 pr-8 py-2 text-xs placeholder:text-muted focus:outline-none text-[var(--text-color)]"
               />
-            )}
-          </div>
-        </main>
-      </div>
-    </GlassSurface>
-  </div>
-);
+              {searchQuery && (
+                <LiquidButton
+                  variant="clearGlass"
+                  size="sm"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 p-0 text-muted hover:text-[var(--text-color)] text-xs"
+                  aria-label="Clear search"
+                >
+                  ×
+                </LiquidButton>
+              )}
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-5 pr-1 max-h-[420px] md:max-h-[600px] custom-scrollbar">
+              {architectureDocs.length > 0 && (
+                <div>
+                  <div className="text-[10px] font-bold tracking-widest text-muted uppercase px-2 mb-2">
+                    {uiText.archTitle}
+                  </div>
+                  <div className="space-y-1">
+                    {architectureDocs.map((doc) => {
+                      const isActive = doc.id === selectedDocId;
+                      return (
+                        <button
+                          key={doc.id}
+                          type="button"
+                          onClick={() => handleSelectDoc(doc.id)}
+                          className={`w-full flex items-center justify-between gap-2 text-left px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+                            isActive
+                              ? 'liquid-pill-accent font-semibold shadow-sm'
+                              : 'hover:bg-[var(--glass-tint-hover)] text-secondary hover:text-[var(--text-color)]'
+                          }`}
+                        >
+                          <span className="text-xs line-clamp-1 leading-snug">{doc.title}</span>
+                          <LiquidPill variant={isActive ? 'accent' : 'outline'} size="sm" className="shrink-0">
+                            {doc.readTime}
+                          </LiquidPill>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {foundationDocs.length > 0 && (
+                <div>
+                  <div className="text-[10px] font-bold tracking-widest text-muted uppercase px-2 mb-2">
+                    {uiText.foundationTitle}
+                  </div>
+                  <div className="space-y-1">
+                    {foundationDocs.map((doc) => {
+                      const isActive = doc.id === selectedDocId;
+                      return (
+                        <button
+                          key={doc.id}
+                          type="button"
+                          onClick={() => handleSelectDoc(doc.id)}
+                          className={`w-full flex items-center justify-between gap-2 text-left px-3 py-2.5 rounded-xl transition-all cursor-pointer ${
+                            isActive
+                              ? 'liquid-pill-accent font-semibold shadow-sm'
+                              : 'hover:bg-[var(--glass-tint-hover)] text-secondary hover:text-[var(--text-color)]'
+                          }`}
+                        >
+                          <span className="text-xs line-clamp-1 leading-snug">{doc.title}</span>
+                          <LiquidPill variant={isActive ? 'accent' : 'outline'} size="sm" className="shrink-0">
+                            {doc.readTime}
+                          </LiquidPill>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </aside>
+
+          <main className="flex-1 flex flex-col min-w-0 p-5 sm:p-8 lg:p-10">
+            <div className="border-b border-[var(--card-border)] pb-5 mb-6">
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <LiquidPill variant="accent" size="sm" className="font-mono uppercase tracking-wider">
+                  {selectedDoc.category} {uiText.standard}
+                </LiquidPill>
+                <LiquidPill variant="outline" size="sm" className="font-mono flex items-center gap-1.5">
+                  <Clock size={12} />
+                  <span>{selectedDoc.readTime}</span>
+                </LiquidPill>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold font-['Syne'] tracking-tight mb-2">{selectedDoc.title}</h1>
+              <p className="text-xs sm:text-sm text-muted">{selectedDoc.subtitle}</p>
+            </div>
+
+            <div className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 max-w-full max-h-[550px] lg:max-h-[620px] pr-2 custom-scrollbar">
+              {loading && (
+                <div className="flex flex-col items-center justify-center h-64 gap-3 text-muted">
+                  <Loader2 size={24} className="animate-spin text-[var(--accent)]" />
+                  <span className="text-xs">{uiText.loading}</span>
+                </div>
+              )}
+
+              {error && (
+                <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/5 text-red-500 text-xs">
+                  <p className="font-bold mb-1">Error loading document</p>
+                  <p>{error}</p>
+                </div>
+              )}
+
+              {!loading && !error && renderedHtml && (
+                <article
+                  ref={articleRef}
+                  className="docs-markdown min-w-0 max-w-full"
+                  dangerouslySetInnerHTML={{ __html: renderedHtml }}
+                />
+              )}
+            </div>
+          </main>
+        </div>
+      </GlassSurface>
+    </div>
+  );
 };

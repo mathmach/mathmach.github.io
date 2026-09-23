@@ -10,10 +10,14 @@ export function Room(props: any) {
 
   return (
     <group {...props} dispose={null}>
-      {nodes._________6_blinn1_0 && <mesh geometry={nodes._________6_blinn1_0.geometry} material={roomMaterials.curtain} />}
+      {nodes._________6_blinn1_0 && (
+        <mesh geometry={nodes._________6_blinn1_0.geometry} material={roomMaterials.curtain} />
+      )}
       {nodes.body1_blinn1_0 && <mesh geometry={nodes.body1_blinn1_0.geometry} material={roomMaterials.body} />}
       {nodes.cabin_blinn1_0 && <mesh geometry={nodes.cabin_blinn1_0.geometry} material={roomMaterials.table} />}
-      {nodes.chair_body_blinn1_0 && <mesh geometry={nodes.chair_body_blinn1_0.geometry} material={roomMaterials.chair} />}
+      {nodes.chair_body_blinn1_0 && (
+        <mesh geometry={nodes.chair_body_blinn1_0.geometry} material={roomMaterials.chair} />
+      )}
       {nodes.comp_blinn1_0 && <mesh geometry={nodes.comp_blinn1_0.geometry} material={roomMaterials.computer} />}
       {nodes.emis_lambert1_0 && <mesh geometry={nodes.emis_lambert1_0.geometry} material={roomMaterials.screen} />}
       {nodes.handls_blinn1_0 && <mesh geometry={nodes.handls_blinn1_0.geometry} material={materials.blinn1} />}
@@ -26,9 +30,15 @@ export function Room(props: any) {
       {nodes.monitor3_blinn1_0 && <mesh geometry={nodes.monitor3_blinn1_0.geometry} material={materials.blinn1} />}
       {nodes.pCylinder5_blinn1_0 && <mesh geometry={nodes.pCylinder5_blinn1_0.geometry} material={materials.blinn1} />}
       {nodes.pillows_blinn1_0 && <mesh geometry={nodes.pillows_blinn1_0.geometry} material={materials.blinn1} />}
-      {nodes.polySurface53_blinn1_0 && <mesh geometry={nodes.polySurface53_blinn1_0.geometry} material={materials.blinn1} />}
-      {nodes.radiator_blinn1_0 && <mesh geometry={nodes.radiator_blinn1_0.geometry} material={roomMaterials.radiator} />}
-      {nodes.radiator_blinn1_0001 && <mesh geometry={nodes.radiator_blinn1_0001.geometry} material={materials.blinn1} />}
+      {nodes.polySurface53_blinn1_0 && (
+        <mesh geometry={nodes.polySurface53_blinn1_0.geometry} material={materials.blinn1} />
+      )}
+      {nodes.radiator_blinn1_0 && (
+        <mesh geometry={nodes.radiator_blinn1_0.geometry} material={roomMaterials.radiator} />
+      )}
+      {nodes.radiator_blinn1_0001 && (
+        <mesh geometry={nodes.radiator_blinn1_0001.geometry} material={materials.blinn1} />
+      )}
       {nodes.railing_blinn1_0 && <mesh geometry={nodes.railing_blinn1_0.geometry} material={materials.blinn1} />}
       {nodes.red_bttns_blinn1_0 && <mesh geometry={nodes.red_bttns_blinn1_0.geometry} material={materials.blinn1} />}
       {nodes.red_vac_blinn1_0 && <mesh geometry={nodes.red_vac_blinn1_0.geometry} material={materials.blinn1} />}
@@ -47,4 +57,3 @@ export function Room(props: any) {
 }
 
 useGLTF.preload('/models/optimized-room.glb');
-

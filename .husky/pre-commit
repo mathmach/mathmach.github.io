@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+set -e
+
+staged() {
+  git diff --cached --name-only --diff-filter=ACMR
+}
+
+env_staged=$(staged | grep -E '(^|/)\.env' | grep -v '\.env\.example$' || true)
+if [ -n "$env_staged" ]; then
+  echo "❌ pre-commit: refusing to commit an environment file:"
+  echo "$env_staged" | sed 's/^/     /'
+  echo "   Keep credentials in .env.local (gitignored) and document variables in .env.example."
+  exit 1
+fi
+
+if command -v gitleaks >/dev/null 2>&1; then
+  echo "▸ gitleaks (staged)"
+  gitleaks git --staged --no-banner --redact
+else
+  echo "▸ gitleaks not installed — secret scan skipped (install gitleaks to enable local secret gates)"
+fi
+
+fmt_staged=$(staged | grep -E '\.(ts|tsx|js|jsx|json|jsonc|css)$' || true)
+if [ -n "$fmt_staged" ]; then
+  echo "▸ biome check --write (staged)"
+  # shellcheck disable=SC2086
+  npx biome check --write --no-errors-on-unmatched $fmt_staged
+  # shellcheck disable=SC2086
+  git add $fmt_staged
+fi
+
+echo "▸ tsc --noEmit"
+npm run typecheck
+
+echo "✅ pre-commit passed"
+

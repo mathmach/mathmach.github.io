@@ -1,5 +1,5 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
+import test from 'node:test';
 import { CAREER_START_YEAR, getYearsOfExperience, YEARS_OF_EXPERIENCE } from '../../src/domain/constants.ts';
 import { translations } from '../../src/i18n.ts';
 
@@ -28,4 +28,3 @@ test('translations include dynamic years of experience across all locales', () =
   assert.ok(translations.es.hero.subtitle.includes(`${YEARS_OF_EXPERIENCE} años`));
   assert.strictEqual(translations.es.hero.stats[0].value, `${expectedValue} Años`);
 });
-

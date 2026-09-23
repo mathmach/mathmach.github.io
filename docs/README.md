@@ -54,6 +54,10 @@ This knowledge base compiles the software architecture, distributed systems resi
 
 - **[Engineering Quality Invariants & Quality Ratchets](architecture/engineering-quality-and-invariants.md):**  
   Mandatory automated code quality standards: Zero Comments in Code, Zero Fallback Debt (7 golden rules), Zero Orphan Surfaces, Cognitive Complexity Ceilings ($\le 15$), and Unidirectional Coverage Floors.
+- **[GitFlow & Modern Branching Strategy](architecture/gitflow-and-branching-strategy.md):**  
+  Branching topologies, ephemeral feature branches ($\le 48\text{h}$), three concentric quality rings (pre-commit, CI, CD), secrets sanitization with Gitleaks, and conventional PR convergence gates.
+- **[Automated Testing Strategy & Verification Architecture](architecture/automated-testing-strategy.md):**  
+  Boehm verification vs. validation, testing trophy/pyramid taxonomy (Unit, Integration, E2E), Gerard Meszaros test double taxonomy, hexagonal boundary isolation, and unidirectional coverage ratchets.
 
 ---
 
@@ -76,7 +80,9 @@ docs/
 │   ├── persistence-and-cas-storage.md              # Relational Normalization, CAS SHA-256 & Concurrency (OCC)
 │   ├── database-internals-and-transaction-theory.md# B+Tree vs LSM, RUM Conjecture, Isolation Anomalies & ARIES
 │   ├── observability-and-evidence-based-decisions.md # OpenTelemetry, 4 Golden Signals, RED/USE, SLOs & Canary
-│   └── engineering-quality-and-invariants.md       # Quality Ratchets, Zero Fallback Debt & Complexity Ceilings
+│   ├── engineering-quality-and-invariants.md       # Quality Ratchets, Zero Fallback Debt & Complexity Ceilings
+│   ├── gitflow-and-branching-strategy.md           # Branching Topologies, 3 Quality Rings & Gitleaks
+│   └── automated-testing-strategy.md               # Testing Trophy, Meszaros Doubles & Coverage Ratchets
 └── README.md                                       # Master Architecture & Scientific Portal
 ```
 

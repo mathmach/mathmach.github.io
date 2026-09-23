@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Lang } from '../domain/types';
 import { readStorage, writeStorage } from '../infrastructure/storage';
 

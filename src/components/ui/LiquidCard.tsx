@@ -1,6 +1,6 @@
-import React from 'react';
-import { GlassSurface } from './GlassSurface.tsx';
+import type React from 'react';
 import { LIQUID_GLASS_CONFIG } from '../../lib/liquid-glass/config.ts';
+import { GlassSurface } from './GlassSurface.tsx';
 
 export type CardVariant = 'default' | 'interactive' | 'stat';
 export type CardPadding = 'none' | 'sm' | 'md' | 'lg';

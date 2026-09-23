@@ -23,4 +23,3 @@ export function createRoomMaterials(matcapTexture: THREE.Texture): RoomMaterials
     screen: new THREE.MeshBasicMaterial({ color: '#00f2fe' }),
   };
 }
-

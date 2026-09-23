@@ -1,8 +1,8 @@
-import type { Lang, Job } from '../../i18n';
-import { translations } from '../../i18n';
+import { FadeIn } from '../../components/ui/FadeIn';
 import { LiquidCard } from '../../components/ui/LiquidCard';
 import { LiquidPill } from '../../components/ui/LiquidPill';
-import { FadeIn } from '../../components/ui/FadeIn';
+import type { Job, Lang } from '../../i18n';
+import { translations } from '../../i18n';
 
 interface ExperienceSectionProps {
   lang: Lang;
@@ -12,7 +12,10 @@ export function ExperienceSection({ lang }: ExperienceSectionProps) {
   const t = translations[lang];
 
   return (
-    <section id="experience" className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 max-w-5xl mx-auto border-t border-[var(--card-border)]">
+    <section
+      id="experience"
+      className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 max-w-5xl mx-auto border-t border-[var(--card-border)]"
+    >
       <FadeIn>
         <h2 className="text-3xl sm:text-5xl font-bold mb-12 sm:mb-16 text-center">{t.exp.title}</h2>
       </FadeIn>
@@ -30,7 +33,9 @@ export function ExperienceSection({ lang }: ExperienceSectionProps) {
 
             <div className="md:w-2/3">
               <LiquidCard variant="interactive" padding="lg">
-                <h3 className="text-xl sm:text-2xl font-bold mb-1 group-hover:text-[var(--accent)] transition-colors">{exp.role}</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-1 group-hover:text-[var(--accent)] transition-colors">
+                  {exp.role}
+                </h3>
                 <h4 className="text-base sm:text-lg font-medium text-secondary mb-3 sm:mb-4">{exp.corp}</h4>
                 <ul className="space-y-2">
                   {exp.points.map((pt, pIdx) => (

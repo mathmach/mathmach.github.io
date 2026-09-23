@@ -1,9 +1,9 @@
 import { BookOpen, CheckCircle2 } from 'lucide-react';
+import { FadeIn } from '../../components/ui/FadeIn';
+import { LiquidCard } from '../../components/ui/LiquidCard';
 import type { Lang } from '../../i18n';
 import { translations } from '../../i18n';
 import { DocsReader } from '../docs/DocsReader';
-import { LiquidCard } from '../../components/ui/LiquidCard';
-import { FadeIn } from '../../components/ui/FadeIn';
 
 interface DocsSectionProps {
   lang: Lang;
@@ -13,12 +13,13 @@ export function DocsSection({ lang }: DocsSectionProps) {
   const t = translations[lang];
 
   return (
-    <section id="docs" className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 max-w-6xl mx-auto border-t border-[var(--card-border)]">
+    <section
+      id="docs"
+      className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 max-w-6xl mx-auto border-t border-[var(--card-border)]"
+    >
       <FadeIn>
         <h2 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-center">{t.docs.title}</h2>
-        <p className="text-center text-muted text-xs sm:text-sm max-w-2xl mx-auto mb-8 sm:mb-10">
-          {t.docs.subtitle}
-        </p>
+        <p className="text-center text-muted text-xs sm:text-sm max-w-2xl mx-auto mb-8 sm:mb-10">{t.docs.subtitle}</p>
       </FadeIn>
 
       <FadeIn delay={0.1} fade={false} className="mb-6 sm:mb-8">

@@ -33,6 +33,8 @@ The documentation catalog below reflects the concepts, patterns, and principles 
 - **[Database Internals & Transactions](docs/architecture/database-internals-and-transaction-theory.md):** B+ Tree vs. LSM storage engines, ARIES WAL recovery, and ANSI SQL isolation anomalies.
 - **[Observability & Evidence-Based Decisions](docs/architecture/observability-and-evidence-based-decisions.md):** OpenTelemetry full-stack instrumentation, 4 Golden Signals, RED/USE methods, quantitative reliability contracts (SLI, SLO & Error Budgets), and blameless post-mortems.
 - **[Engineering Quality Invariants](docs/architecture/engineering-quality-and-invariants.md):** Zero Fallback Debt (7 golden rules), Zero Orphan Surfaces, and Cognitive Complexity Ceilings ($\le 15$).
+- **[GitFlow & Branching Strategy](docs/architecture/gitflow-and-branching-strategy.md):** Ephemeral branches ($\le 48\text{h}$), Three Concentric Quality Rings (pre-commit, CI, CD), secrets sanitization with Gitleaks, and conventional PR convergence gates.
+- **[Automated Testing Strategy](docs/architecture/automated-testing-strategy.md):** Boehm verification vs. validation, testing trophy/pyramid taxonomy (Unit, Integration, E2E), Gerard Meszaros test double taxonomy, hexagonal boundary isolation, and unidirectional coverage ratchets.
 
 ### 🔬 Epistemology & Foundations (`docs/foundation/`)
 - **[Systems Engineering & Dependability](docs/foundation/systems-engineering-and-dependability.md):** ISO/IEC/IEEE 15288:2023, Boehm V&V formalism (1981), Pugh Selection Matrix, and Avizienis taxonomy.
@@ -71,6 +73,11 @@ Below are the seminal academic papers, books, and international standards that f
 | **Beyer et al. (Google SRE 2016)** | *Site Reliability Engineering: How Google Runs Production Systems* | Systems Reliability & SLOs | [O'Reilly Media (ISBN: 978-1491929124)](https://sre.google/sre-book/table-of-contents/) |
 | **Sigelman et al. (Google Dapper 2010)** | *Dapper, a Large-Scale Distributed Systems Tracing Infrastructure* | Distributed Observability | [Google Technical Report](https://research.google/pubs/pub36356/) |
 | **Tom Wilkie (2017)** | *The RED Method: How to Instrument Your Services* | Telemetry Architecture | [Microservices Practitioner Summit](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/) |
+| **Vincent Driessen (2010)** | *A successful Git branching model (GitFlow)* | Version Control & Branching | [nvie.com](https://nvie.com/posts/a-successful-git-branching-model/) |
+| **Tom Preston-Werner (2013)** | *Semantic Versioning 2.0.0 (SemVer Specification)* | Release Engineering | [semver.org](https://semver.org/spec/v2.0.0.html) |
+| **Brun et al. (2011)** | *Proactive Detection of Collaboration Conflicts* | Empirical Software Engineering | [ACM SIGSOFT ESEC/FSE (DOI: 10.1145/2025113.2025139)](https://doi.org/10.1145/2025113.2025139) |
+| **Mike Cohn (2009)** | *Succeeding with Agile: Software Development Using Scrum (The Test Pyramid)* | Verification Architecture | [Mountain Goat / Martin Fowler](https://martinfowler.com/bliki/TestPyramid.html) |
+| **Gerard Meszaros (2007)** | *xUnit Test Patterns: Refactoring Test Code (Test Doubles Taxonomy)* | Software Verification & Testing | [Addison-Wesley (ISBN: 978-0131495050)](https://martinfowler.com/books/meszaros.html) |
 
 
 ---

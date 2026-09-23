@@ -3,7 +3,6 @@ export function prefersDarkMode(): boolean {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-
 export function onDarkModeChange(callback: (isDark: boolean) => void): () => void {
   if (typeof window === 'undefined' || !window.matchMedia) return () => {};
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
